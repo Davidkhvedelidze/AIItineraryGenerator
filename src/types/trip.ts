@@ -41,6 +41,8 @@ export type TripFormData = {
   travelers: number;
   language: "English" | "Georgian";
   email: string;
+  mobileNumber?: string;
+  tourDescription?: string;
 };
 
 export type ItineraryDay = {

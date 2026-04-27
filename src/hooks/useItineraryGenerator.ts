@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useReducer } from "react";
+import { trackEvent } from "@/lib/analytics";
 import type { GenerateItineraryResponse, ItineraryResult, TripFormData } from "@/types/trip";
 
 type GeneratorState = {
@@ -41,6 +42,13 @@ export function useItineraryGenerator() {
 
   const generateItinerary = useCallback(async (formData: TripFormData) => {
     dispatch({ type: "GENERATE_START" });
+    trackEvent("itinerary_generation_started", {
+      days: formData.days,
+      travelers: formData.travelers,
+      budget: formData.budget,
+      travel_style: formData.travelStyle,
+      language: formData.language
+    });
 
     try {
       const response = await fetch("/api/generate-itinerary", {
@@ -56,6 +64,13 @@ export function useItineraryGenerator() {
       }
 
       dispatch({ type: "GENERATE_SUCCESS", payload: result.data });
+      trackEvent("itinerary_generation_succeeded", {
+        days: formData.days,
+        travelers: formData.travelers,
+        budget: formData.budget,
+        travel_style: formData.travelStyle,
+        language: formData.language
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Something went wrong. Please try again.";
       dispatch({ type: "GENERATE_ERROR", payload: message });

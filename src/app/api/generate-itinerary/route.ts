@@ -28,12 +28,42 @@ const itineraryResultSchema = z.object({
   bookingSuggestion: z.string()
 });
 
+function getOpenAIErrorResponse(error: unknown) {
+  const apiError = error as { status?: number; code?: string; message?: string };
+
+  if (apiError.status === 401) {
+    return NextResponse.json(
+      { success: false, message: "OpenAI rejected the API key. Please check or replace OPENAI_API_KEY." },
+      { status: 401 }
+    );
+  }
+
+  if (apiError.status === 429 || apiError.code === "insufficient_quota") {
+    return NextResponse.json(
+      { success: false, message: "OpenAI quota is exceeded. Please check billing, credits, or project limits for this API key." },
+      { status: 429 }
+    );
+  }
+
+  if (apiError.message === "Connection error.") {
+    return NextResponse.json(
+      { success: false, message: "Unable to connect to OpenAI right now. Please check network access and try again." },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ success: false, message: "Unable to generate itinerary right now." }, { status: 500 });
+}
+
 export async function POST(request: Request) {
   try {
     const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      return NextResponse.json({ success: false, message: "AI service is not configured." }, { status: 500 });
+      return NextResponse.json(
+        { success: false, message: "AI itinerary generation is not configured yet. Please add an OpenAI API key." },
+        { status: 500 }
+      );
     }
 
     const body = await request.json();
@@ -69,7 +99,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true, data: validatedItinerary.data }, { status: 200 });
-  } catch {
-    return NextResponse.json({ success: false, message: "Unable to generate itinerary right now." }, { status: 500 });
+  } catch (error) {
+    return getOpenAIErrorResponse(error);
   }
 }
