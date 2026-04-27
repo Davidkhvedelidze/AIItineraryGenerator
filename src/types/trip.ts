@@ -12,14 +12,14 @@ export type TripInterest =
 
 export type TripFormData = {
   days: number;
-  month: string;
+  travelDates: [string, string];
   startingCity: "Tbilisi" | "Kutaisi" | "Batumi";
   interests: TripInterest[];
   budget: "low" | "medium" | "premium";
   travelStyle: "relaxed" | "balanced" | "active";
   travelers: number;
   language: "English" | "Georgian";
-  email?: string;
+  email: string;
 };
 
 export type ItineraryDay = {

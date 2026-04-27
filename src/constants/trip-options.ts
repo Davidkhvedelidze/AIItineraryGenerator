@@ -38,10 +38,6 @@ export const startingCityOptions: Option<TripFormData["startingCity"]>[] = [
   { label: "Batumi", value: "Batumi" }
 ];
 
-export const monthOptions: Option<string>[] = [
-  "January","February","March","April","May","June","July","August","September","October","November","December"
-].map((month) => ({ label: month, value: month }));
-
 export const languageOptions: Option<TripFormData["language"]>[] = [
   { label: "English", value: "English" },
   { label: "Georgian", value: "Georgian" }

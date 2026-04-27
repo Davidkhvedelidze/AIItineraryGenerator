@@ -1,12 +1,16 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ConfigProvider, DatePicker, Select } from "antd";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { languageOptions, monthOptions, startingCityOptions } from "@/constants/trip-options";
+import { languageOptions, startingCityOptions } from "@/constants/trip-options";
 import { tripFormSchema, type TripFormSchema } from "@/lib/validations/tripFormSchema";
 import type { TripFormData, TripInterest } from "@/types/trip";
 import { InterestSelector } from "./InterestSelector";
@@ -18,9 +22,34 @@ interface TripPlannerFormProps {
   onSubmit: (data: TripFormData) => Promise<void>;
 }
 
+const formVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08
+    }
+  }
+};
+
+const fieldVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+const { RangePicker } = DatePicker;
+
+const defaultDepartureDate = dayjs().add(14, "day").hour(10).minute(0).second(0).millisecond(0);
+const defaultArrivalDate = defaultDepartureDate.add(5, "day").hour(18).minute(0).second(0).millisecond(0);
+
 export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
   const {
     register,
+    control,
     handleSubmit,
     setValue,
     watch,
@@ -29,7 +58,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
     resolver: zodResolver(tripFormSchema),
     defaultValues: {
       days: 5,
-      month: "May",
+      travelDates: [defaultDepartureDate.toISOString(), defaultArrivalDate.toISOString()],
       startingCity: "Tbilisi",
       interests: ["culture"],
       budget: "medium",
@@ -42,7 +71,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
 
   const selectedInterests = watch("interests");
   const selectedInterestLabels = useMemo(
-    () => selectedInterests.join(", "),
+    () => selectedInterests.join(", ") || "None yet",
     [selectedInterests]
   );
 
@@ -78,74 +107,158 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
   }, [setValue]);
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(async (data) => onSubmit(data))}>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="days">Trip Length (days)</Label>
-          <Input id="days" type="number" min={1} max={14} {...register("days", { valueAsNumber: true })} />
-          {errors.days && <p className="text-xs text-destructive">{errors.days.message}</p>}
-        </div>
+    <ConfigProvider
+      theme={{
+        token: {
+          borderRadius: 6,
+          colorPrimary: "#15803d",
+          colorSuccess: "#16a34a",
+          colorInfo: "#059669",
+          controlHeightLG: 44,
+          fontFamily: "inherit"
+        }
+      }}
+    >
+      <motion.form
+        className="space-y-7"
+        initial="hidden"
+        animate="visible"
+        variants={formVariants}
+        onSubmit={handleSubmit(async (data) => onSubmit(data))}
+      >
+        <motion.div className="grid gap-4 sm:grid-cols-2" variants={formVariants}>
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="days">Trip Length (days)</Label>
+            <Input
+              id="days"
+              type="number"
+              min={1}
+              max={14}
+              disabled={isLoading}
+              className="h-11"
+              {...register("days", { valueAsNumber: true })}
+            />
+            {errors.days && <p className="text-xs text-destructive">{errors.days.message}</p>}
+          </motion.div>
 
-        <div className="space-y-2">
-          <Label htmlFor="travelers">Travelers</Label>
-          <Input id="travelers" type="number" min={1} max={20} {...register("travelers", { valueAsNumber: true })} />
-          {errors.travelers && <p className="text-xs text-destructive">{errors.travelers.message}</p>}
-        </div>
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="travelers">Travelers</Label>
+            <Input
+              id="travelers"
+              type="number"
+              min={1}
+              max={20}
+              disabled={isLoading}
+              className="h-11"
+              {...register("travelers", { valueAsNumber: true })}
+            />
+            {errors.travelers && <p className="text-xs text-destructive">{errors.travelers.message}</p>}
+          </motion.div>
 
-        <div className="space-y-2">
-          <Label htmlFor="month">Travel Month</Label>
-          <select id="month" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" {...register("month")}>
-            {monthOptions.map((month) => (
-              <option key={month.value} value={month.value}>{month.label}</option>
-            ))}
-          </select>
-        </div>
+          <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}>
+            <Label htmlFor="travelDates">Travel Dates</Label>
+            <Controller
+              control={control}
+              name="travelDates"
+              render={({ field }) => (
+                <RangePicker
+                  id="travelDates"
+                  value={field.value?.length === 2 ? [dayjs(field.value[0]), dayjs(field.value[1])] : null}
+                  onChange={(dates) => {
+                    field.onChange(dates?.[0] && dates?.[1] ? [dates[0].toISOString(), dates[1].toISOString()] : undefined);
+                  }}
+                  onBlur={field.onBlur}
+                  showTime={{ format: "HH:mm", minuteStep: 15 }}
+                  format="MMM D, YYYY HH:mm"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  status={errors.travelDates ? "error" : undefined}
+                  allowClear={false}
+                />
+              )}
+            />
+            {errors.travelDates && <p className="text-xs text-destructive">{errors.travelDates.message}</p>}
+          </motion.div>
 
-        <div className="space-y-2">
-          <Label htmlFor="startingCity">Starting City</Label>
-          <select id="startingCity" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" {...register("startingCity")}>
-            {startingCityOptions.map((city) => (
-              <option key={city.value} value={city.value}>{city.label}</option>
-            ))}
-          </select>
-        </div>
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="startingCity">Starting City</Label>
+            <Controller
+              control={control}
+              name="startingCity"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  id="startingCity"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  options={startingCityOptions}
+                  status={errors.startingCity ? "error" : undefined}
+                />
+              )}
+            />
+            {errors.startingCity && <p className="text-xs text-destructive">{errors.startingCity.message}</p>}
+          </motion.div>
 
-        <div className="space-y-2">
-          <Label htmlFor="language">Language</Label>
-          <select id="language" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" {...register("language")}>
-            {languageOptions.map((language) => (
-              <option key={language.value} value={language.value}>{language.label}</option>
-            ))}
-          </select>
-        </div>
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="language">Language</Label>
+            <Controller
+              control={control}
+              name="language"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  id="language"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  options={languageOptions}
+                  status={errors.language ? "error" : undefined}
+                />
+              )}
+            />
+            {errors.language && <p className="text-xs text-destructive">{errors.language.message}</p>}
+          </motion.div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">Email (optional)</Label>
-          <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
-          {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
-        </div>
-      </div>
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              autoComplete="email"
+              disabled={isLoading}
+              className="h-11"
+              {...register("email")}
+            />
+            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+          </motion.div>
+        </motion.div>
 
-      <div className="space-y-2">
-        <Label>Interests (max 5)</Label>
-        <InterestSelector selectedInterests={selectedInterests} onToggle={handleInterestToggle} disabled={isLoading} />
-        <p className="text-xs text-muted-foreground">Selected: {selectedInterestLabels}</p>
-        {errors.interests && <p className="text-xs text-destructive">{errors.interests.message}</p>}
-      </div>
+        <motion.div className="space-y-2" variants={fieldVariants}>
+          <Label>Interests (max 5)</Label>
+          <InterestSelector selectedInterests={selectedInterests} onToggle={handleInterestToggle} disabled={isLoading} />
+          <p className="text-xs text-muted-foreground">Selected: {selectedInterestLabels}</p>
+          {errors.interests && <p className="text-xs text-destructive">{errors.interests.message}</p>}
+        </motion.div>
 
-      <div className="space-y-2">
-        <Label>Budget</Label>
-        <BudgetSelector value={watch("budget")} onChange={handleBudgetChange} />
-      </div>
+        <motion.div className="space-y-2" variants={fieldVariants}>
+          <Label>Budget</Label>
+          <BudgetSelector value={watch("budget")} onChange={handleBudgetChange} />
+        </motion.div>
 
-      <div className="space-y-2">
-        <Label>Travel Style</Label>
-        <TravelStyleSelector value={watch("travelStyle")} onChange={handleTravelStyleChange} />
-      </div>
+        <motion.div className="space-y-2" variants={fieldVariants}>
+          <Label>Travel Style</Label>
+          <TravelStyleSelector value={watch("travelStyle")} onChange={handleTravelStyleChange} />
+        </motion.div>
 
-      <Button type="submit" className="w-full sm:w-auto" disabled={isLoading || selectedInterests.length === 0}>
-        {isLoading ? "Generating..." : "Generate My Trip"}
-      </Button>
-    </form>
+        <motion.div variants={fieldVariants}>
+          <Button type="submit" className="h-11 w-full px-6 sm:w-auto" disabled={isLoading || selectedInterests.length === 0}>
+            {isLoading ? "Generating..." : "Generate My Trip"}
+          </Button>
+        </motion.div>
+      </motion.form>
+    </ConfigProvider>
   );
 }

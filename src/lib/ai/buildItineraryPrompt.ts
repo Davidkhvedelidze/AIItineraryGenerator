@@ -1,6 +1,8 @@
 import type { TripFormData } from "@/types/trip";
 
 export function buildItineraryPrompt(formData: TripFormData): string {
+  const [departureDateTime, arrivalDateTime] = formData.travelDates;
+
   return `You are a professional travel planner specializing in Georgia.
 
 Create a personalized day-by-day travel itinerary based on the user's preferences.
@@ -8,7 +10,8 @@ Create a personalized day-by-day travel itinerary based on the user's preference
 User details:
 - Trip length: ${formData.days} days
 - Starting city: ${formData.startingCity}
-- Travel month: ${formData.month}
+- Departure date and time: ${departureDateTime}
+- Arrival date and time: ${arrivalDateTime}
 - Interests: ${formData.interests.join(", ")}
 - Budget: ${formData.budget}
 - Travel style: ${formData.travelStyle}
