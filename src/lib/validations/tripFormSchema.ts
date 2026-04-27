@@ -33,6 +33,18 @@ const requiredNumber = (label: string, min: number, max: number) =>
       .max(max, `${label} must be ${max} or less.`)
   );
 
+const optionalMobileNumber = z
+  .string()
+  .trim()
+  .regex(/^\+?[0-9\s()-]{7,20}$/, "Enter a valid mobile number.")
+  .or(z.literal(""));
+
+const optionalTourDescription = z
+  .string()
+  .trim()
+  .max(1000, "Tour description must be 1000 characters or less.")
+  .or(z.literal(""));
+
 export const tripFormSchema = z.object({
   days: requiredNumber("Trip length", 1, 14),
   travelDates: z
@@ -57,7 +69,9 @@ export const tripFormSchema = z.object({
   travelStyle: z.enum(["relaxed", "balanced", "active"]),
   travelers: requiredNumber("Travelers", 1, 20),
   language: z.enum(["English", "Georgian"]),
-  email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address.")
+  email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address."),
+  mobileNumber: optionalMobileNumber,
+  tourDescription: optionalTourDescription
 });
 
 export type TripFormSchema = z.infer<typeof tripFormSchema>;

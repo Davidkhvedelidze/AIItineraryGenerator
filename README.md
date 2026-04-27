@@ -2,7 +2,7 @@
 
 AI-powered travel itinerary generator for Georgia.
 
-TripMate Georgia helps tourists create personalized day-by-day travel plans based on their trip length, interests, budget, travel style, and starting city.
+TripMate Georgia helps tourists create personalized day-by-day travel plans based on their travel dates, airports, preferred overnight cities, interests, budget, and travel style.
 
 ## Features
 
@@ -40,6 +40,8 @@ Create `.env.local`:
 OPENAI_API_KEY=your_api_key_here
 # Optional:
 # OPENAI_MODEL=gpt-4o-mini
+NEXT_PUBLIC_SITE_URL=https://your-current-deployment-url.com
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
 
 Never expose this key with `NEXT_PUBLIC_`.

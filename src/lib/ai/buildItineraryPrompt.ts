@@ -19,9 +19,12 @@ User details:
 - Travel style: ${formData.travelStyle}
 - Number of travelers: ${formData.travelers}
 - Language: ${formData.language}
+- Mobile number: ${formData.mobileNumber || "Not provided"}
+- Customer tour description: ${formData.tourDescription || "Not provided"}
 
 Rules:
 - Focus only on realistic routes in Georgia.
+- Prioritize the customer's tour description when it is provided, while still keeping the route realistic.
 - Avoid overloaded days.
 - Do not include impossible routes for a normal tourist day.
 - Include local food suggestions.
