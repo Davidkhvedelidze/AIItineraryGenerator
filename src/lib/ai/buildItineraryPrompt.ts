@@ -9,9 +9,11 @@ Create a personalized day-by-day travel itinerary based on the user's preference
 
 User details:
 - Trip length: ${formData.days} days
-- Starting city: ${formData.startingCity}
+- Arrival airport: ${formData.arrivalAirport}
+- Departure airport: ${formData.departureAirport}
 - Departure date and time: ${departureDateTime}
 - Arrival date and time: ${arrivalDateTime}
+- Preferred overnight cities: ${formData.preferredCities.join(", ")}
 - Interests: ${formData.interests.join(", ")}
 - Budget: ${formData.budget}
 - Travel style: ${formData.travelStyle}

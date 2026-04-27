@@ -1,4 +1,4 @@
-import type { TripFormData, TripInterest } from "@/types/trip";
+import type { GeorgianAirport, PreferredCity, TripFormData, TripInterest } from "@/types/trip";
 
 interface Option<T extends string> {
   label: string;
@@ -32,10 +32,28 @@ export const travelStyleOptions: Option<TripFormData["travelStyle"]>[] = [
   { label: "Active", value: "active", description: "Packed days for explorers." }
 ];
 
-export const startingCityOptions: Option<TripFormData["startingCity"]>[] = [
-  { label: "Tbilisi", value: "Tbilisi" },
-  { label: "Kutaisi", value: "Kutaisi" },
-  { label: "Batumi", value: "Batumi" }
+export const airportOptions: Option<GeorgianAirport>[] = [
+  { label: "Tbilisi International Airport", value: "Tbilisi International Airport" },
+  { label: "Kutaisi International Airport", value: "Kutaisi International Airport" },
+  { label: "Batumi International Airport", value: "Batumi International Airport" }
+];
+
+export const preferredCityOptions: Option<PreferredCity>[] = [
+  { label: "Tbilisi", value: "Tbilisi", description: "Capital city, food, culture, nightlife." },
+  { label: "Batumi", value: "Batumi", description: "Black Sea, boulevard, modern city breaks." },
+  { label: "Kutaisi", value: "Kutaisi", description: "Canyons, caves, west Georgia base." },
+  { label: "Sighnaghi", value: "Sighnaghi", description: "Kakheti wine region and old town views." },
+  { label: "Telavi", value: "Telavi", description: "Wine estates and Kakheti day trips." },
+  { label: "Mtskheta", value: "Mtskheta", description: "Historic churches near Tbilisi." },
+  { label: "Stepantsminda", value: "Stepantsminda", description: "Kazbegi mountains and alpine scenery." },
+  { label: "Borjomi", value: "Borjomi", description: "Nature, mineral waters, central Georgia." },
+  { label: "Bakuriani", value: "Bakuriani", description: "Mountain resort and family stays." },
+  { label: "Mestia", value: "Mestia", description: "Svaneti towers, hiking, mountain views." },
+  { label: "Zugdidi", value: "Zugdidi", description: "Samegrelo base and route to Svaneti." },
+  { label: "Ureki", value: "Ureki", description: "Beach town with magnetic sands." },
+  { label: "Kobuleti", value: "Kobuleti", description: "Coastal stays near Batumi." },
+  { label: "Akhaltsikhe", value: "Akhaltsikhe", description: "Rabati Castle and south Georgia routes." },
+  { label: "Ambrolauri", value: "Ambrolauri", description: "Racha wine, mountains, quiet nature." }
 ];
 
 export const languageOptions: Option<TripFormData["language"]>[] = [

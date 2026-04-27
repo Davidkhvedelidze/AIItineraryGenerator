@@ -1,5 +1,25 @@
 import { z } from "zod";
 
+const airportSchema = z.enum(["Tbilisi International Airport", "Kutaisi International Airport", "Batumi International Airport"]);
+
+const preferredCitySchema = z.enum([
+  "Tbilisi",
+  "Batumi",
+  "Kutaisi",
+  "Sighnaghi",
+  "Telavi",
+  "Mtskheta",
+  "Stepantsminda",
+  "Borjomi",
+  "Bakuriani",
+  "Mestia",
+  "Zugdidi",
+  "Ureki",
+  "Kobuleti",
+  "Akhaltsikhe",
+  "Ambrolauri"
+]);
+
 const requiredNumber = (label: string, min: number, max: number) =>
   z.preprocess(
     (value) => (value === "" || Number.isNaN(value) ? undefined : value),
@@ -24,7 +44,12 @@ export const tripFormSchema = z.object({
       message: "Arrival must be after departure.",
       path: [1]
     }),
-  startingCity: z.enum(["Tbilisi", "Kutaisi", "Batumi"]),
+  arrivalAirport: airportSchema,
+  departureAirport: airportSchema,
+  preferredCities: z
+    .array(preferredCitySchema)
+    .min(1, "Choose at least one preferred overnight city.")
+    .max(6, "Choose up to 6 preferred overnight cities."),
   interests: z.array(z.enum(["mountains", "wine", "food", "history", "culture", "hiking", "sea", "nightlife", "family-friendly", "photography"]))
     .min(1, "Choose at least one interest.")
     .max(5, "Choose up to 5 interests."),
