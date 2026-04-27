@@ -10,7 +10,7 @@ import type { Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { languageOptions, startingCityOptions } from "@/constants/trip-options";
+import { airportOptions, languageOptions, preferredCityOptions } from "@/constants/trip-options";
 import { tripFormSchema, type TripFormSchema } from "@/lib/validations/tripFormSchema";
 import type { TripFormData, TripInterest } from "@/types/trip";
 import { InterestSelector } from "./InterestSelector";
@@ -59,7 +59,9 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
     defaultValues: {
       days: 5,
       travelDates: [defaultDepartureDate.toISOString(), defaultArrivalDate.toISOString()],
-      startingCity: "Tbilisi",
+      arrivalAirport: "Tbilisi International Airport",
+      departureAirport: "Tbilisi International Airport",
+      preferredCities: ["Tbilisi", "Sighnaghi"],
       interests: ["culture"],
       budget: "medium",
       travelStyle: "balanced",
@@ -182,23 +184,67 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
           </motion.div>
 
           <motion.div className="space-y-2" variants={fieldVariants}>
-            <Label htmlFor="startingCity">Starting City</Label>
+            <Label htmlFor="arrivalAirport">Arrival Airport</Label>
             <Controller
               control={control}
-              name="startingCity"
+              name="arrivalAirport"
               render={({ field }) => (
                 <Select
                   {...field}
-                  id="startingCity"
+                  id="arrivalAirport"
                   size="large"
                   className="w-full"
                   disabled={isLoading}
-                  options={startingCityOptions}
-                  status={errors.startingCity ? "error" : undefined}
+                  options={airportOptions}
+                  status={errors.arrivalAirport ? "error" : undefined}
                 />
               )}
             />
-            {errors.startingCity && <p className="text-xs text-destructive">{errors.startingCity.message}</p>}
+            {errors.arrivalAirport && <p className="text-xs text-destructive">{errors.arrivalAirport.message}</p>}
+          </motion.div>
+
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="departureAirport">Departure Airport</Label>
+            <Controller
+              control={control}
+              name="departureAirport"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  id="departureAirport"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  options={airportOptions}
+                  status={errors.departureAirport ? "error" : undefined}
+                />
+              )}
+            />
+            {errors.departureAirport && <p className="text-xs text-destructive">{errors.departureAirport.message}</p>}
+          </motion.div>
+
+          <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}>
+            <Label htmlFor="preferredCities">Preferred Overnight Cities</Label>
+            <Controller
+              control={control}
+              name="preferredCities"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  id="preferredCities"
+                  mode="multiple"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  maxTagCount="responsive"
+                  options={preferredCityOptions}
+                  placeholder="Choose cities for overnight stays"
+                  status={errors.preferredCities ? "error" : undefined}
+                />
+              )}
+            />
+            <p className="text-xs text-muted-foreground">Choose the cities you would prefer for overnight stays.</p>
+            {errors.preferredCities && <p className="text-xs text-destructive">{errors.preferredCities.message}</p>}
           </motion.div>
 
           <motion.div className="space-y-2" variants={fieldVariants}>

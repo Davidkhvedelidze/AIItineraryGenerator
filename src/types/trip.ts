@@ -10,10 +10,31 @@ export type TripInterest =
   | "family-friendly"
   | "photography";
 
+export type GeorgianAirport = "Tbilisi International Airport" | "Kutaisi International Airport" | "Batumi International Airport";
+
+export type PreferredCity =
+  | "Tbilisi"
+  | "Batumi"
+  | "Kutaisi"
+  | "Sighnaghi"
+  | "Telavi"
+  | "Mtskheta"
+  | "Stepantsminda"
+  | "Borjomi"
+  | "Bakuriani"
+  | "Mestia"
+  | "Zugdidi"
+  | "Ureki"
+  | "Kobuleti"
+  | "Akhaltsikhe"
+  | "Ambrolauri";
+
 export type TripFormData = {
   days: number;
   travelDates: [string, string];
-  startingCity: "Tbilisi" | "Kutaisi" | "Batumi";
+  arrivalAirport: GeorgianAirport;
+  departureAirport: GeorgianAirport;
+  preferredCities: PreferredCity[];
   interests: TripInterest[];
   budget: "low" | "medium" | "premium";
   travelStyle: "relaxed" | "balanced" | "active";
