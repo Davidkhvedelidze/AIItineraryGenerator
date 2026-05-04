@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 
 export function PopularTripIdeas() {
@@ -49,13 +50,21 @@ export function PopularTripIdeas() {
                 </div>
               </div>
 
-              <a
-                href="#trip-planner"
-                className="mt-6 inline-flex w-fit items-center rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                aria-label={`Generate a similar trip to ${idea.title}`}
-              >
-                Generate Similar Trip
-              </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={`/trip-ideas/${idea.slug}`}
+                  className="inline-flex w-fit items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  View Details
+                </Link>
+                <Link
+                  href="/#trip-planner"
+                  className="inline-flex w-fit items-center rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  aria-label={`Generate a similar trip to ${idea.title}`}
+                >
+                  Generate Similar Trip
+                </Link>
+              </div>
             </article>
           ))}
         </div>
