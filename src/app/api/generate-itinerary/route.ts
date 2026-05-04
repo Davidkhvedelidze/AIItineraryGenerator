@@ -90,6 +90,40 @@ function getApiErrorStatus(error: unknown): number {
   return 500;
 }
 
+function redactSecrets(message: string | undefined): string | undefined {
+  return message?.replace(/Bearer\s+[^'\s]+/g, "Bearer [redacted]");
+}
+
+function getLoggableErrorDetails(error: unknown) {
+  if (!(error instanceof Error)) {
+    return { error };
+  }
+
+  const apiError = error as Error & {
+    status?: number;
+    code?: string;
+    type?: string;
+    cause?: unknown;
+  };
+  const cause =
+    apiError.cause instanceof Error
+      ? {
+          name: apiError.cause.name,
+          message: redactSecrets(apiError.cause.message),
+          code: (apiError.cause as Error & { code?: string }).code,
+        }
+      : apiError.cause;
+
+  return {
+    name: apiError.name,
+    message: redactSecrets(apiError.message),
+    status: apiError.status,
+    code: apiError.code,
+    type: apiError.type,
+    cause,
+  };
+}
+
 function getClientIp(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
 
@@ -160,7 +194,7 @@ export async function POST(request: Request) {
 
     itineraryRequestId = await createItineraryRequest(validatedForm.data);
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY?.trim();
 
     if (!apiKey) {
       const error = new Error("AI itinerary generation is not configured yet. Please add an OpenAI API key.");
@@ -175,7 +209,7 @@ export async function POST(request: Request) {
     const prompt = buildItineraryPrompt(validatedForm.data);
 
     const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+      model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
       messages: [
         { role: "system", content: "Return only strict JSON." },
         { role: "user", content: prompt }
@@ -214,6 +248,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data: validatedItinerary.data }, { status: 200 });
   } catch (error) {
+    console.error("Itinerary generation failed", getLoggableErrorDetails(error));
     await markItineraryRequestError(itineraryRequestId, error);
     return getApiErrorResponse(error);
   }
