@@ -10,9 +10,15 @@ import {
 } from "@/lib/supabase/itineraryRequests";
 import { tripFormSchema } from "@/lib/validations/tripFormSchema";
 
+function readPositiveIntegerEnv(name: string, fallback: number): number {
+  const parsed = Number.parseInt(process.env[name] ?? "", 10);
+
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
 const generationRateLimit = {
-  limit: 3,
-  windowMs: 60 * 60 * 1000,
+  limit: readPositiveIntegerEnv("ITINERARY_RATE_LIMIT", 10),
+  windowMs: readPositiveIntegerEnv("ITINERARY_RATE_LIMIT_WINDOW_SECONDS", 15 * 60) * 1000,
 };
 
 const itineraryResultSchema = z.object({
