@@ -3,13 +3,13 @@ import Script from "next/script";
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 export function GoogleAnalytics() {
-  if (!gaId) {
-    return null;
-  }
-
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        strategy="afterInteractive"
+      />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
