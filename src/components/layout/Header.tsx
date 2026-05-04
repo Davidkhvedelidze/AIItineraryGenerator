@@ -6,7 +6,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         <a
-          href="#top"
+          href="/"
           className="inline-flex items-center gap-2 text-sm font-semibold text-foreground sm:text-base"
         >
           <Compass className="h-5 w-5 text-primary" aria-hidden="true" />

@@ -4,6 +4,7 @@ import { CTASection } from "@/components/home/CTASection";
 import { ExampleItinerary } from "@/components/home/ExampleItinerary";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { PopularTripIdeas } from "@/components/home/PopularTripIdeas";
 import { TripPlanner } from "@/components/trip-planner/TripPlanner";
 import { getSiteUrl } from "@/lib/site";
 
@@ -48,6 +49,7 @@ export default function HomePage() {
         <TripPlanner />
         <ExampleItinerary />
         <HowItWorks />
+        <PopularTripIdeas />
         <CTASection />
       </main>
       <Footer />
