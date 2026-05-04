@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
+    "tours in Georgia",
+    "private tours in Georgia",
     "Georgia travel planner",
     "Georgia itinerary",
     "AI travel planner",
