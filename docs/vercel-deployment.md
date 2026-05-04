@@ -2,7 +2,7 @@
 
 ## Required Environment Variables
 
-Add these in Vercel Project Settings before deploying:
+Add these in Vercel Project Settings before deploying. Local files such as `.env`, `.env.local`, and `.env.production` are not used by Vercel production unless the same values are added to the Vercel project environment variables.
 
 - `OPENAI_API_KEY`
 - `OPENAI_MODEL`
@@ -12,6 +12,25 @@ Add these in Vercel Project Settings before deploying:
 - `NEXT_PUBLIC_GA_ID` if Google Analytics is used
 
 Do not expose `SUPABASE_SERVICE_ROLE_KEY` with a `NEXT_PUBLIC_` prefix.
+Do not commit real secrets. Keep real values in local ignored env files and in Vercel Environment Variables only.
+
+After adding or changing any Vercel environment variable, redeploy production so the runtime receives the new values:
+
+```bash
+vercel --prod
+```
+
+Confirm Vercel has the expected variables:
+
+```bash
+vercel env ls
+```
+
+Confirm the production alias points to the expected deployment:
+
+```bash
+vercel inspect https://tripmate-georgia.vercel.app
+```
 
 ## Supabase Setup
 
