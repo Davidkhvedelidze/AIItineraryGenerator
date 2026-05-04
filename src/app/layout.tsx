@@ -7,12 +7,14 @@ import "./globals.css";
 const siteUrl = getSiteUrl();
 const siteName = "TripMate Georgia";
 const siteDescription =
-  "Create a personalized Georgia travel itinerary with AI. Plan your trip by interests, budget, travel style, and number of days.";
+  "Create a realistic Georgia travel itinerary with AI, then get local help for routes, food, transport, and booking support.";
+const socialImageUrl =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tbilisi_at_night%2C_Kura%2C_Georgia.jpg/1200px-Tbilisi_at_night%2C_Kura%2C_Georgia.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "TripMate Georgia - AI Travel Itinerary Planner",
+    default: "TripMate Georgia - AI Georgia Itinerary Planner",
     template: "%s | TripMate Georgia",
   },
   description: siteDescription,
@@ -56,14 +58,23 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName,
-    title: "TripMate Georgia - AI Travel Itinerary Planner",
+    title: "TripMate Georgia - AI Georgia Itinerary Planner",
     description: siteDescription,
     locale: "en_US",
+    images: [
+      {
+        url: socialImageUrl,
+        width: 1200,
+        height: 675,
+        alt: "Tbilisi at night in Georgia",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TripMate Georgia - AI Travel Itinerary Planner",
+    title: "TripMate Georgia - AI Georgia Itinerary Planner",
     description: siteDescription,
+    images: [socialImageUrl],
   },
   robots: {
     index: true,

@@ -67,6 +67,7 @@ export const tripFormSchema = z.object({
     .max(5, "Choose up to 5 interests."),
   budget: z.enum(["low", "medium", "premium"]),
   travelStyle: z.enum(["relaxed", "balanced", "active"]),
+  tourType: z.enum(["private-guided", "public-group", "self-guided"]),
   travelers: requiredNumber("Travelers", 1, 20),
   language: z.enum(["English", "Georgian"]),
   email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address."),

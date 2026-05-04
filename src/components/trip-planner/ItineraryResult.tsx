@@ -5,16 +5,16 @@ import { Card, Collapse, List, Tag, Timeline } from "antd";
 import { CalendarDays, Download, Mail, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
-import type { ItineraryResult as ItineraryResultType } from "@/types/trip";
+import type { ItineraryResult as ItineraryResultType, TripFormData } from "@/types/trip";
 import { ItineraryDayCard } from "./ItineraryDayCard";
 
 interface ItineraryResultProps {
   result: ItineraryResultType;
+  formData: TripFormData;
   onReset: () => void;
 }
 
-const whatsappBookingUrl =
-  "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20booking%20my%20Georgia%20trip.";
+const whatsappPhoneNumber = "995551181358";
 const emailBookingUrl =
   "mailto:info@mustseegeorgia.com?subject=Georgia%20Trip%20Booking%20Request&body=Hello%2C%0A%0AI%20would%20like%20help%20booking%20my%20Georgia%20trip.%0A";
 
@@ -35,6 +35,28 @@ function escapeHtml(value: string): string {
 
 function renderPdfList(items: string[]): string {
   return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+}
+
+function buildWhatsAppUrl(formData: TripFormData): string {
+  const days = formData.days;
+  const travelers = formData.travelers;
+  const startingCity = formData.preferredCities[0] || formData.arrivalAirport;
+  const interests = formData.interests.join(", ");
+  const budget = formData.budget;
+  const travelStyle = formData.travelStyle;
+  const message = encodeURIComponent(`Hello, I generated a Georgia trip itinerary on TripMate Georgia.
+
+Trip summary:
+- Days: ${days}
+- Travelers: ${travelers}
+- Starting city: ${startingCity}
+- Interests: ${interests}
+- Budget: ${budget}
+- Travel style: ${travelStyle}
+
+Can you help me organize this private trip?`);
+
+  return `https://wa.me/${whatsappPhoneNumber}?text=${message}`;
 }
 
 function buildPrintableItineraryHtml(result: ItineraryResultType): string {
@@ -108,8 +130,16 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
           ${daysHtml}
 
           <section class="summary">
+            <h3>Total Price</h3>
+            <p>${escapeHtml(result.totalPrice)}</p>
+            <h3>Price Per Person</h3>
+            <p>${escapeHtml(result.pricePerPerson)}</p>
             <h3>Estimated Budget</h3>
             <p>${escapeHtml(result.estimatedBudget)}</p>
+            <h3>Included Services</h3>
+            <ul>${renderPdfList(result.includedServices)}</ul>
+            <h3>Not Included</h3>
+            <ul>${renderPdfList(result.notIncludedServices)}</ul>
             <h3>Best For</h3>
             <ul>${renderPdfList(result.bestFor)}</ul>
             <h3>Packing Tips</h3>
@@ -128,22 +158,30 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
     </html>`;
 }
 
-export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
+export function ItineraryResult({ result, formData, onReset }: ItineraryResultProps) {
   const mapRegions = useMemo(
     () => getUniqueRegions(result.days),
     [result.days],
   );
+  const whatsappBookingUrl = useMemo(
+    () => buildWhatsAppUrl(formData),
+    [formData],
+  );
 
   const handleBookingHelp = () => {
     trackEvent("booking_whatsapp_click", {
-      trip_title: result.tripTitle
+      trip_title: result.tripTitle,
+      days: formData.days,
+      travelers: formData.travelers,
+      budget: formData.budget,
+      travel_style: formData.travelStyle,
     });
     window.open(whatsappBookingUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleEmailBookingHelp = () => {
     trackEvent("booking_email_click", {
-      trip_title: result.tripTitle
+      trip_title: result.tripTitle,
     });
     window.location.href = emailBookingUrl;
   };
@@ -151,7 +189,7 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
   const handleDownloadPdf = () => {
     trackEvent("itinerary_pdf_download_click", {
       trip_title: result.tripTitle,
-      days: result.days.length
+      days: result.days.length,
     });
     const printFrame = document.createElement("iframe");
 
@@ -187,7 +225,11 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
 
   const summary = useMemo(
     () => [
+      { title: "Total Price", items: [result.totalPrice] },
+      { title: "Price Per Person", items: [result.pricePerPerson] },
       { title: "Estimated Budget", items: [result.estimatedBudget] },
+      { title: "Included Services", items: result.includedServices },
+      { title: "Not Included", items: result.notIncludedServices },
       { title: "Best For", items: result.bestFor },
       { title: "Packing Tips", items: result.packingTips },
       { title: "Transport Tips", items: result.transportTips },
@@ -333,6 +375,35 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
       </div>
 
       <Card className="border-border shadow-sm">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">
+              Total price
+            </p>
+            <p className="mt-1 font-semibold text-foreground">
+              {result.totalPrice}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">
+              Price per person
+            </p>
+            <p className="mt-1 font-semibold text-foreground">
+              {result.pricePerPerson}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">
+              Estimated budget
+            </p>
+            <p className="mt-1 font-semibold text-foreground">
+              {result.estimatedBudget}
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      <Card className="border-border shadow-sm">
         <div className="flex items-start gap-3">
           <Utensils className="mt-1 h-5 w-5 text-primary" aria-hidden="true" />
           <div>
@@ -348,7 +419,11 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
 
       <div className="rounded-lg border bg-primary/5 p-5">
         <p className="font-medium">
-          Want help booking this trip with a local expert?
+          Want this trip organized by a local guide?
+        </p>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          I can help you turn this itinerary into a real private tour with
+          transport, route planning, and local recommendations.
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
           <Button type="button" onClick={handleBookingHelp} className="gap-2">
@@ -360,7 +435,7 @@ export function ItineraryResult({ result, onReset }: ItineraryResultProps) {
             >
               <path d="M16.01 3.2c-7.01 0-12.72 5.61-12.72 12.51 0 2.21.59 4.36 1.71 6.25L3.2 28.8l7.03-1.78a12.91 12.91 0 0 0 5.78 1.39c7.02 0 12.73-5.61 12.73-12.51S23.03 3.2 16.01 3.2Zm0 22.99c-1.86 0-3.69-.49-5.29-1.43l-.38-.22-4.17 1.06 1.11-4.01-.25-.41a10.24 10.24 0 0 1-1.52-5.47c0-5.68 4.71-10.29 10.5-10.29s10.51 4.61 10.51 10.29-4.72 10.48-10.51 10.48Zm5.77-7.72c-.31-.16-1.86-.9-2.15-1-.29-.11-.5-.16-.71.15-.21.31-.82 1-.99 1.2-.18.21-.37.23-.68.08-.31-.16-1.32-.48-2.51-1.52-.93-.82-1.56-1.83-1.74-2.14-.18-.31-.02-.48.14-.63.14-.14.31-.36.47-.54.15-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.71-1.68-.97-2.3-.26-.6-.52-.52-.71-.53h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.06-1.1 2.59s1.13 3.01 1.29 3.22c.16.21 2.23 3.35 5.39 4.69.75.32 1.34.51 1.8.66.76.24 1.45.21 1.99.13.61-.09 1.86-.75 2.12-1.47.26-.73.26-1.35.18-1.47-.08-.13-.29-.21-.6-.36Z" />
             </svg>
-            Request Booking
+            Request This Trip on WhatsApp
           </Button>
           <Button
             type="button"

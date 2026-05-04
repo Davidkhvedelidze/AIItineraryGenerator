@@ -40,11 +40,25 @@ Create `.env.local`:
 OPENAI_API_KEY=your_api_key_here
 # Optional:
 # OPENAI_MODEL=gpt-4o-mini
-NEXT_PUBLIC_SITE_URL=https://your-current-deployment-url.com
+NEXT_PUBLIC_SITE_URL=https://your-production-domain.com
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
 ```
 
-Never expose this key with `NEXT_PUBLIC_`.
+Never expose server keys with `NEXT_PUBLIC_`. `SUPABASE_SERVICE_ROLE_KEY` must stay server-side only.
+
+Use `.env.example` as the deployment variable checklist.
+
+## Supabase Setup
+
+Run `supabase/itinerary_requests.sql` in the Supabase SQL editor to create the lead history table.
+
+The app writes itinerary requests from the server API route only. Each request is inserted as `pending`, then updated to `success` with the generated itinerary or `error` with a failure message.
+
+## Vercel Deployment
+
+See `docs/vercel-deployment.md` for the production environment checklist and smoke test steps.
 
 ## Development
 
@@ -80,8 +94,9 @@ src/
 ## API Key Security Notes
 
 - AI requests are processed only in `src/app/api/generate-itinerary/route.ts`.
-- The API key is read from `process.env.OPENAI_API_KEY` on the server.
-- The browser never receives the secret key.
+- The OpenAI API key is read from `process.env.OPENAI_API_KEY` on the server.
+- Supabase writes use `process.env.SUPABASE_SERVICE_ROLE_KEY` on the server.
+- The browser never receives secret keys.
 
 ## Future Improvements
 

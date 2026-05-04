@@ -59,7 +59,7 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at top left, hsl(142 72% 88% / 0.65), transparent 32rem),
+      radial-gradient(circle at top left, hsl(142 72% 88% / 0.38), transparent 32rem),
       linear-gradient(180deg, hsl(145 45% 97%) 0%, hsl(138 43% 94%) 100%);
     background-attachment: fixed;
   }

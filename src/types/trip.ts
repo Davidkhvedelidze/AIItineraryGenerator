@@ -29,6 +29,8 @@ export type PreferredCity =
   | "Akhaltsikhe"
   | "Ambrolauri";
 
+export type TourType = "private-guided" | "public-group" | "self-guided";
+
 export type TripFormData = {
   days: number;
   travelDates: [string, string];
@@ -38,6 +40,7 @@ export type TripFormData = {
   interests: TripInterest[];
   budget: "low" | "medium" | "premium";
   travelStyle: "relaxed" | "balanced" | "active";
+  tourType: TourType;
   travelers: number;
   language: "English" | "Georgian";
   email: string;
@@ -60,7 +63,11 @@ export type ItineraryResult = {
   tripTitle: string;
   overview: string;
   days: ItineraryDay[];
+  totalPrice: string;
+  pricePerPerson: string;
   estimatedBudget: string;
+  includedServices: string[];
+  notIncludedServices: string[];
   bestFor: string[];
   packingTips: string[];
   transportTips: string[];
