@@ -10,6 +10,8 @@ Add these in Vercel Project Settings before deploying. Local files such as `.env
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 - `NEXT_PUBLIC_GA_ID` if Google Analytics is used
+- `ITINERARY_RATE_LIMIT` if the default 10 requests per email/IP window should change
+- `ITINERARY_RATE_LIMIT_WINDOW_SECONDS` if the default 900-second window should change
 
 Do not expose `SUPABASE_SERVICE_ROLE_KEY` with a `NEXT_PUBLIC_` prefix.
 Do not commit real secrets. Keep real values in local ignored env files and in Vercel Environment Variables only.
