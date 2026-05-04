@@ -5,7 +5,10 @@ import { Card, Collapse, List, Tag, Timeline } from "antd";
 import { CalendarDays, Download, Mail, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
-import type { ItineraryResult as ItineraryResultType, TripFormData } from "@/types/trip";
+import type {
+  ItineraryResult as ItineraryResultType,
+  TripFormData,
+} from "@/types/trip";
 import { ItineraryDayCard } from "./ItineraryDayCard";
 
 interface ItineraryResultProps {
@@ -44,7 +47,8 @@ function buildWhatsAppUrl(formData: TripFormData): string {
   const interests = formData.interests.join(", ");
   const budget = formData.budget;
   const travelStyle = formData.travelStyle;
-  const message = encodeURIComponent(`Hello, I generated a Georgia trip itinerary on TripMate Georgia.
+  const message =
+    encodeURIComponent(`Hello, I generated a Georgia trip itinerary on TripMate Georgia.
 
 Trip summary:
 - Days: ${days}
@@ -130,16 +134,10 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
           ${daysHtml}
 
           <section class="summary">
-            <h3>Total Price</h3>
-            <p>${escapeHtml(result.totalPrice)}</p>
-            <h3>Price Per Person</h3>
-            <p>${escapeHtml(result.pricePerPerson)}</p>
+
+   
             <h3>Estimated Budget</h3>
             <p>${escapeHtml(result.estimatedBudget)}</p>
-            <h3>Included Services</h3>
-            <ul>${renderPdfList(result.includedServices)}</ul>
-            <h3>Not Included</h3>
-            <ul>${renderPdfList(result.notIncludedServices)}</ul>
             <h3>Best For</h3>
             <ul>${renderPdfList(result.bestFor)}</ul>
             <h3>Packing Tips</h3>
@@ -158,7 +156,11 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
     </html>`;
 }
 
-export function ItineraryResult({ result, formData, onReset }: ItineraryResultProps) {
+export function ItineraryResult({
+  result,
+  formData,
+  onReset,
+}: ItineraryResultProps) {
   const mapRegions = useMemo(
     () => getUniqueRegions(result.days),
     [result.days],
@@ -225,11 +227,8 @@ export function ItineraryResult({ result, formData, onReset }: ItineraryResultPr
 
   const summary = useMemo(
     () => [
-      { title: "Total Price", items: [result.totalPrice] },
-      { title: "Price Per Person", items: [result.pricePerPerson] },
+      ,
       { title: "Estimated Budget", items: [result.estimatedBudget] },
-      { title: "Included Services", items: result.includedServices },
-      { title: "Not Included", items: result.notIncludedServices },
       { title: "Best For", items: result.bestFor },
       { title: "Packing Tips", items: result.packingTips },
       { title: "Transport Tips", items: result.transportTips },
@@ -352,13 +351,13 @@ export function ItineraryResult({ result, formData, onReset }: ItineraryResultPr
           <Card title="Quick summary" className="border-border shadow-sm">
             <div className="space-y-4">
               {summary.map((section) => (
-                <div key={section.title}>
+                <div key={section?.title}>
                   <p className="mb-2 font-medium text-foreground">
-                    {section.title}
+                    {section?.title}
                   </p>
                   <List
                     size="small"
-                    dataSource={section.items}
+                    dataSource={section?.items}
                     renderItem={(item) => (
                       <List.Item className="px-0">
                         <span className="text-sm text-muted-foreground">
@@ -384,14 +383,7 @@ export function ItineraryResult({ result, formData, onReset }: ItineraryResultPr
               {result.totalPrice}
             </p>
           </div>
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">
-              Price per person
-            </p>
-            <p className="mt-1 font-semibold text-foreground">
-              {result.pricePerPerson}
-            </p>
-          </div>
+
           <div>
             <p className="text-sm font-medium text-muted-foreground">
               Estimated budget

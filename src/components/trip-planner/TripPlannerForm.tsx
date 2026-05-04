@@ -63,8 +63,40 @@ const defaultArrivalDate = defaultDepartureDate
   .minute(0)
   .second(0)
   .millisecond(0);
+const defaultTravelDates: [string, string] = [
+  defaultDepartureDate.toISOString(),
+  defaultArrivalDate.toISOString(),
+];
+
+function calculateTripLength(travelDates?: [string, string]) {
+  if (!travelDates?.[0] || !travelDates?.[1]) {
+    return { days: null, nights: null };
+  }
+
+  const departureDate = dayjs(travelDates[0]);
+  const arrivalDate = dayjs(travelDates[1]);
+
+  if (
+    !departureDate.isValid() ||
+    !arrivalDate.isValid() ||
+    !arrivalDate.isAfter(departureDate)
+  ) {
+    return { days: null, nights: null };
+  }
+
+  const nights = Math.max(
+    0,
+    arrivalDate.startOf("day").diff(departureDate.startOf("day"), "day"),
+  );
+
+  return {
+    days: nights + 1,
+    nights,
+  };
+}
 
 export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
+  const defaultTripLength = calculateTripLength(defaultTravelDates);
   const {
     register,
     control,
@@ -75,14 +107,11 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
   } = useForm<TripFormSchema>({
     resolver: zodResolver(tripFormSchema),
     defaultValues: {
-      days: 5,
-      travelDates: [
-        defaultDepartureDate.toISOString(),
-        defaultArrivalDate.toISOString(),
-      ],
+      days: defaultTripLength.days ?? 1,
+      travelDates: defaultTravelDates,
       arrivalAirport: "Tbilisi International Airport",
       departureAirport: "Tbilisi International Airport",
-      preferredCities: ["Tbilisi", "Sighnaghi"],
+      preferredCities: [],
       interests: ["culture"],
       budget: "medium",
       travelStyle: "balanced",
@@ -96,6 +125,11 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
   });
 
   const selectedInterests = watch("interests");
+  const selectedTravelDates = watch("travelDates");
+  const tripLength = useMemo(
+    () => calculateTripLength(selectedTravelDates),
+    [selectedTravelDates],
+  );
   const selectedInterestLabels = useMemo(
     () => selectedInterests.join(", ") || "None yet",
     [selectedInterests],
@@ -156,31 +190,18 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
         initial="hidden"
         animate="visible"
         variants={formVariants}
-        onSubmit={handleSubmit(async (data) => onSubmit(data))}
+        onSubmit={handleSubmit(async (data) => {
+          const calculatedTripLength = calculateTripLength(data.travelDates);
+          await onSubmit({
+            ...data,
+            days: calculatedTripLength.days ?? data.days,
+          });
+        })}
       >
         <motion.div
           className="grid gap-4 sm:grid-cols-2"
           variants={formVariants}
         >
-          <motion.div
-            className="space-y-2 sm:col-span-2"
-            variants={fieldVariants}
-          >
-            <Label htmlFor="days">Trip Length (days)</Label>
-            <Input
-              id="days"
-              type="number"
-              min={1}
-              max={14}
-              disabled={isLoading}
-              className="h-11"
-              {...register("days", { valueAsNumber: true })}
-            />
-            {errors.days && (
-              <p className="text-xs text-destructive">{errors.days.message}</p>
-            )}
-          </motion.div>
-
           <motion.div className="space-y-2" variants={fieldVariants}>
             <Label htmlFor="travelers">Travelers</Label>
             <Input
@@ -240,10 +261,21 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
                       : null
                   }
                   onChange={(dates) => {
-                    field.onChange(
+                    const nextTravelDates: [string, string] | undefined =
                       dates?.[0] && dates?.[1]
                         ? [dates[0].toISOString(), dates[1].toISOString()]
-                        : undefined,
+                        : undefined;
+
+                    const nextTripLength = calculateTripLength(nextTravelDates);
+
+                    if (nextTripLength.days) {
+                      setValue("days", nextTripLength.days, {
+                        shouldValidate: true,
+                      });
+                    }
+
+                    field.onChange(
+                      nextTravelDates,
                     );
                   }}
                   onBlur={field.onBlur}
@@ -261,6 +293,19 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
               <p className="text-xs text-destructive">
                 {errors.travelDates.message}
               </p>
+            )}
+            <div className="flex min-h-11 items-center rounded-md border border-emerald-100 bg-emerald-50 px-3 text-sm text-emerald-950">
+              <span className="font-medium">Trip length:&nbsp;</span>
+              {tripLength.days
+                ? `${tripLength.days} ${
+                    tripLength.days === 1 ? "day" : "days"
+                  } / ${tripLength.nights} ${
+                    tripLength.nights === 1 ? "night" : "nights"
+                  }`
+                : "Select valid travel dates"}
+            </div>
+            {errors.days && (
+              <p className="text-xs text-destructive">{errors.days.message}</p>
             )}
           </motion.div>
 
