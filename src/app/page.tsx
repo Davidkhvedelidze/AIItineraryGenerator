@@ -11,10 +11,12 @@ const siteUrl = getSiteUrl();
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "TravelAgency",
+  "@type": ["TravelAgency", "WebApplication"],
   name: "TripMate Georgia",
+  applicationCategory: "TravelApplication",
+  operatingSystem: "Any",
   description:
-    "AI-powered Georgia travel itinerary planner for personalized day-by-day trips, local food suggestions, transport tips, and booking help.",
+    "AI-powered Georgia travel itinerary planner for realistic day-by-day routes, local food suggestions, transport tips, and booking help.",
   url: siteUrl,
   email: "info@mustseegeorgia.com",
   telephone: "+995551181358",
@@ -23,8 +25,14 @@ const structuredData = {
     name: "Georgia",
   },
   serviceType: "Georgia travel itinerary planning and tour booking help",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    description: "Free AI-generated Georgia itinerary preview with optional local booking support.",
+  },
   keywords:
-    "Georgia travel planner, AI itinerary generator, personalized trip planning, Georgia tours, local food recommendations, transport tips, booking assistance",
+    "Georgia itinerary planner, AI Georgia travel planner, Tbilisi itinerary, Kazbegi tour route, Kakheti wine trip, Batumi travel plan, Georgia booking help",
 };
 
 export default function HomePage() {

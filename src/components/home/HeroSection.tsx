@@ -1,8 +1,26 @@
 "use client";
 
+import {
+  ArrowRight,
+  CheckCircle2,
+  MessageCircle,
+  Sparkles,
+} from "lucide-react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { buttonVariants } from "@/components/ui/button";
+
+const trustSignals = [
+  "Realistic Georgia routes",
+  "Food and transport notes",
+  "Optional local booking help",
+];
+
+const routeHighlights = [
+  { label: "Tbilisi", value: "Old Town, food, culture" },
+  { label: "Kakheti", value: "Wine routes and hill towns" },
+  { label: "Kazbegi", value: "Mountain viewpoints" },
+];
 
 const heroSlides = [
   {
@@ -45,21 +63,53 @@ const heroSlides = [
 
 export function HeroSection() {
   return (
-    <section className="border-b bg-gradient-to-br from-emerald-50 via-lime-50 to-background py-14">
-      <div className="container grid items-center gap-8 lg:grid-cols-2">
-        <div className="space-y-5">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Plan Your Perfect Trip to Georgia with AI
-          </h1>
-          <p className="max-w-xl text-lg text-muted-foreground">
-            Tell us your travel style, budget, and interests — get a
-            personalized day-by-day itinerary in seconds.
-          </p>
-          <a href="#trip-planner" className={buttonVariants({ size: "lg" })}>
-            Plan My Georgia Trip
-          </a>
+    <section className="border-b bg-[linear-gradient(180deg,hsl(146_48%_96%)_0%,hsl(140_36%_92%)_100%)]">
+      <div className="container grid min-h-[calc(100vh-4rem)] items-center gap-10 py-10 md:py-14 lg:grid-cols-[minmax(0,0.96fr)_minmax(420px,1fr)]">
+        <div className="space-y-7">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/20 bg-white/75 px-3 py-1 text-sm font-medium text-emerald-900 shadow-sm">
+            <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+            AI itinerary planner with local Georgia booking support
+          </div>
+          <div className="space-y-4">
+            <h1 className="max-w-4xl text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Plan a realistic Georgia trip in minutes
+            </h1>
+            <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+              Build a day-by-day route for Tbilisi, Kakheti, Kazbegi, Batumi,
+              Svaneti, and more. Get practical food, timing, and transport notes
+              before you ask a local expert to help with booking.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#trip-planner"
+              className={`${buttonVariants({ size: "lg" })} gap-2`}
+            >
+              Generate My Itinerary
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href="https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip."
+              className={`${buttonVariants({ variant: "outline", size: "lg" })} gap-2 bg-white/80`}
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              Talk to a Local Expert
+            </a>
+          </div>
+          <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
+            {trustSignals.map((signal) => (
+              <div key={signal} className="flex items-center gap-2">
+                <CheckCircle2
+                  className="h-4 w-4 shrink-0 text-primary"
+                  aria-hidden="true"
+                />
+                <span>{signal}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="overflow-hidden rounded-xl border bg-white/70 shadow-lg shadow-emerald-900/10">
+
+        <div className="overflow-hidden rounded-lg border bg-white shadow-xl shadow-emerald-950/15">
           <Swiper
             modules={[Autoplay, EffectFade, Pagination]}
             effect="fade"
@@ -67,7 +117,7 @@ export function HeroSection() {
             speed={900}
             autoplay={{ delay: 3800, disableOnInteraction: false }}
             pagination={{ clickable: true }}
-            className="h-[320px] sm:h-[420px] lg:h-[480px]"
+            className="h-[430px] sm:h-[520px]"
           >
             {heroSlides.map((slide) => (
               <SwiperSlide key={slide.title}>
@@ -77,12 +127,27 @@ export function HeroSection() {
                   role="img"
                   aria-label={`${slide.title}, Georgia - ${slide.subtitle}`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-emerald-950/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white sm:p-6">
-                    <p className="text-2xl font-semibold">{slide.title}</p>
-                    <p className="mt-1 max-w-md text-sm text-white/85">
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/78 via-emerald-950/12 to-white/5" />
+                  <div className="absolute bottom-5 left-5 right-5 rounded-md bg-white/75 p-5 shadow-xl backdrop-blur ">
+                    <p className="text-sm font-medium text-primary">
+                      Georgia route preview
+                    </p>
+                    <p className="mt-1 text-2xl font-semibold text-foreground">
+                      {slide.title}
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">
                       {slide.subtitle}
                     </p>
+                    <div className="mt-4 grid gap-2 text-sm sm:grid-cols-3">
+                      {routeHighlights.map((item) => (
+                        <div key={item.label}>
+                          <p className="font-semibold text-foreground">
+                            {item.label}
+                          </p>
+                          <p className="text-muted-foreground">{item.value}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>

@@ -1,4 +1,4 @@
-import type { GeorgianAirport, PreferredCity, TripFormData, TripInterest } from "@/types/trip";
+import type { GeorgianAirport, PreferredCity, TourType, TripFormData, TripInterest } from "@/types/trip";
 
 interface Option<T extends string> {
   label: string;
@@ -30,6 +30,12 @@ export const travelStyleOptions: Option<TripFormData["travelStyle"]>[] = [
   { label: "Relaxed", value: "relaxed", description: "Slow pace with more downtime." },
   { label: "Balanced", value: "balanced", description: "Mix of highlights and free time." },
   { label: "Active", value: "active", description: "Packed days for explorers." }
+];
+
+export const tourTypeOptions: Option<TourType>[] = [
+  { label: "Private tour", value: "private-guided", description: "Private guide/driver with car support." },
+  { label: "Public group tour", value: "public-group", description: "Shared group-style itinerary and services." },
+  { label: "By yourself", value: "self-guided", description: "Self-guided route without guide or driver." }
 ];
 
 export const airportOptions: Option<GeorgianAirport>[] = [

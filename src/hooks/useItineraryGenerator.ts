@@ -7,11 +7,12 @@ import type { GenerateItineraryResponse, ItineraryResult, TripFormData } from "@
 type GeneratorState = {
   status: "idle" | "loading" | "success" | "error";
   data: ItineraryResult | null;
+  formData: TripFormData | null;
   error: string | null;
 };
 
 type GeneratorAction =
-  | { type: "GENERATE_START" }
+  | { type: "GENERATE_START"; payload: TripFormData }
   | { type: "GENERATE_SUCCESS"; payload: ItineraryResult }
   | { type: "GENERATE_ERROR"; payload: string }
   | { type: "RESET" };
@@ -19,17 +20,18 @@ type GeneratorAction =
 const initialState: GeneratorState = {
   status: "idle",
   data: null,
+  formData: null,
   error: null
 };
 
 function generatorReducer(state: GeneratorState, action: GeneratorAction): GeneratorState {
   switch (action.type) {
     case "GENERATE_START":
-      return { status: "loading", data: null, error: null };
+      return { status: "loading", data: null, formData: action.payload, error: null };
     case "GENERATE_SUCCESS":
-      return { status: "success", data: action.payload, error: null };
+      return { ...state, status: "success", data: action.payload, error: null };
     case "GENERATE_ERROR":
-      return { status: "error", data: null, error: action.payload };
+      return { ...state, status: "error", data: null, error: action.payload };
     case "RESET":
       return initialState;
     default:
@@ -41,12 +43,13 @@ export function useItineraryGenerator() {
   const [state, dispatch] = useReducer(generatorReducer, initialState);
 
   const generateItinerary = useCallback(async (formData: TripFormData) => {
-    dispatch({ type: "GENERATE_START" });
+    dispatch({ type: "GENERATE_START", payload: formData });
     trackEvent("itinerary_generation_started", {
       days: formData.days,
       travelers: formData.travelers,
       budget: formData.budget,
       travel_style: formData.travelStyle,
+      tour_type: formData.tourType,
       language: formData.language
     });
 
@@ -69,6 +72,7 @@ export function useItineraryGenerator() {
         travelers: formData.travelers,
         budget: formData.budget,
         travel_style: formData.travelStyle,
+        tour_type: formData.tourType,
         language: formData.language
       });
     } catch (error) {
@@ -84,6 +88,7 @@ export function useItineraryGenerator() {
   return {
     status: state.status,
     data: state.data,
+    formData: state.formData,
     error: state.error,
     generateItinerary,
     reset

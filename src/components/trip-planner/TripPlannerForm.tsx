@@ -14,6 +14,7 @@ import {
   airportOptions,
   languageOptions,
   preferredCityOptions,
+  tourTypeOptions,
 } from "@/constants/trip-options";
 import {
   tripFormSchema,
@@ -85,6 +86,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
       interests: ["culture"],
       budget: "medium",
       travelStyle: "balanced",
+      tourType: "private-guided",
       travelers: 2,
       language: "English",
       email: "",
@@ -160,7 +162,10 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
           className="grid gap-4 sm:grid-cols-2"
           variants={formVariants}
         >
-          <motion.div className="space-y-2" variants={fieldVariants}>
+          <motion.div
+            className="space-y-2 sm:col-span-2"
+            variants={fieldVariants}
+          >
             <Label htmlFor="days">Trip Length (days)</Label>
             <Input
               id="days"
@@ -190,6 +195,30 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
             {errors.travelers && (
               <p className="text-xs text-destructive">
                 {errors.travelers.message}
+              </p>
+            )}
+          </motion.div>
+
+          <motion.div className="space-y-2" variants={fieldVariants}>
+            <Label htmlFor="tourType">Tour Type</Label>
+            <Controller
+              control={control}
+              name="tourType"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  id="tourType"
+                  size="large"
+                  className="w-full"
+                  disabled={isLoading}
+                  options={tourTypeOptions}
+                  status={errors.tourType ? "error" : undefined}
+                />
+              )}
+            />
+            {errors.tourType && (
+              <p className="text-xs text-destructive">
+                {errors.tourType.message}
               </p>
             )}
           </motion.div>
@@ -393,7 +422,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
                 <AntInput.TextArea
                   {...field}
                   id="tourDescription"
-                  placeholder="Tell us about must-see places, pace, accessibility needs, hotel style, special occasions, or anything else to personalize your tour."
+                  placeholder="For a custom tour, paste overnight schedule, places to include, pace, accessibility needs, hotel style, special occasions, or anything else to personalize the offer."
                   autoSize={{ minRows: 4, maxRows: 7 }}
                   showCount
                   maxLength={1000}
@@ -443,6 +472,15 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
             onChange={handleTravelStyleChange}
           />
         </motion.div>
+
+        <motion.p
+          className="max-w-3xl text-xs leading-5 text-muted-foreground"
+          variants={fieldVariants}
+        >
+          By submitting this form, you agree that TripMate Georgia can store
+          your contact details and trip preferences to generate your itinerary
+          and follow up about organizing the trip.
+        </motion.p>
 
         <motion.div variants={fieldVariants}>
           <Button
