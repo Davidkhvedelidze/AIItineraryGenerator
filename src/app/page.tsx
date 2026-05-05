@@ -33,7 +33,7 @@ const structuredData = {
     description: "Free AI-generated Georgia itinerary preview with optional local booking support.",
   },
   keywords:
-    "Georgia itinerary planner, AI Georgia travel planner, Tbilisi itinerary, Kazbegi tour route, Kakheti wine trip, Batumi travel plan, Georgia booking help",
+    "Georgia itinerary planner, free Georgia itinerary planner, create Georgia itinerary for free, free AI Georgia itinerary, AI Georgia travel planner, Tbilisi itinerary, Kazbegi tour route, Kakheti wine trip, Batumi travel plan, Georgia booking help",
 };
 
 export default function HomePage() {

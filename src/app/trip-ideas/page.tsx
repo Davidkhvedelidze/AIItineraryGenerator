@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   title: "Trip Ideas for Georgia",
   description:
     "Browse SEO-friendly Georgia trip ideas with durations, highlights, and route suggestions for first-time visitors, families, and couples.",
+  keywords: [
+    "Georgia trip ideas",
+    "free Georgia itinerary ideas",
+    "free Georgia itinerary builder",
+    "create Georgia itinerary for free",
+    "Georgia travel routes",
+    "Georgia travel itinerary examples",
+  ],
   alternates: {
     canonical: "/trip-ideas",
   },
