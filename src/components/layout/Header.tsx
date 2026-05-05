@@ -14,6 +14,12 @@ export function Header() {
         </a>
         <nav className="flex items-center gap-2 sm:gap-4" aria-label="Primary">
           <a
+            href="/blog"
+            className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+          >
+            Blog
+          </a>
+          <a
             href="#trip-planner"
             className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
           >
