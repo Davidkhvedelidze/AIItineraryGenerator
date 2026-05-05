@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
-import { getSiteUrl } from "@/lib/site";
 
-const siteUrl = getSiteUrl();
+const siteUrl = "https://tripmategeorgia.com";
 const lastModified = new Date();
 
 function absoluteUrl(path = ""): string {
@@ -25,15 +24,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const tripIdeaRoutes: MetadataRoute.Sitemap = popularTripIdeas.map((idea) => ({
-    url: absoluteUrl(`/trip-ideas/${idea.slug}`),
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const tripIdeaRoutes: MetadataRoute.Sitemap = popularTripIdeas.map(
+    (idea) => ({
+      url: absoluteUrl(`/trip-ideas/${idea.slug}`),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
 
-  return [
-    ...routes,
-    ...tripIdeaRoutes,
-  ];
+  return [...routes, ...tripIdeaRoutes];
 }
