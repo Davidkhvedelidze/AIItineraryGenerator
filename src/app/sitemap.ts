@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
-import { blogPosts } from "@/constants/blog-posts";
+import { getAllBlogPosts } from "@/lib/blog";
 
 const siteUrl = "https://tripmategeorgia.com";
 const lastModified = new Date();
@@ -9,7 +9,8 @@ function absoluteUrl(path = ""): string {
   return `${siteUrl}${path}`;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getAllBlogPosts();
   const routes: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl(),
@@ -40,9 +41,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
-    lastModified: post.updatedAt ? new Date(post.updatedAt) : lastModified,
+    lastModified: post.publishedAt ? new Date(post.publishedAt) : lastModified,
     changeFrequency: "monthly",
     priority: 0.7,
   }));

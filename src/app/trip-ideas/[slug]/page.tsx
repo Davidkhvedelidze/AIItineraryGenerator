@@ -47,7 +47,7 @@ export default async function TripIdeaDetailPage({ params }: TripIdeaDetailPageP
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="container flex-1 py-12">
+      <main className="container flex-1 py-4">
         <article className="mx-auto max-w-4xl space-y-8">
           <header className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-primary">{idea.duration}</p>

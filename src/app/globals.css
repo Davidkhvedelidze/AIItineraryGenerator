@@ -1,7 +1,3 @@
-@import "swiper/css";
-@import "swiper/css/effect-fade";
-@import "swiper/css/pagination";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -62,17 +58,5 @@
       radial-gradient(circle at top left, hsl(142 72% 88% / 0.38), transparent 32rem),
       linear-gradient(180deg, hsl(145 45% 97%) 0%, hsl(138 43% 94%) 100%);
     background-attachment: fixed;
-  }
-}
-
-@layer components {
-  .swiper-pagination-bullet {
-    background: hsl(var(--primary-foreground));
-    opacity: 0.75;
-  }
-
-  .swiper-pagination-bullet-active {
-    background: hsl(var(--primary));
-    opacity: 1;
   }
 }

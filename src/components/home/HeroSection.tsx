@@ -1,13 +1,10 @@
-"use client";
-
+import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle2,
   MessageCircle,
   Sparkles,
 } from "lucide-react";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { buttonVariants } from "@/components/ui/button";
 
 const trustSignals = [
@@ -22,44 +19,8 @@ const routeHighlights = [
   { label: "Kazbegi", value: "Mountain viewpoints" },
 ];
 
-const heroSlides = [
-  {
-    title: "Kazbegi",
-    subtitle: "Gergeti Trinity Church and Mount Kazbek",
-    image:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Kazbegi%2C%20Gergeti%20Trinity%20Church%20and%20Mt%20Kazbek%20%2835959311351%29.jpg",
-  },
-  {
-    title: "Tbilisi",
-    subtitle: "Old Town balconies, hills, and historic streets",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tbilisi_at_night%2C_Kura%2C_Georgia.jpg/960px-Tbilisi_at_night%2C_Kura%2C_Georgia.jpg",
-  },
-  {
-    title: "Batumi",
-    subtitle: "Black Sea skyline and seaside boulevard",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Batumi_sunset.jpg/960px-Batumi_sunset.jpg",
-  },
-  {
-    title: "Uplistsikhe",
-    subtitle: "Ancient rock-hewn town with cave dwellings",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Uplistsikhe_view.jpg/960px-Uplistsikhe_view.jpg",
-  },
-  {
-    title: "Svaneti",
-    subtitle: "Medieval towers and alpine landscapes",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Mestia%2C_evening.jpg/960px-Mestia%2C_evening.jpg",
-  },
-  {
-    title: "Mtskheta",
-    subtitle: "UNESCO site with ancient churches and monasteries",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Mtskheta_and_Svetitskhoveli_Cathedral_16x9.jpg/960px-Mtskheta_and_Svetitskhoveli_Cathedral_16x9.jpg",
-  },
-];
+const heroImage =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg/1280px-Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg";
 
 export function HeroSection() {
   return (
@@ -110,49 +71,42 @@ export function HeroSection() {
         </div>
 
         <div className="overflow-hidden rounded-lg border bg-white shadow-xl shadow-emerald-950/15">
-          <Swiper
-            modules={[Autoplay, EffectFade, Pagination]}
-            effect="fade"
-            loop
-            speed={900}
-            autoplay={{ delay: 3800, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            className="h-[430px] sm:h-[520px]"
+          <div
+            className="relative h-[430px] w-full sm:h-[520px]"
+            role="img"
+            aria-label="Gergeti Trinity Church and Mount Kazbek in Kazbegi, Georgia"
           >
-            {heroSlides.map((slide) => (
-              <SwiperSlide key={slide.title}>
-                <div
-                  className="relative h-full w-full bg-cover bg-center"
-                  style={{ backgroundImage: `url("${slide.image}")` }}
-                  role="img"
-                  aria-label={`${slide.title}, Georgia - ${slide.subtitle}`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/78 via-emerald-950/12 to-white/5" />
-                  <div className="absolute bottom-5 left-5 right-5 rounded-md bg-white/75 p-5 shadow-xl backdrop-blur ">
-                    <p className="text-sm font-medium text-primary">
-                      Georgia route preview
+            <Image
+              src={heroImage}
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 48vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/78 via-emerald-950/12 to-white/5" />
+            <div className="absolute bottom-5 left-5 right-5 rounded-md bg-white/75 p-5 shadow-xl backdrop-blur">
+              <p className="text-sm font-medium text-primary">
+                Georgia route preview
+              </p>
+              <p className="mt-1 text-2xl font-semibold text-foreground">
+                Kazbegi
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Gergeti Trinity Church and Mount Kazbek
+              </p>
+              <div className="mt-4 grid gap-2 text-sm sm:grid-cols-3">
+                {routeHighlights.map((item) => (
+                  <div key={item.label}>
+                    <p className="font-semibold text-foreground">
+                      {item.label}
                     </p>
-                    <p className="mt-1 text-2xl font-semibold text-foreground">
-                      {slide.title}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {slide.subtitle}
-                    </p>
-                    <div className="mt-4 grid gap-2 text-sm sm:grid-cols-3">
-                      {routeHighlights.map((item) => (
-                        <div key={item.label}>
-                          <p className="font-semibold text-foreground">
-                            {item.label}
-                          </p>
-                          <p className="text-muted-foreground">{item.value}</p>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-muted-foreground">{item.value}</p>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -5,7 +5,7 @@ import { ExampleItinerary } from "@/components/home/ExampleItinerary";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { PopularTripIdeas } from "@/components/home/PopularTripIdeas";
-import { TripPlanner } from "@/components/trip-planner/TripPlanner";
+import { DeferredTripPlanner } from "@/components/trip-planner/DeferredTripPlanner";
 import { getSiteUrl } from "@/lib/site";
 
 const siteUrl = getSiteUrl();
@@ -46,7 +46,7 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <TripPlanner />
+        <DeferredTripPlanner />
         <ExampleItinerary />
         <HowItWorks />
         <PopularTripIdeas />

@@ -5,8 +5,12 @@ interface RelatedPostsProps {
   currentSlug: string;
 }
 
-export function RelatedPosts({ currentSlug }: RelatedPostsProps) {
-  const posts = getRelatedBlogPosts(currentSlug, 3);
+export async function RelatedPosts({ currentSlug }: RelatedPostsProps) {
+  const posts = await getRelatedBlogPosts(currentSlug, 3);
+
+  if (posts.length === 0) {
+    return null;
+  }
 
   return (
     <section className="space-y-4">
