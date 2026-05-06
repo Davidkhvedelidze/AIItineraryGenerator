@@ -7,6 +7,7 @@ import { ConfigProvider, DatePicker, Input as AntInput, Select } from "antd";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -205,10 +206,35 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
           {currentStep < 3 ? (
             <Button type="button" className="h-11 px-6" onClick={handleNext} disabled={isLoading}>Continue</Button>
           ) : (
-            <Button type="submit" className="h-11 px-6" disabled={isLoading || selectedInterests.length === 0}>{isLoading ? "Generating..." : "Generate My Trip"}</Button>
+            <Button type="submit" className="h-11 px-6" disabled={isLoading || selectedInterests.length === 0}>Generate My Trip</Button>
           )}
         </motion.div>
       </motion.form>
+
+      {isLoading && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-emerald-950/45 px-4 backdrop-blur-sm" role="presentation">
+          <motion.div
+            aria-describedby="trip-generation-modal-description"
+            aria-labelledby="trip-generation-modal-title"
+            aria-modal="true"
+            className="w-full max-w-md rounded-2xl border border-emerald-100 bg-card p-6 text-center shadow-2xl shadow-emerald-950/25"
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            role="dialog"
+          >
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-primary">
+              <LoaderCircle className="h-6 w-6 animate-spin" aria-hidden="true" />
+            </div>
+            <h3 id="trip-generation-modal-title" className="text-lg font-semibold">
+              Generating your trip plan
+            </h3>
+            <p id="trip-generation-modal-description" className="mt-2 text-sm leading-6 text-muted-foreground">
+              This can take a few minutes while we build a realistic itinerary from your travel dates, interests, and preferences. Please keep this page open.
+            </p>
+          </motion.div>
+        </div>
+      )}
     </ConfigProvider>
   );
 }

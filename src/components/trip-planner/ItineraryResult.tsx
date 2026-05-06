@@ -373,7 +373,7 @@ export function ItineraryResult({
         </aside>
       </div>
 
-      <Card className="border-border shadow-sm">
+      {/* <Card className="border-border shadow-sm">
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <p className="text-sm font-medium text-muted-foreground">
@@ -393,7 +393,7 @@ export function ItineraryResult({
             </p>
           </div>
         </div>
-      </Card>
+      </Card> */}
 
       <Card className="border-border shadow-sm">
         <div className="flex items-start gap-3">

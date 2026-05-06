@@ -2,7 +2,6 @@
 
 import { TripPlannerForm } from "./TripPlannerForm";
 import { useItineraryGenerator } from "@/hooks/useItineraryGenerator";
-import { LoadingItinerary } from "./LoadingItinerary";
 import { ErrorMessage } from "./ErrorMessage";
 import { ItineraryResult } from "./ItineraryResult";
 
@@ -29,7 +28,6 @@ export function TripPlanner() {
           <TripPlannerForm isLoading={status === "loading"} onSubmit={generateItinerary} />
         </div>
 
-        {status === "loading" && <LoadingItinerary />}
         {status === "error" && error && <ErrorMessage message={error} onReset={reset} />}
         {status === "success" && data && formData && (
           <ItineraryResult result={data} formData={formData} onReset={reset} />
