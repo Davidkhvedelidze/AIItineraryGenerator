@@ -21,5 +21,5 @@ export const sanityClient = createClient({
   projectId: projectId || "missing-project-id",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-05",
-  useCdn: process.env.NODE_ENV === "production",
+  useCdn: false,
 });

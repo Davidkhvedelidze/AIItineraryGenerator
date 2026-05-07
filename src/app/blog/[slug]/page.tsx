@@ -9,6 +9,7 @@ import { FAQSection } from "@/components/seo/FAQSection";
 import { SeoCTA } from "@/components/seo/SeoCTA";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import { urlFor } from "@/lib/sanity/image";
+import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -73,6 +74,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author: { name: "TripMate Georgia" },
     publisher: { name: "TripMate Georgia" },
   };
+  const faqJsonLd = faqItems.length > 0 ? buildFAQJsonLd(faqItems) : null;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -83,6 +85,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
+          {faqJsonLd ? (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+            />
+          ) : null}
           <header className="space-y-4">
             {post.category ? (
               <p className="text-sm font-semibold uppercase tracking-wide text-primary">
