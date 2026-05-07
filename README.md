@@ -44,6 +44,7 @@ NEXT_PUBLIC_SITE_URL=https://your-production-domain.com
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+SANITY_REVALIDATE_SECRET=your_webhook_secret_here
 ```
 
 Never expose server keys with `NEXT_PUBLIC_`. `SUPABASE_SERVICE_ROLE_KEY` must stay server-side only.

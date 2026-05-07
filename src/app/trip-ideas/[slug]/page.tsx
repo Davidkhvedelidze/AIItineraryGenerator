@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { SeoCTA } from "@/components/seo/SeoCTA";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
+import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
 
 interface TripIdeaDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -46,11 +47,19 @@ export default async function TripIdeaDetailPage({ params }: TripIdeaDetailPageP
     notFound();
   }
 
+  const faqJsonLd = idea.faq ? buildFAQJsonLd(idea.faq) : null;
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="container flex-1 py-4">
         <article className="mx-auto max-w-4xl space-y-8">
+          {faqJsonLd ? (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+            />
+          ) : null}
           <header className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-primary">{idea.duration}</p>
             <h1 className="text-4xl font-semibold tracking-tight">{idea.title}</h1>
