@@ -9,6 +9,7 @@ Add these in Vercel Project Settings before deploying. Local files such as `.env
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
+- `SANITY_REVALIDATE_SECRET`
 - `NEXT_PUBLIC_GA_ID` if Google Analytics is used
 - `ITINERARY_RATE_LIMIT` if the default 10 requests per email/IP window should change
 - `ITINERARY_RATE_LIMIT_WINDOW_SECONDS` if the default 900-second window should change
@@ -37,6 +38,32 @@ vercel inspect https://tripmate-georgia.vercel.app
 ## Supabase Setup
 
 Run `supabase/itinerary_requests.sql` in the Supabase SQL editor and confirm the table exists as `public.itinerary_requests`.
+
+## Sanity Publish Revalidation
+
+Create a Sanity webhook so published blog changes refresh Vercel cache without waiting for the fallback ISR window.
+
+- URL: `https://tripmategeorgia.com/api/revalidate`
+- Method: `POST`
+- Dataset: production
+- Trigger on: create, update, delete
+- Filter: `_type == "blogPost"`
+- Projection:
+
+```groq
+{
+  "_type": _type,
+  "slug": slug.current
+}
+```
+
+Send the same secret stored in Vercel as `SANITY_REVALIDATE_SECRET` using either:
+
+- Header: `x-sanity-revalidate-secret: your-secret`
+- Authorization: `Bearer your-secret`
+- Query string fallback: `?secret=your-secret`
+
+After changing `SANITY_REVALIDATE_SECRET`, redeploy production.
 
 ## Pre-Deploy Checks
 
