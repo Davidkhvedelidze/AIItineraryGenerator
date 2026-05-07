@@ -402,7 +402,7 @@ export function ItineraryResult({
             <h4 className="font-semibold text-foreground">
               Booking suggestion
             </h4>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-[4px] text-sm text-muted-foreground">
               {result.bookingSuggestion}
             </p>
           </div>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { FAQSection } from "@/components/seo/FAQSection";
+import { SeoCTA } from "@/components/seo/SeoCTA";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 
 interface TripIdeaDetailPageProps {
@@ -91,6 +93,10 @@ export default async function TripIdeaDetailPage({ params }: TripIdeaDetailPageP
               <span className="font-medium text-foreground">Best time to visit:</span> {idea.bestTimeToVisit}
             </p>
           </section>
+
+          {idea.faq ? <FAQSection items={idea.faq} /> : null}
+
+          <SeoCTA />
         </article>
       </main>
       <Footer />
