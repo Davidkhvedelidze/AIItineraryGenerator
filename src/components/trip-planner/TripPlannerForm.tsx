@@ -104,7 +104,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
       travelDates: defaultTravelDates,
       arrivalAirport: "Tbilisi International Airport",
       departureAirport: "Tbilisi International Airport",
-      preferredCities: [],
+      preferredCities: ["Tbilisi"],
       interests: ["culture"],
       budget: "medium",
       travelStyle: "balanced",
