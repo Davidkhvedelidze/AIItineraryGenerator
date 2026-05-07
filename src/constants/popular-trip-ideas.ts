@@ -19,6 +19,10 @@ export interface PopularTripIdea {
   bestTimeToVisit: string;
   startingPoint: string;
   endingPoint: string;
+  faq?: {
+    question: string;
+    answer: string;
+  }[];
 }
 
 export const popularTripIdeas: PopularTripIdea[] = [
@@ -43,6 +47,28 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "April to June and September to October",
     startingPoint: "Tbilisi",
     endingPoint: "Tbilisi",
+    faq: [
+      {
+        question: "Is 3 days enough for a first trip to Georgia?",
+        answer:
+          "Three days is enough for a compact introduction if you base yourself in Tbilisi and choose one realistic day trip. You will not see every region, but you can cover old town highlights, Mtskheta, and either a mountain or wine-country route.",
+      },
+      {
+        question: "Where should I stay for a 3-day Georgia itinerary?",
+        answer:
+          "Tbilisi is the most practical base for a short trip because airport transfers, restaurants, walking routes, and day trips are easy to organize from one hotel.",
+      },
+      {
+        question: "Should I choose Kazbegi or Kakheti for the day trip?",
+        answer:
+          "Choose Kazbegi for dramatic mountain scenery and viewpoints, especially in clear weather. Choose Kakheti if you prefer wine, food, smaller towns, and a gentler driving day.",
+      },
+      {
+        question: "Do I need a private driver for this route?",
+        answer:
+          "A private driver is not required inside Tbilisi, but it can save time on the Mtskheta and day-trip portions. For only three days, avoiding transport delays usually makes the trip feel less rushed.",
+      },
+    ],
   },
   {
     title: "5 Days: Tbilisi + Kazbegi + Kakheti",
@@ -67,6 +93,28 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "May to October",
     startingPoint: "Tbilisi",
     endingPoint: "Tbilisi",
+    faq: [
+      {
+        question: "Is 5 days enough for Tbilisi, Kazbegi, and Kakheti?",
+        answer:
+          "Five days works well if you keep the route focused and avoid adding extra regions. Plan one overnight near Kazbegi and one full day for Kakheti so the itinerary does not become a series of long transfers.",
+      },
+      {
+        question: "Can I do Kazbegi as a day trip instead of overnighting?",
+        answer:
+          "Kazbegi can be visited as a long day trip from Tbilisi, but an overnight stay gives you better light, more flexibility for Gergeti Trinity Church, and a less tiring mountain route.",
+      },
+      {
+        question: "How much driving is involved in this itinerary?",
+        answer:
+          "Expect several scenic driving days, especially on the Military Highway to Kazbegi and through Kakheti. Starting early helps you keep enough time for stops, meals, and short walks.",
+      },
+      {
+        question: "Is this 5-day route good for couples?",
+        answer:
+          "Yes. The mix of Tbilisi restaurants, mountain views, wine tastings, and small-town walks makes it a strong route for couples who want variety without changing hotels every night.",
+      },
+    ],
   },
   {
     title: "7 Days Georgia Highlights",
@@ -93,6 +141,28 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "May to June and September",
     startingPoint: "Tbilisi",
     endingPoint: "Kutaisi or Tbilisi",
+    faq: [
+      {
+        question: "What is the best way to spend 7 days in Georgia?",
+        answer:
+          "A balanced week usually combines Tbilisi, one wine-country day, Kazbegi or another mountain area, and western Georgia around Kutaisi. This gives you city culture, food, nature, and heritage without overloading the schedule.",
+      },
+      {
+        question: "Should this itinerary end in Kutaisi or Tbilisi?",
+        answer:
+          "End in Kutaisi if your flight leaves from Kutaisi International Airport or you want to continue toward Batumi. Return to Tbilisi if you prefer simpler logistics or have a round-trip flight from Tbilisi.",
+      },
+      {
+        question: "Can I add Batumi to a 7-day Georgia trip?",
+        answer:
+          "Batumi can be added, but it usually means removing or shortening another region. It is best as an extension if you have extra days or if the Black Sea coast is a priority.",
+      },
+      {
+        question: "Is this one-week route suitable for first-time visitors?",
+        answer:
+          "Yes. It covers Georgia's most familiar highlights while keeping the pacing realistic. First-time visitors should keep one flexible block for weather, road timing, or a slower city day.",
+      },
+    ],
   },
   {
     title: "Family Trip in Georgia",
@@ -117,6 +187,28 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "June to September",
     startingPoint: "Tbilisi",
     endingPoint: "Tbilisi",
+    faq: [
+      {
+        question: "Is Georgia a good destination for a family trip?",
+        answer:
+          "Georgia can work very well for families when the route uses shorter drives, central hotels, and flexible outdoor stops. Tbilisi, Mtskheta, Kakheti, and accessible mountain viewpoints are practical choices.",
+      },
+      {
+        question: "How should families plan transport in Georgia?",
+        answer:
+          "For families, a private transfer or driver is often more comfortable than mixing many shared marshrutkas. It gives you space for luggage, breaks, and last-minute schedule changes.",
+      },
+      {
+        question: "What activities are good for kids in Georgia?",
+        answer:
+          "Easy cable car rides, old town walks, food workshops, farm lunches, short nature trails, and scenic viewpoints usually work better than long museum-heavy days.",
+      },
+      {
+        question: "How many days should a family spend in Georgia?",
+        answer:
+          "Five to seven days is a comfortable first family trip. It gives enough time for Tbilisi and nearby regions while leaving room for rest, slower meals, and weather changes.",
+      },
+    ],
   },
   {
     title: "Wine Tour in Kakheti",
@@ -138,6 +230,28 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "September to October",
     startingPoint: "Tbilisi",
     endingPoint: "Tbilisi",
+    faq: [
+      {
+        question: "Can Kakheti be visited as a day trip from Tbilisi?",
+        answer:
+          "Yes, Kakheti is one of the best day trips from Tbilisi for wine and food. An overnight stay is better if you want a slower pace, more tastings, or time in both Sighnaghi and Telavi.",
+      },
+      {
+        question: "When is the best time for a Kakheti wine tour?",
+        answer:
+          "September and October are especially popular because of the grape harvest and warm weather. Spring and early summer are also pleasant for vineyard views and outdoor meals.",
+      },
+      {
+        question: "Do Kakheti wineries require reservations?",
+        answer:
+          "Many small family wineries prefer reservations, especially for qvevri tastings and meals. Booking ahead helps you avoid closed cellars or rushed tastings.",
+      },
+      {
+        question: "Should I rent a car for a wine tour?",
+        answer:
+          "It is better to use a driver or organized transfer if you plan to taste wine. Roads are manageable, but driving after tastings is not a good idea.",
+      },
+    ],
   },
   {
     title: "Winter Trip to Gudauri and Kazbegi",
@@ -161,5 +275,27 @@ export const popularTripIdeas: PopularTripIdea[] = [
     bestTimeToVisit: "December to March",
     startingPoint: "Tbilisi",
     endingPoint: "Tbilisi",
+    faq: [
+      {
+        question: "Is the road to Kazbegi open in winter?",
+        answer:
+          "The road often operates in winter, but closures can happen because of snow, avalanche risk, or heavy traffic. Check conditions before departure and keep the schedule flexible.",
+      },
+      {
+        question: "Do I need a 4x4 for Gudauri and Kazbegi in winter?",
+        answer:
+          "A suitable winter vehicle, experienced driver, and proper tires matter more than the label alone. For snowy conditions, chains or a 4x4 may be required on parts of the route.",
+      },
+      {
+        question: "Can non-skiers enjoy Gudauri in winter?",
+        answer:
+          "Yes. Gudauri can still be worthwhile for snow views, cable cars, short walks, restaurants, and scenic stops, even if you do not plan to ski.",
+      },
+      {
+        question: "How many days should I plan for a winter mountain trip?",
+        answer:
+          "Two days is enough for a quick Gudauri escape, while three or four days gives you a better chance of reaching Kazbegi in good weather and enjoying the route without rushing.",
+      },
+    ],
   },
 ];
