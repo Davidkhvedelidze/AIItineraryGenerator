@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
-import { BlogCTA } from "@/components/blog/BlogCTA";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { FAQSection } from "@/components/seo/FAQSection";
+import { SeoCTA } from "@/components/seo/SeoCTA";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import { urlFor } from "@/lib/sanity/image";
 
@@ -51,6 +51,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         new Date(post.publishedAt),
       )
     : null;
+  const faqItems =
+    post.faq
+      ?.filter(
+        (item): item is { question: string; answer: string } =>
+          Boolean(item.question && item.answer),
+      )
+      .map((item) => ({
+        question: item.question,
+        answer: item.answer,
+      })) ?? [];
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -198,32 +208,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </section>
           ) : null}
 
-          <section className="rounded-lg border bg-card p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              Create your Georgia itinerary
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Turn this guide into a realistic route with the free TripMate
-              Georgia itinerary builder, or compare ready-made trip ideas first.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/#trip-planner"
-                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
-              >
-                Build itinerary
-              </Link>
-              <Link
-                href="/trip-ideas"
-                className="rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15"
-              >
-                View trip ideas
-              </Link>
-            </div>
-          </section>
+          {faqItems.length > 0 ? <FAQSection items={faqItems} /> : null}
+
+          <SeoCTA />
 
           <RelatedPosts currentSlug={post.slug} />
-          <BlogCTA />
         </article>
       </main>
       <Footer />

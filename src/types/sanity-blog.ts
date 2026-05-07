@@ -23,5 +23,9 @@ export type BlogPostListItem = {
 };
 
 export type BlogPost = BlogPostListItem & {
+  faq?: {
+    question?: string;
+    answer?: string;
+  }[];
   body?: PortableTextBlock[];
 };

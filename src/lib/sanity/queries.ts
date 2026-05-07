@@ -22,6 +22,7 @@ export const blogPostsQuery = groq`
 export const blogPostBySlugQuery = groq`
   *[_type == "blogPost" && defined(slug.current) && slug.current == $slug][0] {
     ${blogPostListFields},
+    faq,
     body
   }
 `;
