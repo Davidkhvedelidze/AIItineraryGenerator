@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 import { getAllBlogPosts } from "@/lib/blog";
+import { getAllTours } from "@/lib/tours";
 
 const siteUrl = "https://tripmategeorgia.com";
 const lastModified = new Date();
@@ -10,7 +11,7 @@ function absoluteUrl(path = ""): string {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllBlogPosts();
+  const [posts, tours] = await Promise.all([getAllBlogPosts(), getAllTours()]);
   const routes: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl(),
@@ -26,6 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: absoluteUrl("/blog"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/tours"),
       lastModified,
       changeFrequency: "weekly",
       priority: 0.8,
@@ -48,5 +55,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...routes, ...tripIdeaRoutes, ...blogRoutes];
+  const tourRoutes: MetadataRoute.Sitemap = tours.map((tour) => ({
+    url: absoluteUrl(`/tours/${tour.slug}`),
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...routes, ...tripIdeaRoutes, ...blogRoutes, ...tourRoutes];
 }

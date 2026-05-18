@@ -35,12 +35,12 @@ export function BlogCard({ post }: BlogCardProps) {
         </Link>
       ) : null}
       <div className="p-6">
-        <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wide text-primary">
+        <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wide text-amber-700">
           {post.category ? <span>{post.category}</span> : null}
           {publishedDate ? <time className="text-muted-foreground">{publishedDate}</time> : null}
         </div>
         <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-          <Link href={`/blog/${post.slug}`} className="hover:text-primary">
+          <Link href={`/blog/${post.slug}`} className="hover:text-amber-700">
             {post.title}
           </Link>
         </h2>
@@ -48,7 +48,7 @@ export function BlogCard({ post }: BlogCardProps) {
         {post.tags && post.tags.length > 0 ? (
           <ul className="mt-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <li key={tag} className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <li key={tag} className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-foreground ring-1 ring-primary/25">
                 {tag}
               </li>
             ))}

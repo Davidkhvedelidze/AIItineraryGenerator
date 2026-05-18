@@ -1,15 +1,31 @@
 "use client";
 
-import { useMemo } from "react";
-import { Card, Collapse, List, Tag, Timeline } from "antd";
-import { CalendarDays, Download, Mail, Utensils } from "lucide-react";
+import { useEffect, useMemo, useRef } from "react";
+import type { RefObject } from "react";
+import {
+  BadgeCheck,
+  CalendarDays,
+  CheckCircle2,
+  Download,
+  Lightbulb,
+  Mail,
+  MapPin,
+  MessageCircle,
+  PlaneLanding,
+  RefreshCcw,
+  Sparkles,
+  Utensils,
+  WalletCards,
+  Users,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import type {
+  ItineraryDay,
   ItineraryResult as ItineraryResultType,
   TripFormData,
 } from "@/types/trip";
-import { ItineraryDayCard } from "./ItineraryDayCard";
 
 interface ItineraryResultProps {
   result: ItineraryResultType;
@@ -17,14 +33,35 @@ interface ItineraryResultProps {
   onReset: () => void;
 }
 
+type ActionHandlers = {
+  onWhatsApp: () => void;
+  onEmail: () => void;
+  onDownload: () => void;
+  onReset: () => void;
+};
+
 const whatsappPhoneNumber = "995551181358";
 const emailBookingUrl =
   "mailto:info@mustseegeorgia.com?subject=Georgia%20Trip%20Booking%20Request&body=Hello%2C%0A%0AI%20would%20like%20help%20booking%20my%20Georgia%20trip.%0A";
 
+function cleanText(value?: string | null): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function cleanList(items?: string[]): string[] {
+  return items?.map(cleanText).filter(Boolean) ?? [];
+}
+
+function formatLabel(value: string): string {
+  return value
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 function getUniqueRegions(days: ItineraryResultType["days"]): string[] {
-  return Array.from(
-    new Set(days.map((day) => day.region.trim()).filter(Boolean)),
-  );
+  return Array.from(new Set(days.map((day) => cleanText(day.region)).filter(Boolean)));
 }
 
 function escapeHtml(value: string): string {
@@ -36,8 +73,8 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#039;");
 }
 
-function renderPdfList(items: string[]): string {
-  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+function renderPdfList(items?: string[]): string {
+  return cleanList(items).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
 function buildWhatsAppUrl(formData: TripFormData): string {
@@ -64,41 +101,47 @@ Can you help me organize this private trip?`);
 }
 
 function buildPrintableItineraryHtml(result: ItineraryResultType): string {
-  const daysHtml = result.days
+  const days = result.days ?? [];
+  const daysHtml = days
     .map(
       (day) => `
         <section class="day">
-          <h2>Day ${day.day}: ${escapeHtml(day.title)}</h2>
-          <p class="region">${escapeHtml(day.region)}</p>
+          <h2>Day ${day.day}: ${escapeHtml(cleanText(day.title))}</h2>
+          <p class="region">${escapeHtml(cleanText(day.region))}</p>
           <ul>
-            <li><strong>Morning:</strong> ${escapeHtml(day.morning)}</li>
-            <li><strong>Afternoon:</strong> ${escapeHtml(day.afternoon)}</li>
-            <li><strong>Evening:</strong> ${escapeHtml(day.evening)}</li>
-            <li><strong>Food:</strong> ${escapeHtml(day.foodSuggestion)}</li>
-            <li><strong>Travel tip:</strong> ${escapeHtml(day.travelTip)}</li>
+            ${cleanText(day.morning) ? `<li><strong>Morning:</strong> ${escapeHtml(cleanText(day.morning))}</li>` : ""}
+            ${cleanText(day.afternoon) ? `<li><strong>Afternoon:</strong> ${escapeHtml(cleanText(day.afternoon))}</li>` : ""}
+            ${cleanText(day.evening) ? `<li><strong>Evening:</strong> ${escapeHtml(cleanText(day.evening))}</li>` : ""}
+            ${cleanText(day.foodSuggestion) ? `<li><strong>Food:</strong> ${escapeHtml(cleanText(day.foodSuggestion))}</li>` : ""}
+            ${cleanText(day.travelTip) ? `<li><strong>Travel tip:</strong> ${escapeHtml(cleanText(day.travelTip))}</li>` : ""}
           </ul>
         </section>
       `,
     )
     .join("");
 
+  const bestFor = renderPdfList(result.bestFor);
+  const packingTips = renderPdfList(result.packingTips);
+  const transportTips = renderPdfList(result.transportTips);
+  const localFood = renderPdfList(result.localFoodToTry);
+
   return `<!doctype html>
     <html>
       <head>
         <meta charset="utf-8" />
-        <title>${escapeHtml(result.tripTitle)}</title>
+        <title>${escapeHtml(cleanText(result.tripTitle) || "Georgia itinerary")}</title>
         <style>
           @page { margin: 18mm; }
           * { box-sizing: border-box; }
           body {
-            color: #17211b;
+            color: #2a1607;
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.5;
             margin: 0;
           }
-          h1 { color: #14532d; font-size: 28px; margin: 0 0 10px; }
-          h2 { color: #166534; font-size: 18px; margin: 0 0 4px; }
-          h3 { color: #17211b; font-size: 15px; margin: 22px 0 8px; }
+          h1 { color: #92400e; font-size: 28px; margin: 0 0 10px; }
+          h2 { color: #b45309; font-size: 18px; margin: 0 0 4px; }
+          h3 { color: #2a1607; font-size: 15px; margin: 22px 0 8px; }
           p { margin: 0 0 10px; }
           ul { margin: 8px 0 0 18px; padding: 0; }
           li { margin: 4px 0; }
@@ -129,25 +172,17 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
       </head>
       <body>
         <main>
-          <h1>${escapeHtml(result.tripTitle)}</h1>
-          <p class="overview">${escapeHtml(result.overview)}</p>
+          <h1>${escapeHtml(cleanText(result.tripTitle) || "Georgia itinerary")}</h1>
+          ${cleanText(result.overview) ? `<p class="overview">${escapeHtml(cleanText(result.overview))}</p>` : ""}
           ${daysHtml}
 
           <section class="summary">
-
-   
-            <h3>Estimated Budget</h3>
-            <p>${escapeHtml(result.estimatedBudget)}</p>
-            <h3>Best For</h3>
-            <ul>${renderPdfList(result.bestFor)}</ul>
-            <h3>Packing Tips</h3>
-            <ul>${renderPdfList(result.packingTips)}</ul>
-            <h3>Transport Tips</h3>
-            <ul>${renderPdfList(result.transportTips)}</ul>
-            <h3>Local Food To Try</h3>
-            <ul>${renderPdfList(result.localFoodToTry)}</ul>
-            <h3>Booking Suggestion</h3>
-            <p>${escapeHtml(result.bookingSuggestion)}</p>
+            ${cleanText(result.estimatedBudget) ? `<h3>Estimated Budget</h3><p>${escapeHtml(cleanText(result.estimatedBudget))}</p>` : ""}
+            ${bestFor ? `<h3>Best For</h3><ul>${bestFor}</ul>` : ""}
+            ${packingTips ? `<h3>Packing Tips</h3><ul>${packingTips}</ul>` : ""}
+            ${transportTips ? `<h3>Transport Tips</h3><ul>${transportTips}</ul>` : ""}
+            ${localFood ? `<h3>Local Food To Try</h3><ul>${localFood}</ul>` : ""}
+            ${cleanText(result.bookingSuggestion) ? `<h3>Booking Suggestion</h3><p>${escapeHtml(cleanText(result.bookingSuggestion))}</p>` : ""}
           </section>
 
           <p class="footer">Must See Georgia | info@mustseegeorgia.com | +995 551 181 358</p>
@@ -156,19 +191,488 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
     </html>`;
 }
 
+function ResultActionBar({
+  onWhatsApp,
+  onEmail,
+  onDownload,
+  onReset,
+}: ActionHandlers) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <Button
+        type="button"
+        onClick={onWhatsApp}
+        className="h-11 rounded-full px-5 shadow-sm transition hover:-translate-y-0.5"
+      >
+        <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+        Request This Trip on WhatsApp
+      </Button>
+      <Button
+        type="button"
+        variant="inverse"
+        onClick={onDownload}
+        className="h-11 rounded-full px-5"
+      >
+        <Download className="mr-2 h-4 w-4" aria-hidden="true" />
+        Download / Print PDF
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onEmail}
+        className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+      >
+        <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
+        Email request
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        onClick={onReset}
+        className="h-11 rounded-full px-5 text-white/85 hover:bg-white/10 hover:text-white"
+      >
+        <RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+        Create another trip
+      </Button>
+    </div>
+  );
+}
+
+function TripSnapshotCards({
+  formData,
+  regions,
+}: {
+  formData: TripFormData;
+  regions: string[];
+}) {
+  const startingCity = formData.preferredCities[0] || formData.arrivalAirport;
+  const interests = formData.interests.map(formatLabel).join(", ");
+  const snapshot = [
+    { label: "Length", value: `${formData.days} ${formData.days === 1 ? "day" : "days"}`, icon: CalendarDays },
+    { label: "Travelers", value: `${formData.travelers}`, icon: Users },
+    { label: "Start", value: startingCity, icon: PlaneLanding },
+    { label: "Budget", value: formatLabel(formData.budget), icon: WalletCards },
+    { label: "Pace", value: formatLabel(formData.travelStyle), icon: Sparkles },
+    { label: "Interests", value: interests || "Custom route", icon: BadgeCheck },
+    { label: "Regions", value: regions.slice(0, 3).join(", ") || "Georgia", icon: MapPin },
+  ].filter((item) => cleanText(item.value));
+
+  return (
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {snapshot.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div
+            key={item.label}
+            className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur"
+          >
+            <Icon className="h-5 w-5 text-amber-200" aria-hidden="true" />
+            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-amber-100">
+              {item.label}
+            </p>
+            <p className="mt-1 text-sm font-semibold leading-5 text-white">{item.value}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ResultSuccessHeader({
+  title,
+  overview,
+  formData,
+  regions,
+  actions,
+  headingRef,
+}: {
+  title: string;
+  overview: string;
+  formData: TripFormData;
+  regions: string[];
+  actions: ActionHandlers;
+  headingRef: RefObject<HTMLHeadingElement>;
+}) {
+  return (
+    <section className="overflow-hidden rounded-2xl border border-amber-900/15 bg-amber-950 text-white shadow-xl shadow-amber-950/20">
+      <div className="bg-[linear-gradient(135deg,#451a03_0%,#92400e_58%,#b45309_100%)] p-5 md:p-6">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1 text-sm font-semibold text-amber-50">
+              <CheckCircle2 className="h-4 w-4 text-amber-200" aria-hidden="true" />
+              Generated successfully
+            </div>
+            <h2
+              ref={headingRef}
+              tabIndex={-1}
+              className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-normal outline-none sm:text-5xl"
+            >
+              Your custom Georgia itinerary is ready
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-amber-50 sm:text-base">
+              Review your generated route, adjust the plan with local help,
+              or send it to TripMate Georgia to organize it as a private tour.
+            </p>
+            {title ? <p className="mt-4 text-lg font-semibold text-white">{title}</p> : null}
+            {overview ? (
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-amber-50/90">
+                {overview}
+              </p>
+            ) : null}
+          </div>
+
+          <ResultActionBar {...actions} />
+        </div>
+
+        <div className="mt-6">
+          <TripSnapshotCards formData={formData} regions={regions} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResultSectionNav() {
+  const links = [
+    { href: "#result-overview", label: "Overview" },
+    { href: "#daily-plan", label: "Daily Plan" },
+    { href: "#travel-tips", label: "Travel Tips" },
+    { href: "#food", label: "Food" },
+    { href: "#booking", label: "Booking" },
+  ];
+
+  return (
+    <nav
+      aria-label="Generated itinerary sections"
+      className="sticky top-16 z-20 overflow-x-auto rounded-2xl border bg-white/90 p-2 shadow-sm backdrop-blur"
+    >
+      <div className="flex gap-2">
+        {links.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-primary-soft hover:text-foreground"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+function OverviewCard({
+  title,
+  overview,
+  regions,
+  days,
+}: {
+  title: string;
+  overview: string;
+  regions: string[];
+  days: ItineraryDay[];
+}) {
+  const routeSummary = days
+    .map((day) => cleanText(day.region))
+    .filter(Boolean)
+    .filter((region, index, array) => array.indexOf(region) === index)
+    .join(" -> ");
+
+  return (
+    <section id="result-overview" className="scroll-mt-28 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm md:p-6">
+      <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">Overview</p>
+      <h3 className="mt-2 text-2xl font-semibold tracking-tight">
+        {title || "Your Georgia route"}
+      </h3>
+      {overview ? (
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+          {overview}
+        </p>
+      ) : null}
+      {routeSummary ? (
+        <div className="mt-4 rounded-2xl border bg-muted/60 p-4 text-sm leading-6">
+          <span className="font-semibold text-foreground">Generated route: </span>
+          <span className="text-muted-foreground">{routeSummary}</span>
+        </div>
+      ) : null}
+      {regions.length > 0 ? (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {regions.map((region) => (
+            <span
+              key={region}
+              className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-foreground ring-1 ring-primary/25"
+            >
+              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+              {region}
+            </span>
+          ))}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+function DetailBlock({
+  label,
+  value,
+  icon: Icon,
+}: {
+  label: string;
+  value: string;
+  icon: LucideIcon;
+}) {
+  if (!cleanText(value)) return null;
+
+  return (
+    <div className="rounded-2xl border bg-white p-4">
+      <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        <Icon className="h-4 w-4 text-amber-700" aria-hidden="true" />
+        {label}
+      </div>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{value}</p>
+    </div>
+  );
+}
+
+function GeneratedDayCard({ day }: { day: ItineraryDay }) {
+  const title = cleanText(day.title);
+  const region = cleanText(day.region);
+
+  return (
+    <article className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm md:p-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+            Day {day.day}
+          </p>
+          {title ? <h4 className="mt-1 text-xl font-semibold tracking-tight">{title}</h4> : null}
+        </div>
+        {region ? (
+          <span className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5 text-amber-700" aria-hidden="true" />
+            {region}
+          </span>
+        ) : null}
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <DetailBlock label="Morning" value={day.morning} icon={CalendarDays} />
+        <DetailBlock label="Afternoon" value={day.afternoon} icon={Sparkles} />
+        <DetailBlock label="Evening" value={day.evening} icon={MapPin} />
+      </div>
+
+      <div className="mt-3 grid gap-3 md:grid-cols-2">
+        {cleanText(day.foodSuggestion) ? (
+          <div className="rounded-2xl border bg-amber-50/70 p-4">
+            <div className="flex items-center gap-2 text-sm font-semibold text-amber-950">
+              <Utensils className="h-4 w-4 text-amber-700" aria-hidden="true" />
+              Food suggestion
+            </div>
+            <p className="mt-2 text-sm leading-6 text-amber-950/75">
+              {day.foodSuggestion}
+            </p>
+          </div>
+        ) : null}
+        {cleanText(day.travelTip) ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <div className="flex items-center gap-2 text-sm font-semibold text-amber-950">
+              <Lightbulb className="h-4 w-4 text-amber-700" aria-hidden="true" />
+              Travel tip
+            </div>
+            <p className="mt-2 text-sm leading-6 text-amber-950/75">{day.travelTip}</p>
+          </div>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+function DayPlanSection({ days }: { days: ItineraryDay[] }) {
+  return (
+    <section id="daily-plan" className="scroll-mt-28 space-y-4">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+          Daily plan
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight">
+          Your day-by-day Georgia route
+        </h3>
+      </div>
+      {days.length > 0 ? (
+        <div className="space-y-4">
+          {days.map((day) => (
+            <GeneratedDayCard key={`${day.day}-${day.title}`} day={day} />
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-stone-200 bg-white p-5 text-sm leading-6 text-muted-foreground">
+          Your trip was generated, but no day-by-day plan was returned. Create
+          another trip or request local help and we will organize the route.
+        </div>
+      )}
+    </section>
+  );
+}
+
+function SummaryList({
+  title,
+  items,
+  id,
+}: {
+  title: string;
+  items?: string[];
+  id?: string;
+}) {
+  const visibleItems = cleanList(items);
+  if (visibleItems.length === 0) return null;
+
+  return (
+    <section id={id} className={id ? "scroll-mt-28" : undefined}>
+      <h4 className="text-sm font-semibold text-foreground">{title}</h4>
+      <ul className="mt-2 space-y-2">
+        {visibleItems.map((item) => (
+          <li key={item} className="flex gap-2 text-sm leading-6 text-muted-foreground">
+            <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-amber-700" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function ResultSummarySidebar({ result }: { result: ItineraryResultType }) {
+  const estimatedBudget = cleanText(result.estimatedBudget);
+  const totalPrice = cleanText(result.totalPrice);
+  const pricePerPerson = cleanText(result.pricePerPerson);
+
+  return (
+    <aside className="space-y-4 lg:sticky lg:top-24">
+      <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+          Quick summary
+        </p>
+        {estimatedBudget ? (
+          <div className="mt-4 rounded-2xl bg-primary-soft p-4 ring-1 ring-primary/20">
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">
+              Estimated budget
+            </p>
+            <p className="mt-1 text-lg font-semibold text-foreground">
+              {estimatedBudget}
+            </p>
+          </div>
+        ) : null}
+        <div className="mt-4 space-y-4">
+          {totalPrice ? (
+            <div>
+              <p className="text-sm font-semibold text-foreground">Total price</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{totalPrice}</p>
+            </div>
+          ) : null}
+          {pricePerPerson ? (
+            <div>
+              <p className="text-sm font-semibold text-foreground">Price per person</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{pricePerPerson}</p>
+            </div>
+          ) : null}
+          <SummaryList title="Best for" items={result.bestFor} />
+          <SummaryList title="Included services" items={result.includedServices} />
+          <SummaryList title="Not included" items={result.notIncludedServices} />
+          <SummaryList title="Packing tips" items={result.packingTips} />
+          <SummaryList title="Transport tips" items={result.transportTips} id="travel-tips" />
+          <SummaryList title="Local food to try" items={result.localFoodToTry} id="food" />
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function BookingNextStepCard({
+  bookingSuggestion,
+  actions,
+}: {
+  bookingSuggestion: string;
+  actions: ActionHandlers;
+}) {
+  return (
+    <section
+      id="booking"
+      className="scroll-mt-28 overflow-hidden rounded-2xl border border-amber-900/15 bg-amber-950 text-white shadow-xl shadow-amber-950/20"
+    >
+      <div className="bg-[linear-gradient(135deg,#451a03_0%,#92400e_58%,#b45309_100%)] p-5 md:p-6">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-100">
+              Booking support
+            </p>
+            <h3 className="mt-2 text-2xl font-semibold tracking-tight">
+              Next step: turn this plan into a real private trip
+            </h3>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-amber-50">
+              TripMate Georgia can help with transport, pickup, timing, route
+              details, family needs, and local recommendations.
+            </p>
+            {bookingSuggestion ? (
+              <div className="mt-4 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-6 text-amber-50">
+                {bookingSuggestion}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-col gap-3">
+            <Button
+              type="button"
+              variant="inverse"
+              onClick={actions.onWhatsApp}
+              className="h-11 rounded-full px-5"
+            >
+              <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+              WhatsApp booking request
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={actions.onEmail}
+              className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+            >
+              <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
+              Email request
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={actions.onDownload}
+              className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+            >
+              <Download className="mr-2 h-4 w-4" aria-hidden="true" />
+              Download / Print PDF
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ItineraryResult({
   result,
   formData,
   onReset,
 }: ItineraryResultProps) {
-  const mapRegions = useMemo(
-    () => getUniqueRegions(result.days),
-    [result.days],
-  );
-  const whatsappBookingUrl = useMemo(
-    () => buildWhatsAppUrl(formData),
-    [formData],
-  );
+  const resultRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const days = useMemo(() => result.days ?? [], [result.days]);
+  const title = cleanText(result.tripTitle);
+  const overview = cleanText(result.overview);
+  const bookingSuggestion = cleanText(result.bookingSuggestion);
+  const mapRegions = useMemo(() => getUniqueRegions(days), [days]);
+  const whatsappBookingUrl = useMemo(() => buildWhatsAppUrl(formData), [formData]);
+
+  useEffect(() => {
+    resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const focusTimer = window.setTimeout(() => headingRef.current?.focus(), 350);
+
+    return () => window.clearTimeout(focusTimer);
+  }, []);
 
   const handleBookingHelp = () => {
     trackEvent("booking_whatsapp_click", {
@@ -191,7 +695,7 @@ export function ItineraryResult({
   const handleDownloadPdf = () => {
     trackEvent("itinerary_pdf_download_click", {
       trip_title: result.tripTitle,
-      days: result.days.length,
+      days: days.length,
     });
     const printFrame = document.createElement("iframe");
 
@@ -205,8 +709,9 @@ export function ItineraryResult({
     document.body.appendChild(printFrame);
 
     const printDocument = printFrame.contentWindow?.document;
+    const printWindow = printFrame.contentWindow;
 
-    if (!printDocument || !printFrame.contentWindow) {
+    if (!printDocument || !printWindow) {
       printFrame.remove();
       return;
     }
@@ -216,241 +721,52 @@ export function ItineraryResult({
     printDocument.close();
 
     printFrame.onload = () => {
-      printFrame.contentWindow?.focus();
-      printFrame.contentWindow?.print();
-
-      setTimeout(() => {
-        printFrame.remove();
-      }, 1000);
+      try {
+        printWindow.focus();
+        printWindow.print();
+      } finally {
+        window.setTimeout(() => {
+          printFrame.remove();
+        }, 1000);
+      }
     };
   };
 
-  const summary = useMemo(
-    () => [
-      ,
-      { title: "Estimated Budget", items: [result.estimatedBudget] },
-      { title: "Best For", items: result.bestFor },
-      { title: "Packing Tips", items: result.packingTips },
-      { title: "Transport Tips", items: result.transportTips },
-      { title: "Local Food To Try", items: result.localFoodToTry },
-    ],
-    [result],
-  );
+  const actions = {
+    onWhatsApp: handleBookingHelp,
+    onEmail: handleEmailBookingHelp,
+    onDownload: handleDownloadPdf,
+    onReset,
+  };
 
   return (
-    <section className="space-y-6" aria-live="polite">
-      <Card className="border-border shadow-sm" bordered>
-        <div className="space-y-4">
-          <div>
-            <Tag color="green" className="mb-3">
-              AI itinerary
-            </Tag>
-            <h3 className="text-2xl font-semibold text-foreground">
-              {result.tripTitle}
-            </h3>
-            <p className="mt-2 max-w-4xl text-muted-foreground">
-              {result.overview}
-            </p>
-          </div>
+    <section ref={resultRef} className="scroll-mt-24 space-y-5" aria-live="polite">
+      <ResultSuccessHeader
+        title={title}
+        overview={overview}
+        formData={formData}
+        regions={mapRegions}
+        actions={actions}
+        headingRef={headingRef}
+      />
+      <ResultSectionNav />
 
-          <div className="flex flex-wrap gap-2">
-            {mapRegions.map((region) => (
-              <Tag key={region} color="success">
-                {region}
-              </Tag>
-            ))}
-          </div>
-        </div>
-      </Card>
-
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="space-y-4">
-          <Card
-            title={
-              <span className="inline-flex items-center gap-2">
-                <CalendarDays
-                  className="h-4 w-4 text-primary"
-                  aria-hidden="true"
-                />
-                Day-by-day plan
-              </span>
-            }
-            className="border-border shadow-sm"
-          >
-            <Timeline
-              items={result.days.map((day) => ({
-                color: "green",
-                children: (
-                  <div className="space-y-3">
-                    <div>
-                      <p className="font-semibold text-foreground">
-                        Day {day.day}: {day.title}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {day.region}
-                      </p>
-                    </div>
-                    <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                      <li>
-                        <span className="font-medium text-foreground">
-                          Morning:
-                        </span>{" "}
-                        {day.morning}
-                      </li>
-                      <li>
-                        <span className="font-medium text-foreground">
-                          Afternoon:
-                        </span>{" "}
-                        {day.afternoon}
-                      </li>
-                      <li>
-                        <span className="font-medium text-foreground">
-                          Evening:
-                        </span>{" "}
-                        {day.evening}
-                      </li>
-                      <li>
-                        <span className="font-medium text-foreground">
-                          Food:
-                        </span>{" "}
-                        {day.foodSuggestion}
-                      </li>
-                      <li>
-                        <span className="font-medium text-foreground">
-                          Travel tip:
-                        </span>{" "}
-                        {day.travelTip}
-                      </li>
-                    </ul>
-                  </div>
-                ),
-              }))}
-            />
-          </Card>
-
-          <Collapse
-            bordered
-            className="bg-card"
-            items={[
-              {
-                key: "cards",
-                label: "Open detailed day cards",
-                children: (
-                  <div className="space-y-4">
-                    {result.days.map((day) => (
-                      <ItineraryDayCard key={day.day} dayData={day} />
-                    ))}
-                  </div>
-                ),
-              },
-            ]}
-          />
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+        <div className="space-y-5">
+          <OverviewCard title={title} overview={overview} regions={mapRegions} days={days} />
+          <DayPlanSection days={days} />
         </div>
 
-        <aside>
-          <Card title="Quick summary" className="border-border shadow-sm">
-            <div className="space-y-4">
-              {summary.map((section) => (
-                <div key={section?.title}>
-                  <p className="mb-2 font-medium text-foreground">
-                    {section?.title}
-                  </p>
-                  <List
-                    size="small"
-                    dataSource={section?.items}
-                    renderItem={(item) => (
-                      <List.Item className="px-0">
-                        <span className="text-sm text-muted-foreground">
-                          • {item}
-                        </span>
-                      </List.Item>
-                    )}
-                  />
-                </div>
-              ))}
-            </div>
-          </Card>
-        </aside>
+        <ResultSummarySidebar result={result} />
       </div>
 
-      {/* <Card className="border-border shadow-sm">
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">
-              Total price
-            </p>
-            <p className="mt-1 font-semibold text-foreground">
-              {result.totalPrice}
-            </p>
-          </div>
+      <BookingNextStepCard bookingSuggestion={bookingSuggestion} actions={actions} />
 
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">
-              Estimated budget
-            </p>
-            <p className="mt-1 font-semibold text-foreground">
-              {result.estimatedBudget}
-            </p>
-          </div>
-        </div>
-      </Card> */}
-
-      <Card className="border-border shadow-sm">
-        <div className="flex items-start gap-3">
-          <Utensils className="mt-1 h-5 w-5 text-primary" aria-hidden="true" />
-          <div>
-            <h4 className="font-semibold text-foreground">
-              Booking suggestion
-            </h4>
-            <p className="mt-[4px] text-sm text-muted-foreground">
-              {result.bookingSuggestion}
-            </p>
-          </div>
-        </div>
-      </Card>
-
-      <div className="rounded-lg border bg-primary/5 p-5">
-        <p className="font-medium">
-          Want this trip organized by a local guide?
-        </p>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          I can help you turn this itinerary into a real private tour with
-          transport, route planning, and local recommendations.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-3">
-          <Button type="button" onClick={handleBookingHelp} className="gap-2">
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 32 32"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M16.01 3.2c-7.01 0-12.72 5.61-12.72 12.51 0 2.21.59 4.36 1.71 6.25L3.2 28.8l7.03-1.78a12.91 12.91 0 0 0 5.78 1.39c7.02 0 12.73-5.61 12.73-12.51S23.03 3.2 16.01 3.2Zm0 22.99c-1.86 0-3.69-.49-5.29-1.43l-.38-.22-4.17 1.06 1.11-4.01-.25-.41a10.24 10.24 0 0 1-1.52-5.47c0-5.68 4.71-10.29 10.5-10.29s10.51 4.61 10.51 10.29-4.72 10.48-10.51 10.48Zm5.77-7.72c-.31-.16-1.86-.9-2.15-1-.29-.11-.5-.16-.71.15-.21.31-.82 1-.99 1.2-.18.21-.37.23-.68.08-.31-.16-1.32-.48-2.51-1.52-.93-.82-1.56-1.83-1.74-2.14-.18-.31-.02-.48.14-.63.14-.14.31-.36.47-.54.15-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.71-1.68-.97-2.3-.26-.6-.52-.52-.71-.53h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.06-1.1 2.59s1.13 3.01 1.29 3.22c.16.21 2.23 3.35 5.39 4.69.75.32 1.34.51 1.8.66.76.24 1.45.21 1.99.13.61-.09 1.86-.75 2.12-1.47.26-.73.26-1.35.18-1.47-.08-.13-.29-.21-.6-.36Z" />
-            </svg>
-            Request This Trip on WhatsApp
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleEmailBookingHelp}
-            className="gap-2"
-          >
-            <Mail className="h-4 w-4" aria-hidden="true" />
-            Request via Email
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleDownloadPdf}
-            className="gap-2"
-          >
-            <Download className="h-4 w-4" aria-hidden="true" />
-            Download PDF
-          </Button>
-          <Button variant="outline" onClick={onReset}>
-            Create Another Trip
-          </Button>
-        </div>
+      <div className="flex justify-center">
+        <Button type="button" variant="ghost" onClick={onReset} className="rounded-full">
+          <RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+          Create another trip
+        </Button>
       </div>
     </section>
   );

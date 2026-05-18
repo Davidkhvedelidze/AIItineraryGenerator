@@ -33,7 +33,7 @@ export function SeoCTA({
           href={secondaryHref}
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "border-primary/30 bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
+            "border-primary/40 bg-primary-soft text-foreground hover:bg-primary/20 hover:text-foreground",
           )}
         >
           {secondaryLabel}

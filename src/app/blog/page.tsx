@@ -21,7 +21,7 @@ export default async function BlogPage() {
       <main className="container flex-1 py-4">
         <div className="mx-auto max-w-6xl space-y-8">
           <header className="max-w-3xl space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary">Travel insights</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">Travel insights</p>
             <h1 className="text-4xl font-semibold tracking-tight">Georgia Travel Blog</h1>
             <p className="text-muted-foreground">
               Practical Georgia travel guides to help you plan realistic routes, choose the best

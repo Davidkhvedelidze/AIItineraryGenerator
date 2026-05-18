@@ -18,6 +18,9 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "primary-hover": "hsl(var(--primary-hover))",
+        "primary-soft": "hsl(var(--primary-soft))",
+        "secondary-gold": "hsl(var(--secondary-gold))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))"
