@@ -3,13 +3,10 @@
 import { useState } from "react";
 import { Drawer } from "antd";
 import {
-  BadgeCheck,
   CalendarCheck,
   ExternalLink,
   MessageCircle,
-  PlaneLanding,
   ShieldCheck,
-  Users,
 } from "lucide-react";
 import { getTourPriceSummary } from "@/lib/tour-pricing";
 import type { Tour } from "@/types/sanity-tour";
