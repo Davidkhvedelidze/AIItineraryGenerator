@@ -61,7 +61,7 @@ export function TourHero({ tour }: TourHeroProps) {
   return (
     <section className="bg-background pt-4 sm:pt-5">
       <div className="container">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-slate-950 text-white shadow-xl ring-1 ring-black/5">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-black text-white shadow-xl ring-1 ring-black/5">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -73,10 +73,10 @@ export function TourHero({ tour }: TourHeroProps) {
               className="absolute inset-0 h-full w-full object-cover opacity-80"
             />
           ) : (
-            <div className="absolute inset-0 bg-[linear-gradient(135deg,hsl(25_88%_14%),hsl(32_95%_29%)_52%,hsl(42_86%_42%))]" />
+            <div className="absolute inset-0 bg-[#F5B700]" />
           )}
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,20,16,0.92)_0%,rgba(5,20,16,0.72)_48%,rgba(5,20,16,0.24)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950/85 to-transparent" />
+          <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-black/35" />
 
           <div className="relative flex min-h-[460px] items-end p-5 sm:min-h-[500px] sm:p-8 lg:min-h-[520px] lg:p-10">
             <div className="w-full max-w-5xl space-y-5">

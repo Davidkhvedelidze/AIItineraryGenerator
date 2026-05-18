@@ -51,12 +51,12 @@ export function HowItWorks() {
             return (
               <article
                 key={step.title}
-                className="relative overflow-hidden rounded-2xl border border-stone-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-950/10"
+                className="relative overflow-hidden rounded-2xl border border-stone-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-yellow-900/10"
               >
                 <div className="absolute right-4 top-3 font-serif text-5xl font-semibold text-stone-300">
                   {step.kicker}
                 </div>
-                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-amber-900 text-amber-200">
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#F5B700] text-stone-950">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="relative mt-5 text-lg font-semibold leading-7 text-foreground">
@@ -70,9 +70,9 @@ export function HowItWorks() {
           })}
         </div>
 
-        <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-amber-900/10 bg-amber-900 px-5 py-4 text-sm leading-6 text-amber-50 shadow-lg shadow-amber-950/10 sm:flex-row sm:items-center">
+        <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-yellow-200 bg-[#F5B700] px-5 py-4 text-sm leading-6 text-stone-950 shadow-lg shadow-yellow-900/10 sm:flex-row sm:items-center">
           <Sparkles
-            className="h-5 w-5 shrink-0 text-amber-200"
+            className="h-5 w-5 shrink-0 text-stone-950"
             aria-hidden="true"
           />
           <span>

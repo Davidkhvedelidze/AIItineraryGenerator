@@ -212,18 +212,18 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
       </motion.form>
 
       {isLoading && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-amber-950/45 px-4 backdrop-blur-sm" role="presentation">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 backdrop-blur-sm" role="presentation">
           <motion.div
             aria-describedby="trip-generation-modal-description"
             aria-labelledby="trip-generation-modal-title"
             aria-modal="true"
-            className="w-full max-w-md rounded-2xl border border-amber-100 bg-card p-6 text-center shadow-2xl shadow-amber-950/25"
+            className="w-full max-w-md rounded-2xl border border-amber-100 bg-card p-6 text-center shadow-2xl shadow-yellow-900/20"
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             role="dialog"
           >
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-900">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-stone-900">
               <LoaderCircle className="h-6 w-6 animate-spin" aria-hidden="true" />
             </div>
             <h3 id="trip-generation-modal-title" className="text-lg font-semibold">

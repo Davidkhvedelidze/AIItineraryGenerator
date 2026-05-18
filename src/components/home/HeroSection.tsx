@@ -46,7 +46,7 @@ const heroStats = [
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-amber-950 text-white">
+    <section className="relative isolate overflow-hidden bg-black text-white">
       <Image
         src={heroImage}
         alt="Gergeti Trinity Church and Mount Kazbek in Kazbegi, Georgia"
@@ -55,8 +55,8 @@ export function HeroSection() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(69,26,3,0.34)_0%,rgba(120,53,15,0.22)_26%,rgba(146,64,14,0.14)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-amber-950/95 to-transparent" />
+      <div className="absolute inset-0 bg-black/45" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-black/35" />
       <div className="container relative py-14 sm:py-16 md:py-20 lg:py-24">
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-3 py-1 text-sm font-semibold text-amber-50 shadow-sm backdrop-blur">
@@ -77,7 +77,7 @@ export function HeroSection() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="#trip-planner"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-amber-950/20 transition hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-xl"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-xl"
             >
               Generate Custom Itinerary
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -92,7 +92,7 @@ export function HeroSection() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/30 bg-amber-950/20 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-amber-950/30"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/30 bg-black/20 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-black/30"
             >
               <MessageCircle
                 className="h-4 w-4 text-amber-200"
@@ -125,7 +125,7 @@ export function HeroSection() {
             return (
               <div
                 key={item.label}
-                className="rounded-2xl border border-white/18 bg-white/12 p-4 shadow-lg shadow-amber-950/20 backdrop-blur"
+                className="rounded-2xl border border-white/18 bg-white/12 p-4 shadow-lg shadow-black/20 backdrop-blur"
               >
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100">
                   <Icon className="h-4 w-4" aria-hidden="true" />
@@ -139,7 +139,7 @@ export function HeroSection() {
           })}
         </div>
 
-        <div className="mt-6 flex max-w-5xl flex-col gap-3 rounded-2xl border border-white/16 bg-amber-950/36 p-4 text-sm leading-6 text-amber-50 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex max-w-5xl flex-col gap-3 rounded-2xl border border-white/16 bg-black/35 p-4 text-sm leading-6 text-amber-50 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <span className="inline-flex items-center gap-2 font-semibold text-white">
             <CalendarDays
               className="h-4 w-4 text-amber-200"

@@ -46,22 +46,22 @@ function TripPlannerPlaceholder({
       className="scroll-mt-24 bg-[hsl(42_48%_96%/0.78)] py-12 md:py-16"
     >
       <div className="container">
-        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-amber-950/10">
+        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10">
           <div className="grid gap-0 lg:grid-cols-[0.78fr_1fr]">
-            <div className="bg-amber-950 p-6 text-white md:p-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-3 py-1 text-sm font-semibold text-amber-100">
-                <ShieldCheck className="h-4 w-4 text-amber-200" aria-hidden="true" />
+            <div className="bg-[#F5B700] p-6 text-stone-950 md:p-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/25 px-3 py-1 text-sm font-semibold text-stone-950">
+                <ShieldCheck className="h-4 w-4 text-amber-800" aria-hidden="true" />
                 Itinerary builder
               </div>
               <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight tracking-normal sm:text-5xl">
                 Tell us the trip. Get a route you can actually use.
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-amber-50 sm:text-base">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-stone-950 sm:text-base">
                 Share your dates, interests, group size, travel pace, pickup,
                 and route preferences. The planner creates a realistic Georgia
                 itinerary you can refine with local support.
               </p>
-              <div className="mt-6 rounded-2xl border border-amber-200/30 bg-amber-100/10 p-4 text-sm leading-6 text-amber-50">
+              <div className="mt-6 rounded-2xl border border-black/15 bg-white/25 p-4 text-sm leading-6 text-stone-950">
                 Free itinerary preview first. Booking support is optional after
                 you review the plan.
               </div>
