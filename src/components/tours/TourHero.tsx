@@ -4,14 +4,8 @@ import {
   ArrowRight,
   BadgeCheck,
   CalendarCheck,
-  Clock,
   ExternalLink,
-  MapPin,
-  Route,
-  Users,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { getTourPriceSummary } from "@/lib/tour-pricing";
 import type { Tour } from "@/types/sanity-tour";
 import { getSanityImageUrl } from "@/lib/sanity/image";
 import { normalizeExternalUrl } from "@/lib/utils";
@@ -20,14 +14,7 @@ type TourHeroProps = {
   tour: Tour;
 };
 
-type HeroFact = {
-  label: string;
-  value: string;
-  icon: LucideIcon;
-};
-
 export function TourHero({ tour }: TourHeroProps) {
-  const price = getTourPriceSummary(tour);
   const imageUrl = getSanityImageUrl(tour.mainImage, {
     width: 1800,
     height: 1000,
@@ -39,30 +26,6 @@ export function TourHero({ tour }: TourHeroProps) {
       [tour.groupType, tour.tourType, ...(tour.badges ?? [])].filter(Boolean),
     ),
   ).slice(0, 5);
-  const facts = [
-    tour.duration
-      ? { label: "Duration", value: tour.duration, icon: Clock }
-      : null,
-    tour.startingLocation
-      ? { label: "Starts", value: tour.startingLocation, icon: MapPin }
-      : null,
-    tour.endingLocation
-      ? { label: "Ends", value: tour.endingLocation, icon: Route }
-      : null,
-    tour.groupType || tour.maxTravelers
-      ? {
-          label: "Group",
-          value: [
-            tour.groupType,
-            tour.maxTravelers ? `up to ${tour.maxTravelers}` : null,
-          ]
-            .filter(Boolean)
-            .join(", "),
-          icon: Users,
-        }
-      : null,
-  ].filter((fact): fact is HeroFact => Boolean(fact));
-
   return (
     <section className="bg-background pt-4 sm:pt-5">
       <div className="">
@@ -81,7 +44,7 @@ export function TourHero({ tour }: TourHeroProps) {
             <div className="absolute inset-0 bg-[#F5B700]" />
           )}
           <div className="absolute inset-0 bg-black/5" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-black/" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-black/35" />
           <div className="container">
             <div className="relative flex min-h-[460px] items-end p-5 sm:min-h-[500px] sm:p-8 lg:min-h-[620px] lg:p-10">
               <div className="w-full max-w-5xl space-y-5">
@@ -109,37 +72,6 @@ export function TourHero({ tour }: TourHeroProps) {
                 <p className="max-w-3xl text-base leading-8 text-white/90 sm:text-lg">
                   {tour.excerpt}
                 </p>
-
-                {/* <div className="grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {price ? (
-                  <div className="rounded-2xl border border-white/20 bg-white/15 p-4 backdrop-blur">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-white/70">
-                      {price.label}
-                    </p>
-                    <p className="mt-1 text-2xl font-semibold">{price.value}</p>
-                    {price.helperText ? (
-                      <p className="mt-1 text-xs leading-5 text-white/70">
-                        {price.helperText}
-                      </p>
-                    ) : null}
-                  </div>
-                ) : null}
-                {facts.map((fact) => {
-                  const Icon = fact.icon;
-                  return (
-                    <div
-                      key={fact.label}
-                      className="rounded-2xl border border-white/20 bg-white/15 p-4 backdrop-blur"
-                    >
-                      <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
-                      <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-white/70">
-                        {fact.label}
-                      </p>
-                      <p className="mt-1 text-sm font-semibold text-white">{fact.value}</p>
-                    </div>
-                  );
-                })}
-              </div> */}
 
                 <div className="flex flex-wrap gap-3 pt-2">
                   {tour.directBookingEnabled !== false ? (
