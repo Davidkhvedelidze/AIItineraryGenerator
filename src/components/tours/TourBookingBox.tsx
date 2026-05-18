@@ -3,13 +3,10 @@
 import { useState } from "react";
 import { Drawer } from "antd";
 import {
-  BadgeCheck,
   CalendarCheck,
   ExternalLink,
   MessageCircle,
-  PlaneLanding,
   ShieldCheck,
-  Users,
 } from "lucide-react";
 import { getTourPriceSummary } from "@/lib/tour-pricing";
 import type { Tour } from "@/types/sanity-tour";
@@ -119,7 +116,7 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
           className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-background px-4 py-3 text-sm font-semibold text-foreground transition hover:bg-primary-soft"
         >
           <ExternalLink className="h-4 w-4" aria-hidden="true" />
-          Book on TripAdvisor
+          Book on TripAdvisor/Viator
         </a>
       ) : null}
 
