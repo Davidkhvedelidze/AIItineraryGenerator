@@ -41,9 +41,9 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
   const [open, setOpen] = useState(false);
   const price = getTourPriceSummary(tour);
   const tripadvisorUrl = normalizeExternalUrl(tour.tripadvisorUrl);
-  const pickupLine = tour.airport
-    ? `${tour.airport} transfer or custom pickup can be arranged.`
-    : tour.pickupInfo || "Pickup details are confirmed before the tour.";
+  // const pickupLine = tour.airport
+  //   ? `${tour.airport} transfer or custom pickup can be arranged.`
+  //   : tour.pickupInfo || "Pickup details are confirmed before the tour.";
 
   const content = (
     <div className="space-y-4">
