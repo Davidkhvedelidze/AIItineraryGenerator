@@ -17,7 +17,7 @@ type TourSlug = {
 const sanityFetchOptions =
   process.env.NODE_ENV === "development"
     ? { cache: "no-store" as const }
-    : { next: { revalidate: 3600 } };
+    : { next: { revalidate: 60 } };
 
 export async function getAllTours(): Promise<TourListItem[]> {
   try {

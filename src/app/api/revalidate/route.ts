@@ -32,6 +32,15 @@ function revalidateBlogPaths(slug: string | null) {
   }
 }
 
+function revalidateTourPaths(slug: string | null) {
+  revalidatePath("/tours");
+  revalidatePath("/sitemap.xml");
+
+  if (slug) {
+    revalidatePath(`/tours/${slug}`);
+  }
+}
+
 export async function POST(request: Request) {
   const configuredSecret = process.env.SANITY_REVALIDATE_SECRET?.trim();
 
@@ -62,18 +71,40 @@ export async function POST(request: Request) {
     );
   }
 
-  if (payload._type && payload._type !== "blogPost") {
+  const slug = getSlug(payload);
+
+  if (payload._type === "blogPost") {
+    revalidateBlogPaths(slug);
+
+    return NextResponse.json({
+      revalidated: true,
+      paths: slug ? ["/blog", `/blog/${slug}`, "/sitemap.xml"] : ["/blog", "/sitemap.xml"],
+    });
+  }
+
+  if (payload._type === "tour") {
+    revalidateTourPaths(slug);
+
+    return NextResponse.json({
+      revalidated: true,
+      paths: slug ? ["/tours", `/tours/${slug}`, "/sitemap.xml"] : ["/tours", "/sitemap.xml"],
+    });
+  }
+
+  if (payload._type) {
     return NextResponse.json({
       revalidated: false,
       message: `Ignored unsupported document type: ${payload._type}`,
     });
   }
 
-  const slug = getSlug(payload);
   revalidateBlogPaths(slug);
+  revalidateTourPaths(slug);
 
   return NextResponse.json({
     revalidated: true,
-    paths: slug ? ["/blog", `/blog/${slug}`, "/sitemap.xml"] : ["/blog", "/sitemap.xml"],
+    paths: slug
+      ? ["/blog", `/blog/${slug}`, "/tours", `/tours/${slug}`, "/sitemap.xml"]
+      : ["/blog", "/tours", "/sitemap.xml"],
   });
 }
