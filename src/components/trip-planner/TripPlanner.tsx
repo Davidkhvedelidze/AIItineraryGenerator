@@ -32,7 +32,7 @@ export function TripPlanner() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-xl shadow-amber-950/10 md:p-6">
+        <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-xl shadow-yellow-900/10 md:p-6">
           <TripPlannerForm isLoading={status === "loading"} onSubmit={generateItinerary} />
         </div>
 

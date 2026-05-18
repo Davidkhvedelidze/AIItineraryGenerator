@@ -12,7 +12,7 @@ export function TourCTA({ tripadvisorUrl, directBookingEnabled = true }: TourCTA
 
   return (
     <section className="overflow-hidden rounded-3xl border bg-card shadow-sm">
-      <div className="grid gap-6 bg-[linear-gradient(135deg,hsl(0_0%_100%),hsl(48_100%_92%))] p-5 md:p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+      <div className="grid gap-6 bg-yellow-50 p-5 md:p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
             Private customization
