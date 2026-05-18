@@ -18,9 +18,9 @@ export async function RelatedPosts({ currentSlug }: RelatedPostsProps) {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <article key={post.slug} className="rounded-lg border bg-card p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-primary">{post.category}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">{post.category}</p>
             <h3 className="mt-2 text-lg font-semibold">
-              <Link href={`/blog/${post.slug}`} className="hover:text-primary">
+              <Link href={`/blog/${post.slug}`} className="hover:text-amber-700">
                 {post.title}
               </Link>
             </h3>

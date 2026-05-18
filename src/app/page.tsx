@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { CTASection } from "@/components/home/CTASection";
@@ -9,6 +10,15 @@ import { DeferredTripPlanner } from "@/components/trip-planner/DeferredTripPlann
 import { getSiteUrl } from "@/lib/site";
 
 const siteUrl = getSiteUrl();
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "TripMate Georgia | AI Trip Planner & Private Tours in Georgia",
+  },
+  description:
+    "Plan a custom Georgia itinerary with AI and local experts. Browse private tours, adjust pickup and route details, and book a flexible trip across Georgia.",
+  alternates: { canonical: "/" },
+};
 
 const structuredData = {
   "@context": "https://schema.org",

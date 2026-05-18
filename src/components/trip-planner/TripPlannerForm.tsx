@@ -160,23 +160,23 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
   }, [onSubmit]);
 
   return (
-    <ConfigProvider theme={{ token: { borderRadius: 6, colorPrimary: "#15803d", colorSuccess: "#16a34a", colorInfo: "#059669", controlHeightLG: 44, fontFamily: "inherit" } }}>
+    <ConfigProvider theme={{ token: { borderRadius: 16, colorPrimary: "#F5B700", colorPrimaryHover: "#D99A00", colorSuccess: "#B45309", colorInfo: "#D99A00", colorBorder: "#d8cdbb", controlHeightLG: 46, fontFamily: "inherit" } }}>
       <motion.form className="space-y-7" initial="hidden" animate="visible" variants={formVariants} onSubmit={handleSubmit(handleFormSubmit)}>
         <motion.div variants={fieldVariants}>
           <FormStepIndicator currentStep={currentStep} progressPercentage={progressPercentage} />
         </motion.div>
 
-        <motion.div className="space-y-1" variants={fieldVariants}>
-          <h3 className="text-xl font-semibold">{stepConfig.title}</h3>
-          <p className="text-sm text-muted-foreground">{stepConfig.description}</p>
+        <motion.div className="rounded-2xl border border-stone-200 bg-stone-50/70 p-4" variants={fieldVariants}>
+          <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">{stepConfig.title}</h3>
+          <p className="mt-1 text-sm leading-6 text-stone-600">{stepConfig.description}</p>
         </motion.div>
 
         {currentStep === 1 && (
           <motion.div className="grid gap-4 sm:grid-cols-2" variants={formVariants}>
             {/* step 1 fields */}
-            <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="travelers">Travelers</Label><Input id="travelers" type="number" min={1} max={20} disabled={isLoading} className="h-11" {...register("travelers", { valueAsNumber: true })} />{errors.travelers && <p className="text-xs text-destructive">{errors.travelers.message}</p>}</motion.div>
+            <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="travelers">Travelers</Label><Input id="travelers" type="number" min={1} max={20} disabled={isLoading} className="h-11 rounded-xl border-stone-200 bg-stone-50/70" {...register("travelers", { valueAsNumber: true })} />{errors.travelers && <p className="text-xs text-destructive">{errors.travelers.message}</p>}</motion.div>
             <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="tourType">Tour Type</Label><Controller control={control} name="tourType" render={({ field }) => (<Select {...field} id="tourType" size="large" className="w-full" disabled={isLoading} options={tourTypeOptions} status={errors.tourType ? "error" : undefined} />)} />{errors.tourType && <p className="text-xs text-destructive">{errors.tourType.message}</p>}</motion.div>
-            <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}><Label htmlFor="travelDates">Travel Dates</Label><Controller control={control} name="travelDates" render={({ field }) => (<RangePicker id="travelDates" value={field.value?.length === 2 ? [dayjs(field.value[0]), dayjs(field.value[1])] : null} onChange={(dates) => {const nextTravelDates: [string, string] | undefined = dates?.[0] && dates?.[1] ? [dates[0].toISOString(), dates[1].toISOString()] : undefined; const nextTripLength = calculateTripLength(nextTravelDates); if (nextTripLength.days) setValue("days", nextTripLength.days, { shouldValidate: true }); field.onChange(nextTravelDates);}} onBlur={field.onBlur} showTime={{ format: "HH:mm", minuteStep: 15 }} format="MMM D, YYYY HH:mm" size="large" className="w-full" disabled={isLoading} status={errors.travelDates ? "error" : undefined} allowClear={false} />)} />{errors.travelDates && <p className="text-xs text-destructive">{errors.travelDates.message}</p>}<div className="flex min-h-11 items-center rounded-md border border-emerald-100 bg-emerald-50 px-3 text-sm text-emerald-950"><span className="font-medium">Trip length:&nbsp;</span>{tripLength.days ? `${tripLength.days} ${tripLength.days === 1 ? "day" : "days"} / ${tripLength.nights} ${tripLength.nights === 1 ? "night" : "nights"}` : "Select valid travel dates"}</div>{errors.days && <p className="text-xs text-destructive">{errors.days.message}</p>}</motion.div>
+            <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}><Label htmlFor="travelDates">Travel Dates</Label><Controller control={control} name="travelDates" render={({ field }) => (<RangePicker id="travelDates" value={field.value?.length === 2 ? [dayjs(field.value[0]), dayjs(field.value[1])] : null} onChange={(dates) => {const nextTravelDates: [string, string] | undefined = dates?.[0] && dates?.[1] ? [dates[0].toISOString(), dates[1].toISOString()] : undefined; const nextTripLength = calculateTripLength(nextTravelDates); if (nextTripLength.days) setValue("days", nextTripLength.days, { shouldValidate: true }); field.onChange(nextTravelDates);}} onBlur={field.onBlur} showTime={{ format: "HH:mm", minuteStep: 15 }} format="MMM D, YYYY HH:mm" size="large" className="w-full" disabled={isLoading} status={errors.travelDates ? "error" : undefined} allowClear={false} />)} />{errors.travelDates && <p className="text-xs text-destructive">{errors.travelDates.message}</p>}<div className="flex min-h-11 items-center rounded-2xl border border-primary/25 bg-primary-soft px-3 text-sm text-foreground"><span className="font-semibold">Trip length:&nbsp;</span>{tripLength.days ? `${tripLength.days} ${tripLength.days === 1 ? "day" : "days"} / ${tripLength.nights} ${tripLength.nights === 1 ? "night" : "nights"}` : "Select valid travel dates"}</div>{errors.days && <p className="text-xs text-destructive">{errors.days.message}</p>}</motion.div>
             <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="arrivalAirport">Arrival Airport</Label><Controller control={control} name="arrivalAirport" render={({ field }) => (<Select {...field} id="arrivalAirport" size="large" className="w-full" disabled={isLoading} options={airportOptions} status={errors.arrivalAirport ? "error" : undefined} />)} />{errors.arrivalAirport && <p className="text-xs text-destructive">{errors.arrivalAirport.message}</p>}</motion.div>
             <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="departureAirport">Departure Airport</Label><Controller control={control} name="departureAirport" render={({ field }) => (<Select {...field} id="departureAirport" size="large" className="w-full" disabled={isLoading} options={airportOptions} status={errors.departureAirport ? "error" : undefined} />)} />{errors.departureAirport && <p className="text-xs text-destructive">{errors.departureAirport.message}</p>}</motion.div>
           </motion.div>
@@ -194,7 +194,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
 
         {currentStep === 3 && (
           <motion.div className="grid gap-4 sm:grid-cols-2" variants={formVariants}>
-            <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="you@example.com" autoComplete="email" disabled={isLoading} className="h-11" {...register("email")} />{errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}</motion.div>
+            <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="email">Email</Label><Input id="email" type="email" placeholder="you@example.com" autoComplete="email" disabled={isLoading} className="h-11 rounded-xl border-stone-200 bg-stone-50/70" {...register("email")} />{errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}</motion.div>
             <motion.div className="space-y-2" variants={fieldVariants}><Label htmlFor="mobileNumber">Mobile Number (optional)</Label><Controller control={control} name="mobileNumber" render={({ field }) => (<AntInput {...field} id="mobileNumber" type="tel" size="large" placeholder="+995 555 12 34 56" autoComplete="tel" disabled={isLoading} status={errors.mobileNumber ? "error" : undefined} />)} />{errors.mobileNumber && <p className="text-xs text-destructive">{errors.mobileNumber.message}</p>}</motion.div>
             <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}><Label htmlFor="tourDescription">Tour Description (optional)</Label><Controller control={control} name="tourDescription" render={({ field }) => (<AntInput.TextArea {...field} id="tourDescription" placeholder="For a custom tour, paste overnight schedule, places to include, pace, accessibility needs, hotel style, special occasions, or anything else to personalize the offer." autoSize={{ minRows: 4, maxRows: 7 }} showCount maxLength={1000} disabled={isLoading} required={false} status={errors.tourDescription ? "error" : undefined} />)} />{errors.tourDescription && <p className="text-xs text-destructive">{errors.tourDescription.message}</p>}</motion.div>
             <motion.p className="sm:col-span-2 max-w-3xl text-xs leading-5 text-muted-foreground" variants={fieldVariants}>By submitting this form, you agree that TripMate Georgia can store your contact details and trip preferences to generate your itinerary and follow up about organizing the trip.</motion.p>
@@ -202,28 +202,28 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
         )}
 
         <motion.div className="flex flex-col gap-3 sm:flex-row sm:justify-between" variants={fieldVariants}>
-          <Button type="button" variant="outline" className="h-11 px-6" onClick={handleBack} disabled={isLoading || currentStep === 1}>Back</Button>
+          <Button type="button" variant="outline" className="h-11 rounded-full border-stone-300 px-6 text-foreground hover:bg-stone-50" onClick={handleBack} disabled={isLoading || currentStep === 1}>Back</Button>
           {currentStep < 3 ? (
-            <Button type="button" className="h-11 px-6" onClick={handleNext} disabled={isLoading}>Continue</Button>
+            <Button type="button" className="h-11 rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary-hover" onClick={handleNext} disabled={isLoading}>Continue</Button>
           ) : (
-            <Button type="submit" className="h-11 px-6" disabled={isLoading || selectedInterests.length === 0}>Generate My Trip</Button>
+            <Button type="submit" className="h-11 rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary-hover" disabled={isLoading || selectedInterests.length === 0}>Generate Custom Itinerary</Button>
           )}
         </motion.div>
       </motion.form>
 
       {isLoading && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-emerald-950/45 px-4 backdrop-blur-sm" role="presentation">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-amber-950/45 px-4 backdrop-blur-sm" role="presentation">
           <motion.div
             aria-describedby="trip-generation-modal-description"
             aria-labelledby="trip-generation-modal-title"
             aria-modal="true"
-            className="w-full max-w-md rounded-2xl border border-emerald-100 bg-card p-6 text-center shadow-2xl shadow-emerald-950/25"
+            className="w-full max-w-md rounded-2xl border border-amber-100 bg-card p-6 text-center shadow-2xl shadow-amber-950/25"
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             role="dialog"
           >
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-primary">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-900">
               <LoaderCircle className="h-6 w-6 animate-spin" aria-hidden="true" />
             </div>
             <h3 id="trip-generation-modal-title" className="text-lg font-semibold">

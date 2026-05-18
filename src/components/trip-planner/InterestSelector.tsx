@@ -25,8 +25,10 @@ function InterestSelectorComponent({ selectedInterests, onToggle, disabled = fal
             disabled={disabled}
             onClick={() => onToggle(interest.value)}
             className={cn(
-              "rounded-md border px-3 py-2 text-left text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              isSelected ? "border-primary bg-primary/10 text-primary" : "border-input bg-background hover:bg-accent"
+              "rounded-xl border px-3 py-2 text-left text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              isSelected
+                ? "border-primary bg-primary-soft text-foreground shadow-sm"
+                : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50 hover:text-foreground"
             )}
           >
             {interest.label}
