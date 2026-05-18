@@ -69,7 +69,7 @@ export function PopularTripIdeas() {
               <article
                 key={idea.slug}
                 className={cn(
-                  "group overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-amber-950/10",
+                  "group overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-yellow-900/10",
                   isFeatured &&
                     "lg:col-span-2 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]",
                 )}
@@ -92,7 +92,7 @@ export function PopularTripIdeas() {
                     }
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-amber-950/70 via-amber-950/10 to-transparent" />
+                  <div className="absolute inset-0 bg-black/35" />
                   <span className="absolute bottom-4 left-4 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground shadow-sm">
                     {idea.duration}
                   </span>

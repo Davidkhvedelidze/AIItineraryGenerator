@@ -139,8 +139,8 @@ function buildPrintableItineraryHtml(result: ItineraryResultType): string {
             line-height: 1.5;
             margin: 0;
           }
-          h1 { color: #92400e; font-size: 28px; margin: 0 0 10px; }
-          h2 { color: #b45309; font-size: 18px; margin: 0 0 4px; }
+          h1 { color: #D99A00; font-size: 28px; margin: 0 0 10px; }
+          h2 { color: #F5B700; font-size: 18px; margin: 0 0 4px; }
           h3 { color: #2a1607; font-size: 15px; margin: 22px 0 8px; }
           p { margin: 0 0 10px; }
           ul { margin: 8px 0 0 18px; padding: 0; }
@@ -220,7 +220,7 @@ function ResultActionBar({
         type="button"
         variant="outline"
         onClick={onEmail}
-        className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+        className="h-11 rounded-full border-black/20 bg-white/25 px-5 text-stone-950 hover:bg-white/40 hover:text-stone-950"
       >
         <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
         Email request
@@ -229,7 +229,7 @@ function ResultActionBar({
         type="button"
         variant="ghost"
         onClick={onReset}
-        className="h-11 rounded-full px-5 text-white/85 hover:bg-white/10 hover:text-white"
+        className="h-11 rounded-full px-5 text-stone-950/85 hover:bg-white/25 hover:text-stone-950"
       >
         <RefreshCcw className="mr-2 h-4 w-4" aria-hidden="true" />
         Create another trip
@@ -264,13 +264,13 @@ function TripSnapshotCards({
         return (
           <div
             key={item.label}
-            className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur"
+            className="rounded-2xl border border-black/10 bg-white/35 p-4 backdrop-blur"
           >
             <Icon className="h-5 w-5 text-amber-200" aria-hidden="true" />
-            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-amber-100">
+            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-amber-800">
               {item.label}
             </p>
-            <p className="mt-1 text-sm font-semibold leading-5 text-white">{item.value}</p>
+            <p className="mt-1 text-sm font-semibold leading-5 text-stone-950">{item.value}</p>
           </div>
         );
       })}
@@ -294,12 +294,12 @@ function ResultSuccessHeader({
   headingRef: RefObject<HTMLHeadingElement>;
 }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-amber-900/15 bg-amber-950 text-white shadow-xl shadow-amber-950/20">
-      <div className="bg-[linear-gradient(135deg,#451a03_0%,#92400e_58%,#b45309_100%)] p-5 md:p-6">
+    <section className="overflow-hidden rounded-2xl border border-yellow-200 bg-[#F5B700] text-stone-950 shadow-xl shadow-yellow-900/10">
+      <div className="p-5 md:p-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1 text-sm font-semibold text-amber-50">
-              <CheckCircle2 className="h-4 w-4 text-amber-200" aria-hidden="true" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/25 px-3 py-1 text-sm font-semibold text-stone-950">
+              <CheckCircle2 className="h-4 w-4 text-amber-800" aria-hidden="true" />
               Generated successfully
             </div>
             <h2
@@ -313,9 +313,9 @@ function ResultSuccessHeader({
               Review your generated route, adjust the plan with local help,
               or send it to TripMate Georgia to organize it as a private tour.
             </p>
-            {title ? <p className="mt-4 text-lg font-semibold text-white">{title}</p> : null}
+            {title ? <p className="mt-4 text-lg font-semibold text-stone-950">{title}</p> : null}
             {overview ? (
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-amber-50/90">
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-stone-950/85">
                 {overview}
               </p>
             ) : null}
@@ -464,22 +464,22 @@ function GeneratedDayCard({ day }: { day: ItineraryDay }) {
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {cleanText(day.foodSuggestion) ? (
           <div className="rounded-2xl border bg-amber-50/70 p-4">
-            <div className="flex items-center gap-2 text-sm font-semibold text-amber-950">
+            <div className="flex items-center gap-2 text-sm font-semibold text-stone-950">
               <Utensils className="h-4 w-4 text-amber-700" aria-hidden="true" />
               Food suggestion
             </div>
-            <p className="mt-2 text-sm leading-6 text-amber-950/75">
+            <p className="mt-2 text-sm leading-6 text-stone-950/75">
               {day.foodSuggestion}
             </p>
           </div>
         ) : null}
         {cleanText(day.travelTip) ? (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-            <div className="flex items-center gap-2 text-sm font-semibold text-amber-950">
+            <div className="flex items-center gap-2 text-sm font-semibold text-stone-950">
               <Lightbulb className="h-4 w-4 text-amber-700" aria-hidden="true" />
               Travel tip
             </div>
-            <p className="mt-2 text-sm leading-6 text-amber-950/75">{day.travelTip}</p>
+            <p className="mt-2 text-sm leading-6 text-stone-950/75">{day.travelTip}</p>
           </div>
         ) : null}
       </div>
@@ -597,23 +597,23 @@ function BookingNextStepCard({
   return (
     <section
       id="booking"
-      className="scroll-mt-28 overflow-hidden rounded-2xl border border-amber-900/15 bg-amber-950 text-white shadow-xl shadow-amber-950/20"
+      className="scroll-mt-28 overflow-hidden rounded-2xl border border-yellow-200 bg-[#F5B700] text-stone-950 shadow-xl shadow-yellow-900/10"
     >
-      <div className="bg-[linear-gradient(135deg,#451a03_0%,#92400e_58%,#b45309_100%)] p-5 md:p-6">
+      <div className="p-5 md:p-6">
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-amber-100">
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-800">
               Booking support
             </p>
             <h3 className="mt-2 text-2xl font-semibold tracking-tight">
               Next step: turn this plan into a real private trip
             </h3>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-amber-50">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-950">
               TripMate Georgia can help with transport, pickup, timing, route
               details, family needs, and local recommendations.
             </p>
             {bookingSuggestion ? (
-              <div className="mt-4 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-6 text-amber-50">
+              <div className="mt-4 rounded-2xl border border-black/10 bg-white/30 p-4 text-sm leading-6 text-stone-950">
                 {bookingSuggestion}
               </div>
             ) : null}
@@ -632,7 +632,7 @@ function BookingNextStepCard({
               type="button"
               variant="outline"
               onClick={actions.onEmail}
-              className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+              className="h-11 rounded-full border-black/20 bg-white/25 px-5 text-stone-950 hover:bg-white/40 hover:text-stone-950"
             >
               <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
               Email request
@@ -641,7 +641,7 @@ function BookingNextStepCard({
               type="button"
               variant="outline"
               onClick={actions.onDownload}
-              className="h-11 rounded-full border-white/35 bg-white/10 px-5 text-white hover:bg-white/15 hover:text-white"
+              className="h-11 rounded-full border-black/20 bg-white/25 px-5 text-stone-950 hover:bg-white/40 hover:text-stone-950"
             >
               <Download className="mr-2 h-4 w-4" aria-hidden="true" />
               Download / Print PDF

@@ -70,19 +70,19 @@ export function ExampleItinerary() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-amber-950/10">
-          <div className="border-b border-stone-200 bg-amber-950 p-5 text-white sm:p-6">
+        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10">
+          <div className="border-b border-yellow-200 bg-[#F5B700] p-5 text-stone-950 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-200">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-800">
                   Sample route
                 </p>
                 <h3 className="mt-2 font-serif text-3xl font-semibold tracking-normal">
                   4 days: Tbilisi, wine, mountains
                 </h3>
               </div>
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-semibold text-amber-50">
-                <MapPin className="h-4 w-4 text-amber-200" aria-hidden="true" />
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-black/15 bg-white/25 px-3 py-1 text-sm font-semibold text-stone-950">
+                <MapPin className="h-4 w-4 text-amber-800" aria-hidden="true" />
                 Tbilisi base
               </span>
             </div>
