@@ -28,7 +28,7 @@ export default function TripIdeasPage() {
       <main className="container flex-1 py-4">
         <div className="mx-auto max-w-4xl space-y-8">
           <header className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary">Trip inspiration</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">Trip inspiration</p>
             <h1 className="text-4xl font-semibold tracking-tight">Popular Georgia Trip Ideas</h1>
             <p className="text-muted-foreground">
               Compare ready-made Georgia route ideas and open each one for highlights, day-by-day
@@ -39,7 +39,7 @@ export default function TripIdeasPage() {
           <section className="grid gap-4 sm:grid-cols-2">
             {popularTripIdeas.map((idea) => (
               <article key={idea.slug} className="rounded-lg border bg-card p-6 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">{idea.duration}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">{idea.duration}</p>
                 <h2 className="mt-2 text-xl font-semibold">{idea.title}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">{idea.description}</p>
                 <p className="mt-4 text-sm text-muted-foreground">
@@ -47,7 +47,7 @@ export default function TripIdeasPage() {
                 </p>
                 <Link
                   href={`/trip-ideas/${idea.slug}`}
-                  className="mt-5 inline-flex w-fit items-center rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15"
+                  className="mt-5 inline-flex w-fit items-center rounded-md border border-primary/40 bg-primary-soft px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-primary/20"
                 >
                   View trip details
                 </Link>

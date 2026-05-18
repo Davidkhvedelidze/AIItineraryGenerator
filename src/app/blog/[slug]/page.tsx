@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           ) : null}
           <header className="space-y-4">
             {post.category ? (
-              <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+              <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
                 {post.category}
               </p>
             ) : null}
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                    className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-foreground ring-1 ring-primary/25"
                   >
                     {tag}
                   </li>
@@ -202,7 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       return (
                         <a
                           href={href}
-                          className="font-medium text-primary underline-offset-4 hover:underline"
+                          className="font-medium text-secondary-gold underline-offset-4 hover:text-amber-700 hover:underline"
                           rel={isExternal ? "noreferrer" : undefined}
                           target={isExternal ? "_blank" : undefined}
                         >

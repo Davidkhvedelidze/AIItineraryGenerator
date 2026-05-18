@@ -9,7 +9,7 @@ const siteName = "TripMate Georgia";
 const siteDescription =
   "Create a realistic Georgia travel itinerary with AI, then get local help for routes, food, transport, and booking support.";
 const socialImageUrl =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tbilisi_at_night%2C_Kura%2C_Georgia.jpg/1200px-Tbilisi_at_night%2C_Kura%2C_Georgia.jpg";
+  "https://tourguide.ge/wp-content/uploads/2019/07/tbilisi-at-night.jpeg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

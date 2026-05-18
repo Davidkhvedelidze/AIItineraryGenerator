@@ -61,7 +61,7 @@ export default async function TripIdeaDetailPage({ params }: TripIdeaDetailPageP
             />
           ) : null}
           <header className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-primary">{idea.duration}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">{idea.duration}</p>
             <h1 className="text-4xl font-semibold tracking-tight">{idea.title}</h1>
             <p className="text-muted-foreground">{idea.description}</p>
             <p className="text-sm text-muted-foreground">
@@ -83,7 +83,7 @@ export default async function TripIdeaDetailPage({ params }: TripIdeaDetailPageP
             <ol className="mt-4 space-y-3">
               {idea.itinerary.map((day) => (
                 <li key={day.day} className="rounded-lg border p-4">
-                  <p className="text-sm font-semibold text-primary">{day.day}</p>
+                  <p className="text-sm font-semibold text-amber-700">{day.day}</p>
                   <h3 className="mt-1 text-lg font-semibold">{day.title}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{day.details}</p>
                 </li>

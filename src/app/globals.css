@@ -4,44 +4,50 @@
 
 @layer base {
   :root {
-    --background: 145 45% 97%;
-    --foreground: 156 42% 10%;
+    --background: 45 100% 98.4%;
+    --foreground: 36.9 26.5% 9.6%;
     --card: 0 0% 100%;
-    --card-foreground: 156 42% 10%;
-    --primary: 151 76% 32%;
-    --primary-foreground: 144 60% 98%;
-    --secondary: 142 42% 92%;
-    --secondary-foreground: 156 42% 14%;
-    --muted: 140 34% 93%;
-    --muted-foreground: 155 16% 36%;
-    --accent: 149 54% 88%;
-    --accent-foreground: 156 45% 16%;
+    --card-foreground: 36.9 26.5% 9.6%;
+    --primary: 44.8 100% 48%;
+    --primary-hover: 42.6 100% 42.5%;
+    --primary-soft: 47.8 100% 91.8%;
+    --primary-foreground: 36.9 26.5% 9.6%;
+    --secondary-gold: 31 83% 22%;
+    --secondary: 48 70% 92%;
+    --secondary-foreground: 36.9 26.5% 9.6%;
+    --muted: 44 45% 92%;
+    --muted-foreground: 34 13% 36%;
+    --accent: 48 100% 92%;
+    --accent-foreground: 36.9 26.5% 9.6%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 145 28% 83%;
-    --input: 145 28% 83%;
-    --ring: 151 76% 32%;
+    --border: 42 34% 82%;
+    --input: 42 34% 82%;
+    --ring: 42.6 100% 42.5%;
     --radius: 0.6rem;
   }
 
   .dark {
-    --background: 155 44% 7%;
-    --foreground: 140 40% 96%;
+    --background: 36.9 26.5% 9.6%;
+    --foreground: 45 100% 98.4%;
     --card: 154 34% 10%;
     --card-foreground: 210 40% 98%;
-    --primary: 148 68% 48%;
-    --primary-foreground: 156 42% 10%;
+    --primary: 44.8 100% 48%;
+    --primary-hover: 42.6 100% 42.5%;
+    --primary-soft: 47.8 100% 91.8%;
+    --primary-foreground: 36.9 26.5% 9.6%;
+    --secondary-gold: 31 83% 22%;
     --secondary: 153 28% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 153 28% 17%;
     --muted-foreground: 145 18% 70%;
-    --accent: 152 35% 20%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 42 60% 18%;
+    --accent-foreground: 48 100% 92%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 153 24% 22%;
     --input: 153 24% 22%;
-    --ring: 148 68% 48%;
+    --ring: 45 100% 48%;
   }
 
   * {
@@ -54,9 +60,16 @@
 
   body {
     @apply bg-background text-foreground;
+    color-scheme: light;
     background-image:
-      radial-gradient(circle at top left, hsl(142 72% 88% / 0.38), transparent 32rem),
-      linear-gradient(180deg, hsl(145 45% 97%) 0%, hsl(138 43% 94%) 100%);
+      linear-gradient(180deg, hsl(45 100% 98.4%) 0%, hsl(47 86% 96%) 52%, hsl(42 64% 94%) 100%),
+      repeating-linear-gradient(90deg, hsl(38 92% 42% / 0.035) 0 1px, transparent 1px 118px),
+      repeating-linear-gradient(0deg, hsl(43 100% 43% / 0.04) 0 1px, transparent 1px 118px);
     background-attachment: fixed;
+  }
+
+  ::selection {
+    background: hsl(44.8 100% 48% / 0.42);
+    color: hsl(36.9 26.5% 9.6%);
   }
 }

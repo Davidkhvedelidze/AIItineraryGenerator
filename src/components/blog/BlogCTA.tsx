@@ -9,8 +9,8 @@ export function BlogCTA() {
         budget, interests, and group size.
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link href="/#trip-planner" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90">Generate Custom Itinerary</Link>
-        <Link href="/trip-ideas" className="rounded-md border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/15">Explore Trip Ideas</Link>
+        <Link href="/#trip-planner" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover">Generate Custom Itinerary</Link>
+        <Link href="/trip-ideas" className="rounded-md border border-primary/40 bg-primary-soft px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-primary/20">Explore Trip Ideas</Link>
       </div>
     </section>
   );

@@ -19,12 +19,14 @@ function BudgetSelectorComponent({ value, onChange }: BudgetSelectorProps) {
           type="button"
           onClick={() => onChange(option.value)}
           className={cn(
-            "rounded-md border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            value === option.value ? "border-primary bg-primary/10" : "hover:bg-accent"
+            "rounded-2xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            value === option.value
+              ? "border-primary bg-primary-soft shadow-sm"
+              : "border-stone-200 bg-white hover:bg-stone-50"
           )}
         >
-          <p className="font-medium">{option.label}</p>
-          <p className="text-xs text-muted-foreground">{option.description}</p>
+          <p className="font-semibold text-foreground">{option.label}</p>
+          <p className="mt-1 text-xs leading-5 text-stone-600">{option.description}</p>
         </button>
       ))}
     </div>
