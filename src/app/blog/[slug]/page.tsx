@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
+import { BlogCTA } from "@/components/blog/BlogCTA";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { FAQSection } from "@/components/seo/FAQSection";
-import { SeoCTA } from "@/components/seo/SeoCTA";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import { urlFor } from "@/lib/sanity/image";
 import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
@@ -218,7 +218,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {faqItems.length > 0 ? <FAQSection items={faqItems} /> : null}
 
-          <SeoCTA />
+          <BlogCTA cta={post.cta} />
 
           <RelatedPosts currentSlug={post.slug} />
         </article>
