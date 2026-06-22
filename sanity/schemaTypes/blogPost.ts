@@ -65,6 +65,44 @@ export const blogPost = defineType({
       rows: 3,
     }),
     defineField({
+      name: "cta",
+      title: "CTA",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "CTA Title",
+          type: "string",
+        }),
+        defineField({
+          name: "description",
+          title: "CTA Description",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "primaryButtonLabel",
+          title: "Primary Button Label",
+          type: "string",
+        }),
+        defineField({
+          name: "primaryButtonLink",
+          title: "Primary Button Link",
+          type: "string",
+        }),
+        defineField({
+          name: "secondaryButtonLabel",
+          title: "Secondary Button Label",
+          type: "string",
+        }),
+        defineField({
+          name: "secondaryButtonLink",
+          title: "Secondary Button Link",
+          type: "string",
+        }),
+      ],
+    }),
+    defineField({
       name: "faq",
       title: "FAQ",
       type: "array",

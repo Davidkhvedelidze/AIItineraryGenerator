@@ -22,7 +22,17 @@ export type BlogPostListItem = {
   metaDescription?: string;
 };
 
+export type BlogCTA = {
+  title?: string;
+  description?: string;
+  primaryButtonLabel?: string;
+  primaryButtonLink?: string;
+  secondaryButtonLabel?: string;
+  secondaryButtonLink?: string;
+};
+
 export type BlogPost = BlogPostListItem & {
+  cta?: BlogCTA;
   faq?: {
     question?: string;
     answer?: string;
