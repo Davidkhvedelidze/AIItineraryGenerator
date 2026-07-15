@@ -1,4 +1,5 @@
 import { BadgeCheck, Car, Clock, MapPin, Route, Utensils } from "lucide-react";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
 const itineraryDays = [
   {
@@ -38,7 +39,7 @@ export function ExampleItinerary() {
   return (
     <section className="bg-white/55 py-12 md:py-16">
       <div className="container grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-start">
-        <div className="lg:sticky lg:top-24">
+        <ScrollReveal className="lg:sticky lg:top-24">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-700">
             Route preview
           </p>
@@ -68,9 +69,12 @@ export function ExampleItinerary() {
               );
             })}
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10">
+        <ScrollReveal
+          delay={0.15}
+          className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10"
+        >
           <div className="border-b border-yellow-200 bg-[#F5B700] p-5 text-stone-950 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -110,7 +114,7 @@ export function ExampleItinerary() {
               </article>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

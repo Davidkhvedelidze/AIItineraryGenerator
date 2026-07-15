@@ -10,6 +10,7 @@ type CreateItineraryRequestPayload = {
   email: string;
   mobile_number: string | null;
   travelers: number;
+  /** [arrivalDateTime, departureDateTime] — index 0 is always the earlier date. */
   travel_dates: [string, string];
   arrival_airport: string;
   departure_airport: string;
@@ -130,5 +131,34 @@ export async function updateItineraryRequest(
   if (!response.ok) {
     const message = await parseSupabaseError(response);
     throw new Error(`Unable to update itinerary request: ${message}`);
+  }
+}
+
+/**
+ * Best-effort request logging: a Supabase outage must never block itinerary
+ * generation. Failures are logged server-side and swallowed here.
+ */
+export async function tryCreatePendingRequest(formData: TripFormData): Promise<string | null> {
+  try {
+    return await createItineraryRequest(formData);
+  } catch (error) {
+    console.error("Unable to create pending itinerary request; continuing without it.", error);
+    return null;
+  }
+}
+
+/** Best-effort update — never throws, so a successful itinerary response is never blocked by it. */
+export async function tryUpdateRequest(
+  requestId: string | null,
+  fields: Omit<UpdateItineraryRequestPayload, "updated_at">,
+): Promise<void> {
+  if (!requestId) {
+    return;
+  }
+
+  try {
+    await updateItineraryRequest(requestId, fields);
+  } catch (error) {
+    console.error("Unable to update itinerary request; continuing.", error);
   }
 }

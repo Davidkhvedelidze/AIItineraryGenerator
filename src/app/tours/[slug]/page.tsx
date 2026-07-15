@@ -23,7 +23,7 @@ import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
 import { getSanityImageUrl, hasSanityImage } from "@/lib/sanity/image";
 import { getSiteUrl } from "@/lib/site";
 import { getAllTours, getTourBySlug, getTourSlugs } from "@/lib/tours";
-import type { Tour, TourReview } from "@/types/sanity-tour";
+import type { Tour, TourPricingTier, TourReview } from "@/types/sanity-tour";
 
 type TourPageProps = {
   params: { slug: string };
@@ -41,7 +41,10 @@ function getAverageRating(reviews?: TourReview[]) {
   const ratedReviews = getRatedReviews(reviews);
   if (ratedReviews.length === 0) return null;
 
-  const total = ratedReviews.reduce((sum, review) => sum + (review.rating ?? 0), 0);
+  const total = ratedReviews.reduce(
+    (sum, review) => sum + (review.rating ?? 0),
+    0,
+  );
   return {
     average: Number((total / ratedReviews.length).toFixed(1)),
     count: ratedReviews.length,
@@ -68,7 +71,38 @@ function getBookingBoxTour(tour: Tour): TourBookingBoxTour {
   };
 }
 
-function buildTourJsonLd(tour: Tour, imageUrl: string | null, pageUrl: string) {
+function buildTourOffers(tour: Tour, pageUrl: string) {
+  const tiers = tour.pricingTiers?.filter(
+    (tier): tier is TourPricingTier & { price: number } => typeof tier.price === "number",
+  );
+
+  if (tiers && tiers.length > 1) {
+    const prices = tiers.map((tier) => tier.price);
+    return {
+      "@type": "AggregateOffer",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      priceCurrency: tiers[0].currency || tour.currency || "USD",
+      offerCount: tiers.length,
+      url: pageUrl,
+    };
+  }
+
+  if (typeof tour.priceFrom === "number" && tour.priceFrom > 0) {
+    return {
+      "@type": "Offer",
+      price: tour.priceFrom,
+      priceCurrency: tour.currency || "USD",
+      availability: "https://schema.org/InStock",
+      url: pageUrl,
+      description: tour.priceNote || undefined,
+    };
+  }
+
+  return undefined;
+}
+
+function buildTourJsonLd(tour: Tour, imageUrl: string | null, pageUrl: string, siteUrl: string) {
   const rating = getAverageRating(tour.reviews);
   const itineraryItems =
     tour.itinerary
@@ -80,49 +114,42 @@ function buildTourJsonLd(tour: Tour, imageUrl: string | null, pageUrl: string) {
         description: item.description,
         areaServed: item.region,
       })) ?? [];
-  const reviews =
-    tour.reviews
-      ?.filter((review) => review.text || review.reviewerName)
-      .slice(0, 5)
-      .map((review) => ({
-        "@type": "Review",
-        author: review.reviewerName
+  const reviews = tour.reviews
+    ?.filter((review) => review.text || review.reviewerName)
+    .slice(0, 5)
+    .map((review) => ({
+      "@type": "Review",
+      author: review.reviewerName
+        ? {
+            "@type": "Person",
+            name: review.reviewerName,
+          }
+        : undefined,
+      reviewBody: review.text,
+      reviewRating:
+        typeof review.rating === "number"
           ? {
-              "@type": "Person",
-              name: review.reviewerName,
+              "@type": "Rating",
+              ratingValue: review.rating,
+              bestRating: 5,
             }
           : undefined,
-        reviewBody: review.text,
-        reviewRating:
-          typeof review.rating === "number"
-            ? {
-                "@type": "Rating",
-                ratingValue: review.rating,
-                bestRating: 5,
-              }
-            : undefined,
-        datePublished: review.reviewDate,
-      }));
+      datePublished: review.reviewDate,
+    }));
 
   return {
     "@context": "https://schema.org",
-    "@type": ["TouristTrip", "Product"],
+    "@type": "TouristTrip",
     name: tour.title,
     description: tour.metaDescription || tour.excerpt,
     url: pageUrl,
     image: imageUrl ? [imageUrl] : undefined,
-    brand: {
-      "@type": "Organization",
-      name: "TripMate Georgia",
-    },
-    provider: {
-      "@type": "Organization",
-      name: tour.listingName || "TripMate Georgia",
-      telephone: tour.contactPhone,
-      address: tour.listingLocation,
-    },
+    provider: { "@id": `${siteUrl}/#organization` },
     touristType: tour.bestFor?.length ? tour.bestFor : undefined,
-    location: [tour.startingLocation, tour.endingLocation].filter(Boolean).join(" to ") || undefined,
+    location:
+      [tour.startingLocation, tour.endingLocation]
+        .filter(Boolean)
+        .join(" to ") || undefined,
     itinerary:
       itineraryItems.length > 0
         ? {
@@ -130,16 +157,7 @@ function buildTourJsonLd(tour: Tour, imageUrl: string | null, pageUrl: string) {
             itemListElement: itineraryItems,
           }
         : undefined,
-    offers:
-      typeof tour.priceFrom === "number" && tour.priceFrom > 0
-        ? {
-            "@type": "Offer",
-            price: tour.priceFrom,
-            priceCurrency: tour.currency || "USD",
-            availability: "https://schema.org/InStock",
-            url: pageUrl,
-          }
-        : undefined,
+    offers: buildTourOffers(tour, pageUrl),
     aggregateRating: rating
       ? {
           "@type": "AggregateRating",
@@ -153,21 +171,37 @@ function buildTourJsonLd(tour: Tour, imageUrl: string | null, pageUrl: string) {
 
 function TourSectionNav({ tour, hasFaq }: { tour: Tour; hasFaq: boolean }) {
   const links = [
-    { href: "#overview", label: "Overview", show: Boolean(tour.overview?.length) },
+    {
+      href: "#overview",
+      label: "Overview",
+      show: Boolean(tour.overview?.length),
+    },
     {
       href: "#gallery",
       label: "Gallery",
-      show: hasSanityImage(tour.mainImage) || Boolean(tour.gallery?.some(hasSanityImage)),
+      show:
+        hasSanityImage(tour.mainImage) ||
+        Boolean(tour.gallery?.some(hasSanityImage)),
     },
-    { href: "#highlights", label: "Highlights", show: Boolean(tour.highlights?.length) },
+    {
+      href: "#highlights",
+      label: "Highlights",
+      show: Boolean(tour.highlights?.length),
+    },
     {
       href: "#pricing",
       label: "Pricing",
       show: Boolean(
-        typeof tour.priceFrom === "number" || tour.pricingTiers?.length || tour.priceNote,
+        typeof tour.priceFrom === "number" ||
+        tour.pricingTiers?.length ||
+        tour.priceNote,
       ),
     },
-    { href: "#itinerary", label: "Itinerary", show: Boolean(tour.itinerary?.length) },
+    {
+      href: "#itinerary",
+      label: "Itinerary",
+      show: Boolean(tour.itinerary?.length),
+    },
     {
       href: "#included",
       label: "Included",
@@ -178,12 +212,12 @@ function TourSectionNav({ tour, hasFaq }: { tour: Tour; hasFaq: boolean }) {
       label: "Details",
       show: Boolean(
         tour.pickupInfo ||
-          tour.pickupLocations?.length ||
-          tour.departureTimes?.length ||
-          tour.operatingDays?.length ||
-          tour.cancellationPolicy ||
-          tour.requiredTravelerInfo?.length ||
-          tour.ageGroups?.length,
+        tour.pickupLocations?.length ||
+        tour.departureTimes?.length ||
+        tour.operatingDays?.length ||
+        tour.cancellationPolicy ||
+        tour.requiredTravelerInfo?.length ||
+        tour.ageGroups?.length,
       ),
     },
     {
@@ -199,7 +233,7 @@ function TourSectionNav({ tour, hasFaq }: { tour: Tour; hasFaq: boolean }) {
   return (
     <nav
       aria-label="Tour page sections"
-      className="sticky top-16 z-30 overflow-x-auto border-y bg-background/95 px-4 py-3 backdrop-blur"
+      className="sticky top-[var(--header-height)] z-30 overflow-x-auto border-y bg-background/95 px-4 py-3 backdrop-blur"
     >
       <div className="mx-auto flex max-w-6xl gap-2">
         {links.map((link) => (
@@ -267,7 +301,11 @@ function InclusionsSection({ tour }: { tour: Tour }) {
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <InclusionCard title="Included" items={tour.included} />
-        <InclusionCard title="Not included" items={tour.notIncluded} positive={false} />
+        <InclusionCard
+          title="Not included"
+          items={tour.notIncluded}
+          positive={false}
+        />
       </div>
     </section>
   );
@@ -278,10 +316,15 @@ function ImportantNotes({ notes }: { notes?: string[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section id="important-notes" className="scroll-mt-24 rounded-2xl border bg-card p-5 shadow-sm">
+    <section
+      id="important-notes"
+      className="scroll-mt-24 rounded-2xl border bg-card p-5 shadow-sm"
+    >
       <div className="flex items-center gap-2">
         <Info className="h-5 w-5 text-amber-700" aria-hidden="true" />
-        <h2 className="text-xl font-semibold tracking-tight">Important notes</h2>
+        <h2 className="text-xl font-semibold tracking-tight">
+          Important notes
+        </h2>
       </div>
       <ul className="mt-4 grid gap-2 text-sm leading-6 text-muted-foreground sm:grid-cols-2">
         {items.map((item) => (
@@ -300,7 +343,9 @@ export async function generateStaticParams() {
   return slugs.map((tour) => ({ slug: tour.slug }));
 }
 
-export async function generateMetadata({ params }: TourPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: TourPageProps): Promise<Metadata> {
   const tour = await getTourBySlug(params.slug);
 
   if (!tour) return { title: "Tour Not Found" };
@@ -355,12 +400,11 @@ export default async function TourDetailPage({ params }: TourPageProps) {
   });
   const faqItems =
     tour.faq
-      ?.filter(
-        (item): item is { question: string; answer: string } =>
-          Boolean(item.question && item.answer),
+      ?.filter((item): item is { question: string; answer: string } =>
+        Boolean(item.question && item.answer),
       )
       .map((item) => ({ question: item.question, answer: item.answer })) ?? [];
-  const tourJsonLd = buildTourJsonLd(tour, mainImageUrl, pageUrl);
+  const tourJsonLd = buildTourJsonLd(tour, mainImageUrl, pageUrl, siteUrl);
   const faqJsonLd = faqItems.length > 0 ? buildFAQJsonLd(faqItems) : null;
   const bookingTour = getBookingBoxTour(tour);
   const relatedTours = (await getAllTours())
@@ -396,14 +440,21 @@ export default async function TourDetailPage({ params }: TourPageProps) {
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
               <article className="space-y-10">
                 <TourOverview overview={tour.overview} />
-                <TourGallery mainImage={tour.mainImage} images={tour.gallery} title={tour.title} />
+                <TourGallery
+                  mainImage={tour.mainImage}
+                  images={tour.gallery}
+                  title={tour.title}
+                />
                 <TourHighlights highlights={tour.highlights} />
                 <TourPricing tour={tour} />
                 <TourItinerary items={tour.itinerary} />
                 <InclusionsSection tour={tour} />
                 <TourBookingDetails tour={tour} />
                 <ImportantNotes notes={tour.importantNotes} />
-                <TourReviews reviews={tour.reviews} tripadvisorUrl={tour.tripadvisorUrl} />
+                <TourReviews
+                  reviews={tour.reviews}
+                  tripadvisorUrl={tour.tripadvisorUrl}
+                />
 
                 {faqItems.length > 0 ? (
                   <div id="faq" className="scroll-mt-24">

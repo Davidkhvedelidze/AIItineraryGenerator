@@ -25,6 +25,11 @@
     --input: 42 34% 82%;
     --ring: 42.6 100% 42.5%;
     --radius: 0.6rem;
+
+    /* Shared sticky offsets: keep Header, TourSectionNav, and TourBookingBox
+       in sync so nothing scrolls under a bar above it. */
+    --header-height: 4rem;
+    --tour-nav-height: 3.5rem;
   }
 
   .dark {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
 const whatsappUrl =
   "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
@@ -8,7 +9,7 @@ export function CTASection() {
   return (
     <section className="py-12 md:py-16">
       <div className="container">
-        <div className="overflow-hidden rounded-2xl text-stone-950 shadow-xl shadow-yellow-900/10">
+        <ScrollReveal className="overflow-hidden rounded-2xl text-stone-950 shadow-xl shadow-yellow-900/10">
           <div className="grid gap-8 bg-[#F5B700] p-6 md:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-black/40 bg-white/10 px-3 py-1 text-sm font-semibold text-amber-700">
@@ -53,7 +54,7 @@ export function CTASection() {
               </a>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

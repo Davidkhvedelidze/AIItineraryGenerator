@@ -45,7 +45,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-background/90 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
-      <div className="container flex h-16 items-center justify-between gap-4">
+      <div className="container flex h-[var(--header-height)] items-center justify-between gap-4">
         <Link
           href="/"
           className="group inline-flex items-center gap-3 rounded-full pr-2 transition-opacity hover:opacity-90"

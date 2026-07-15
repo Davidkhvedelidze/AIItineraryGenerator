@@ -15,6 +15,73 @@ export function TourItinerary({ items }: TourItineraryProps) {
       .filter((item) => item.title || item.description || item.stops?.length) ?? [];
   if (itinerary.length === 0) return null;
 
+  const isSingleDay = itinerary.length === 1;
+
+  if (isSingleDay) {
+    const item = itinerary[0];
+
+    return (
+      <section
+        id="itinerary"
+        aria-labelledby="tour-itinerary-heading"
+        className="scroll-mt-24 space-y-5"
+      >
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+            Route plan
+          </p>
+          <h2 id="tour-itinerary-heading" className="mt-1 text-2xl font-semibold tracking-tight">
+            What&apos;s included on this route
+          </h2>
+        </div>
+        <div className="space-y-4 rounded-2xl border bg-card p-5 shadow-sm">
+          <div className="flex flex-wrap items-center gap-2">
+            {item.region ? (
+              <p className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
+                <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                {item.region}
+              </p>
+            ) : null}
+          </div>
+          {item.title ? <h3 className="text-xl font-semibold">{item.title}</h3> : null}
+          {item.description ? (
+            <p className="text-sm leading-7 text-muted-foreground">{item.description}</p>
+          ) : null}
+          {item.stops && item.stops.length > 0 ? (
+            <ul className="grid gap-2 text-sm sm:grid-cols-2">
+              {item.stops.map((stop) => (
+                <li
+                  key={stop}
+                  className="flex items-start gap-2 rounded-xl border bg-muted/50 px-3 py-2.5"
+                >
+                  <CheckCircle2
+                    className="mt-0.5 h-4 w-4 shrink-0 text-amber-700"
+                    aria-hidden="true"
+                  />
+                  <span>{stop}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <div className="flex flex-wrap gap-2 text-xs font-medium text-muted-foreground">
+            {typeof item.mealsIncluded === "boolean" ? (
+              <span className="inline-flex items-center gap-1 rounded-full border bg-background px-3 py-1">
+                <Utensils className="h-3.5 w-3.5 text-amber-700" aria-hidden="true" />
+                Meals: {item.mealsIncluded ? "included" : "not included"}
+              </span>
+            ) : null}
+            {typeof item.accommodationIncluded === "boolean" ? (
+              <span className="inline-flex items-center gap-1 rounded-full border bg-background px-3 py-1">
+                <Bed className="h-3.5 w-3.5 text-amber-700" aria-hidden="true" />
+                Stay: {item.accommodationIncluded ? "included" : "not included"}
+              </span>
+            ) : null}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="itinerary"

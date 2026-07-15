@@ -13,37 +13,65 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   title: {
-    absolute: "TripMate Georgia | AI Trip Planner & Private Tours in Georgia",
+    absolute: "TripMate Georgia: Free AI Itinerary Planner & Private Tours",
   },
   description:
-    "Plan a custom Georgia itinerary with AI and local experts. Browse private tours, adjust pickup and route details, and book a flexible trip across Georgia.",
+    "Free AI itinerary planner for Georgia — Tbilisi, Kazbegi, Kakheti, Svaneti & more. Get a custom day-by-day route in minutes, then book private tours with hotel pickup.",
   alternates: { canonical: "/" },
 };
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": ["TravelAgency", "WebApplication"],
-  name: "TripMate Georgia",
-  applicationCategory: "TravelApplication",
-  operatingSystem: "Any",
-  description:
-    "AI-powered Georgia travel itinerary planner for realistic day-by-day routes, local food suggestions, transport tips, and booking help.",
-  url: siteUrl,
-  email: "info@mustseegeorgia.com",
-  telephone: "+995551181358",
-  areaServed: {
-    "@type": "Country",
-    name: "Georgia",
-  },
-  serviceType: "Georgia travel itinerary planning and tour booking help",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-    description: "Free AI-generated Georgia itinerary preview with optional local booking support.",
-  },
-  keywords:
-    "Georgia itinerary planner, free Georgia itinerary planner, create Georgia itinerary for free, free AI Georgia itinerary, AI Georgia travel planner, Tbilisi itinerary, Kazbegi tour route, Kakheti wine trip, Batumi travel plan, Georgia booking help",
+  "@graph": [
+    {
+      "@type": "TravelAgency",
+      "@id": `${siteUrl}/#organization`,
+      name: "TripMate Georgia",
+      url: siteUrl,
+      email: "info@mustseegeorgia.com",
+      telephone: "+995551181358",
+      logo: `${siteUrl}/logo.png`,
+      areaServed: {
+        "@type": "Country",
+        name: "Georgia",
+      },
+      sameAs: [
+        "https://www.viator.com/Tbilisi-tours/d22516-ttd",
+        "https://wa.me/995551181358",
+        // + Instagram/Facebook/TripAdvisor if you have them
+      ],
+    },
+    {
+      "@type": "WebApplication",
+      "@id": `${siteUrl}/#webapp`,
+      name: "TripMate Georgia Itinerary Planner",
+      url: siteUrl,
+      applicationCategory: "TravelApplication",
+      operatingSystem: "Any",
+      description:
+        "AI-powered Georgia travel itinerary planner for realistic day-by-day routes, local food suggestions, transport tips, and booking help.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        description:
+          "Free AI-generated Georgia itinerary preview with optional local booking support.",
+      },
+      provider: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "TripMate Georgia",
+      publisher: { "@id": `${siteUrl}/#organization` },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${siteUrl}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
 };
 
 export default function HomePage() {
