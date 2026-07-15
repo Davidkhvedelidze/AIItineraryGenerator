@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import { trackEvent } from "@/lib/analytics";
 import type { GenerateItineraryResponse, ItineraryResult, TripFormData } from "@/types/trip";
+
+const CLIENT_TIMEOUT_MS = 60_000;
 
 type GeneratorState = {
   status: "idle" | "loading" | "success" | "error";
@@ -39,49 +41,108 @@ function generatorReducer(state: GeneratorState, action: GeneratorAction): Gener
   }
 }
 
+function tripAnalyticsParams(formData: TripFormData) {
+  return {
+    days: formData.days,
+    travelers: formData.travelers,
+    budget: formData.budget,
+    travel_style: formData.travelStyle,
+    tour_type: formData.tourType,
+    language: formData.language
+  };
+}
+
+async function parseGenerateItineraryResponse(response: Response): Promise<GenerateItineraryResponse> {
+  try {
+    return (await response.json()) as GenerateItineraryResponse;
+  } catch {
+    return { success: false, message: "Something went wrong. Please try again." };
+  }
+}
+
 export function useItineraryGenerator() {
   const [state, dispatch] = useReducer(generatorReducer, initialState);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const timedOutRef = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const generateItinerary = useCallback(async (formData: TripFormData) => {
+    if (state.status === "loading") {
+      return;
+    }
+
+    abortControllerRef.current?.abort();
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+    timedOutRef.current = false;
+
+    const timeoutId = setTimeout(() => {
+      timedOutRef.current = true;
+      abortController.abort();
+    }, CLIENT_TIMEOUT_MS);
+
     dispatch({ type: "GENERATE_START", payload: formData });
-    trackEvent("itinerary_generation_started", {
-      days: formData.days,
-      travelers: formData.travelers,
-      budget: formData.budget,
-      travel_style: formData.travelStyle,
-      tour_type: formData.tourType,
-      language: formData.language
-    });
+    trackEvent("itinerary_generation_started", tripAnalyticsParams(formData));
 
     try {
       const response = await fetch("/api/generate-itinerary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        signal: abortController.signal
       });
 
-      const result = (await response.json()) as GenerateItineraryResponse;
+      const result = await parseGenerateItineraryResponse(response);
 
       if (!response.ok || !result.success) {
-        throw new Error(result.success ? "Failed to generate itinerary." : result.message);
+        const retryAfterSeconds = response.status === 429 ? response.headers.get("Retry-After") : null;
+        const message =
+          !result.success && retryAfterSeconds
+            ? `${result.message} Try again in ${retryAfterSeconds}s.`
+            : !result.success
+              ? result.message
+              : "Failed to generate itinerary.";
+
+        trackEvent("itinerary_generation_failed", {
+          code: !result.success ? result.code ?? "UNKNOWN" : "UNKNOWN",
+          status: response.status
+        });
+
+        throw new Error(message);
       }
 
       dispatch({ type: "GENERATE_SUCCESS", payload: result.data });
-      trackEvent("itinerary_generation_succeeded", {
-        days: formData.days,
-        travelers: formData.travelers,
-        budget: formData.budget,
-        travel_style: formData.travelStyle,
-        tour_type: formData.tourType,
-        language: formData.language
-      });
+      trackEvent("itinerary_generation_succeeded", tripAnalyticsParams(formData));
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        if (timedOutRef.current) {
+          dispatch({ type: "GENERATE_ERROR", payload: "This is taking longer than expected. Please try again." });
+          trackEvent("itinerary_generation_failed", { code: "CLIENT_TIMEOUT", status: 0 });
+          return;
+        }
+
+        // User-initiated cancellation already reset state; nothing to report.
+        return;
+      }
+
       const message = error instanceof Error ? error.message : "Something went wrong. Please try again.";
       dispatch({ type: "GENERATE_ERROR", payload: message });
+    } finally {
+      clearTimeout(timeoutId);
     }
-  }, []);
+  }, [state.status]);
 
   const reset = useCallback(() => {
+    dispatch({ type: "RESET" });
+  }, []);
+
+  const cancelGeneration = useCallback(() => {
+    abortControllerRef.current?.abort();
     dispatch({ type: "RESET" });
   }, []);
 
@@ -91,6 +152,7 @@ export function useItineraryGenerator() {
     formData: state.formData,
     error: state.error,
     generateItinerary,
-    reset
+    reset,
+    cancelGeneration
   };
 }

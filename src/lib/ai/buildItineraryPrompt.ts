@@ -34,7 +34,7 @@ function buildTourTypeRules(formData: TripFormData): string {
 }
 
 export function buildItineraryPrompt(formData: TripFormData): string {
-  const [departureDateTime, arrivalDateTime] = formData.travelDates;
+  const [arrivalDateTime, departureDateTime] = formData.travelDates;
 
   return `You are a professional travel planner specializing in Georgia.
 
@@ -44,8 +44,8 @@ User details:
 - Trip length: ${formData.days} days
 - Arrival airport: ${formData.arrivalAirport}
 - Departure airport: ${formData.departureAirport}
-- Departure date and time: ${departureDateTime}
 - Arrival date and time: ${arrivalDateTime}
+- Departure date and time: ${departureDateTime}
 - Preferred overnight cities: ${formData.preferredCities.join(", ")}
 - Interests: ${formData.interests.join(", ")}
 - Budget: ${formData.budget}

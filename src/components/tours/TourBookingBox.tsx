@@ -138,7 +138,7 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
         className={
           compact
             ? "rounded-2xl border bg-card p-5 shadow-sm"
-            : "sticky top-24 rounded-2xl border bg-card p-5 shadow-sm"
+            : "sticky top-[calc(var(--header-height)+var(--tour-nav-height))] rounded-2xl border bg-card p-5 shadow-sm"
         }
       >
         <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">

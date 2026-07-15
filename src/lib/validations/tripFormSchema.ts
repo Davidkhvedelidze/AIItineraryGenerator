@@ -49,11 +49,11 @@ export const tripFormSchema = z.object({
   days: requiredNumber("Trip length", 1, 14),
   travelDates: z
     .tuple([
-      z.string().datetime("Choose a valid departure date and time."),
-      z.string().datetime("Choose a valid arrival date and time.")
+      z.string().datetime("Choose a valid arrival date and time."),
+      z.string().datetime("Choose a valid departure date and time.")
     ])
-    .refine(([departure, arrival]) => new Date(arrival).getTime() > new Date(departure).getTime(), {
-      message: "Arrival must be after departure.",
+    .refine(([arrival, departure]) => new Date(departure).getTime() > new Date(arrival).getTime(), {
+      message: "Departure must be after arrival.",
       path: [1]
     }),
   arrivalAirport: airportSchema,

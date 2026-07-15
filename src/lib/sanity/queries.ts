@@ -2,6 +2,7 @@ import groq from "groq";
 
 const blogPostListFields = groq`
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,
@@ -14,7 +15,7 @@ const blogPostListFields = groq`
 `;
 
 export const blogPostsQuery = groq`
-  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc) {
+  *[_type == "blogPost" && defined(slug.current)] | order(coalesce(publishedAt, _createdAt) desc) {
     ${blogPostListFields}
   }
 `;
@@ -43,6 +44,7 @@ export const blogPostSlugsQuery = groq`
 
 const tourListFields = groq`
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,
