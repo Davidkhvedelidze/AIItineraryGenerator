@@ -34,7 +34,8 @@ describe("itineraryResultSchema", () => {
   });
 
   it("rejects a payload missing required fields", () => {
-    const { tripTitle, ...withoutTitle } = validItinerary;
+    const withoutTitle: Record<string, unknown> = { ...validItinerary };
+    delete withoutTitle.tripTitle;
 
     expect(itineraryResultSchema.safeParse(withoutTitle).success).toBe(false);
   });
