@@ -26,5 +26,5 @@
     "**/*.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "sanity", "dist"]
+  "exclude": ["node_modules", "sanity", "dist", "vitest.config.ts"]
 }

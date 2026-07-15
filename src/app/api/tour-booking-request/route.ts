@@ -41,9 +41,7 @@ export async function POST(request: Request) {
 
     const durableRateLimit = inMemoryRateLimit.allowed
       ? await checkSupabaseRateLimit({
-          table: "tour_booking_requests",
-          column: payload.email ? "email" : "whatsapp",
-          value: contactKey,
+          identifier: `${getClientIp(request)}:${contactKey}`,
           limit: bookingRateLimit.limit,
           windowMs: bookingRateLimit.windowMs,
         })
