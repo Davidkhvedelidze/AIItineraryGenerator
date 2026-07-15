@@ -4,7 +4,6 @@ import { TripPlannerForm } from "./TripPlannerForm";
 import { useItineraryGenerator } from "@/hooks/useItineraryGenerator";
 import { ErrorMessage } from "./ErrorMessage";
 import { ItineraryResult } from "./ItineraryResult";
-import { ShieldCheck } from "lucide-react";
 
 export function TripPlanner() {
   const {

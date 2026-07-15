@@ -10,12 +10,9 @@ import {
   MapPin,
   MessageCircle,
   Route,
-  Sparkles,
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { RouteSignature } from "@/components/motion/RouteSignature";
-import { useMemo, useState } from "react";
 
 const container = {
   hidden: {},
@@ -64,11 +61,6 @@ const heroStats = [
     icon: ShieldCheck,
   },
 ];
-
-interface Tour {
-  tour: string;
-  title: string;
-}
 
 export function HeroSection() {
   return (

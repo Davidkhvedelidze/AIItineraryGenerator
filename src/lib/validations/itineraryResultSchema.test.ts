@@ -49,6 +49,8 @@ describe("itineraryResultSchema", () => {
   });
 
   it("rejects a non-object payload", () => {
-    expect(itineraryResultSchema.safeParse("not an itinerary").success).toBe(false);
+    expect(itineraryResultSchema.safeParse("not an itinerary").success).toBe(
+      false,
+    );
   });
 });
