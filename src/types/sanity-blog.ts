@@ -11,6 +11,7 @@ export type SanityImage = {
 
 export type BlogPostListItem = {
   _id: string;
+  _updatedAt: string;
   title: string;
   slug: string;
   excerpt?: string;

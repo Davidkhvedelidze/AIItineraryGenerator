@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
@@ -13,6 +14,17 @@ function getSecretFromRequest(request: Request): string | null {
     request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ||
     url.searchParams.get("secret")
   );
+}
+
+function secretsMatch(a: string, b: string): boolean {
+  const bufferA = Buffer.from(a);
+  const bufferB = Buffer.from(b);
+
+  if (bufferA.length !== bufferB.length) {
+    return false;
+  }
+
+  return timingSafeEqual(bufferA, bufferB);
 }
 
 function getSlug(payload: SanityWebhookPayload): string | null {
@@ -53,7 +65,7 @@ export async function POST(request: Request) {
 
   const requestSecret = getSecretFromRequest(request);
 
-  if (requestSecret !== configuredSecret) {
+  if (!requestSecret || !secretsMatch(requestSecret, configuredSecret)) {
     return NextResponse.json(
       { revalidated: false, message: "Invalid revalidation secret." },
       { status: 401 },

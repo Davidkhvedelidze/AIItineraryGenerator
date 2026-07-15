@@ -51,6 +51,7 @@ export type TourReview = {
 
 export type TourListItem = {
   _id: string;
+  _updatedAt: string;
   title: string;
   slug: string;
   excerpt: string;

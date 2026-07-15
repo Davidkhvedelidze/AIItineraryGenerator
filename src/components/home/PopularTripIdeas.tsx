@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Compass, MapPin } from "lucide-react";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 import { cn } from "@/lib/utils";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
 const defaultImage = {
   src: "https://pohcdn.com/sites/default/files/styles/node__blog_post__bp_banner/public/hero_banner/Tbilisi-old-town-2.jpg",
@@ -39,7 +40,7 @@ export function PopularTripIdeas() {
       className="bg-[hsl(42_48%_96%/0.72)] py-12 md:py-16"
     >
       <div className="container space-y-8">
-        <div className="grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
+        <ScrollReveal className="grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-700">
               Georgia route collection
@@ -56,7 +57,7 @@ export function PopularTripIdeas() {
             stops, private tour potential, and clear next steps into the custom
             itinerary builder.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-4 lg:grid-cols-3">
           {ideas.map((idea, index) => {
@@ -172,7 +173,7 @@ export function PopularTripIdeas() {
           })}
         </div>
 
-        <div className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <ScrollReveal className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-2xl text-sm leading-6 text-stone-600">
             Prefer something ready-made? Browse private tours and request direct
             booking support for pickup, timing, and route details.
@@ -184,7 +185,7 @@ export function PopularTripIdeas() {
             Browse Tours
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

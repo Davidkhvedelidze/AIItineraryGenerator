@@ -40,10 +40,16 @@ Create `.env.local`:
 OPENAI_API_KEY=your_api_key_here
 # Optional:
 # OPENAI_MODEL=gpt-4o-mini
+# OPENAI_TIMEOUT_MS=45000
 NEXT_PUBLIC_SITE_URL=https://your-production-domain.com
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_sanity_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-05-05
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+ITINERARY_RATE_LIMIT=10
+ITINERARY_RATE_LIMIT_WINDOW_SECONDS=900
 SANITY_REVALIDATE_SECRET=your_webhook_secret_here
 ```
 
@@ -51,11 +57,20 @@ Never expose server keys with `NEXT_PUBLIC_`. `SUPABASE_SERVICE_ROLE_KEY` must s
 
 Use `.env.example` as the deployment variable checklist.
 
+| Variable | Purpose |
+| --- | --- |
+| `OPENAI_API_KEY` | Server-side OpenAI credential, required for itinerary generation. |
+| `OPENAI_MODEL` | Chat completion model (defaults to `gpt-4o-mini`). |
+| `OPENAI_TIMEOUT_MS` | Timeout for the OpenAI request before it's treated as a failure and retried once (defaults to `45000`). |
+| `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | Used to log itinerary requests and to run the durable rate limiter's RPC. Optional — the app degrades gracefully (best-effort logging, in-memory-only rate limiting) if unset. |
+| `ITINERARY_RATE_LIMIT` / `ITINERARY_RATE_LIMIT_WINDOW_SECONDS` | Requests allowed per identifier (hashed IP+email) per window. |
+
 ## Supabase Setup
 
-Run `supabase/itinerary_requests.sql` in the Supabase SQL editor to create the lead history table.
+Run the SQL files in `supabase/` in the Supabase SQL editor:
 
-The app writes itinerary requests from the server API route only. Each request is inserted as `pending`, then updated to `success` with the generated itinerary or `error` with a failure message.
+- `itinerary_requests.sql` — creates the lead history table. The app writes itinerary requests from the server API route only. Each request is inserted as `pending`, then updated to `success` with the generated itinerary or `error` with a failure message. This logging is best-effort: a Supabase outage never blocks itinerary generation.
+- `rate_limits.sql` — creates the `rate_limits` table and the `increment_rate_limit` Postgres function used for atomic, durable rate limiting across serverless instances.
 
 ## Vercel Deployment
 
@@ -105,7 +120,6 @@ src/
 - Save itinerary
 - User accounts
 - Stripe payments
-- Supabase database
 - Email itinerary to user
 - Agency dashboard
 - Multi-language support

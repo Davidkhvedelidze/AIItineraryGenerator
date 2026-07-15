@@ -344,7 +344,7 @@ function ResultSectionNav() {
   return (
     <nav
       aria-label="Generated itinerary sections"
-      className="sticky top-16 z-20 overflow-x-auto rounded-2xl border bg-white/90 p-2 shadow-sm backdrop-blur"
+      className="sticky top-[var(--header-height)] z-20 overflow-x-auto rounded-2xl border bg-white/90 p-2 shadow-sm backdrop-blur"
     >
       <div className="flex gap-2">
         {links.map((link) => (

@@ -21,11 +21,15 @@ export default async function BlogPage() {
       <main className="container flex-1 py-4">
         <div className="mx-auto max-w-6xl space-y-8">
           <header className="max-w-3xl space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">Travel insights</p>
-            <h1 className="text-4xl font-semibold tracking-tight">Georgia Travel Blog</h1>
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+              Travel insights
+            </p>
+            <h1 className="text-4xl font-semibold tracking-tight">
+              Georgia Travel Blog
+            </h1>
             <p className="text-muted-foreground">
-              Practical Georgia travel guides to help you plan realistic routes, choose the best
-              season, and create a better custom itinerary.
+              Practical Georgia travel guides to help you plan realistic routes,
+              choose the best season, and create a better custom itinerary.
             </p>
           </header>
 
@@ -37,9 +41,12 @@ export default async function BlogPage() {
             </section>
           ) : (
             <section className="rounded-lg border bg-card p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold tracking-tight">No blog posts yet</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                No blog posts yet
+              </h2>
               <p className="mt-3 max-w-2xl text-muted-foreground">
-                New Georgia travel guides will appear here after they are published in Sanity Studio.
+                New Georgia travel guides will appear here after they are
+                published in Sanity Studio.
               </p>
             </section>
           )}

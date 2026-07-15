@@ -1,3 +1,6 @@
+import type { ApiErrorCode } from "@/lib/api/apiError";
+import type { ItineraryDay, ItineraryResult } from "@/lib/validations/itineraryResultSchema";
+
 export type TripInterest =
   | "mountains"
   | "wine"
@@ -33,6 +36,7 @@ export type TourType = "private-guided" | "public-group" | "self-guided";
 
 export type TripFormData = {
   days: number;
+  /** [arrivalDateTime, departureDateTime] — index 0 is always the earlier date. */
   travelDates: [string, string];
   arrivalAirport: GeorgianAirport;
   departureAirport: GeorgianAirport;
@@ -48,32 +52,7 @@ export type TripFormData = {
   tourDescription?: string;
 };
 
-export type ItineraryDay = {
-  day: number;
-  title: string;
-  region: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-  foodSuggestion: string;
-  travelTip: string;
-};
-
-export type ItineraryResult = {
-  tripTitle: string;
-  overview: string;
-  days: ItineraryDay[];
-  totalPrice: string;
-  pricePerPerson: string;
-  estimatedBudget: string;
-  includedServices: string[];
-  notIncludedServices: string[];
-  bestFor: string[];
-  packingTips: string[];
-  transportTips: string[];
-  localFoodToTry: string[];
-  bookingSuggestion: string;
-};
+export type { ItineraryDay, ItineraryResult };
 
 export type GenerateItineraryResponse =
   | {
@@ -83,4 +62,5 @@ export type GenerateItineraryResponse =
   | {
       success: false;
       message: string;
+      code?: ApiErrorCode;
     };
