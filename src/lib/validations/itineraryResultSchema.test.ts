@@ -34,7 +34,7 @@ describe("itineraryResultSchema", () => {
   });
 
   it("rejects a payload missing required fields", () => {
-    const { tripTitle: _tripTitle, ...withoutTitle } = validItinerary;
+    const { tripTitle, ...withoutTitle } = validItinerary;
 
     expect(itineraryResultSchema.safeParse(withoutTitle).success).toBe(false);
   });
@@ -49,6 +49,8 @@ describe("itineraryResultSchema", () => {
   });
 
   it("rejects a non-object payload", () => {
-    expect(itineraryResultSchema.safeParse("not an itinerary").success).toBe(false);
+    expect(itineraryResultSchema.safeParse("not an itinerary").success).toBe(
+      false,
+    );
   });
 });
