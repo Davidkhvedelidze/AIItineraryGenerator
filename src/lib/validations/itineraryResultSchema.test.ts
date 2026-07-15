@@ -34,7 +34,7 @@ describe("itineraryResultSchema", () => {
   });
 
   it("rejects a payload missing required fields", () => {
-    const { tripTitle: _tripTitle, ...withoutTitle } = validItinerary;
+    const { tripTitle, ...withoutTitle } = validItinerary;
 
     expect(itineraryResultSchema.safeParse(withoutTitle).success).toBe(false);
   });
