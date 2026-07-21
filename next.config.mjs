@@ -11,7 +11,8 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Next.js dev mode needs 'unsafe-eval' for HMR and source maps.
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+      // https://tp-em.com is the Travelpayouts ad/monetization script (see layout.tsx).
+      `script-src 'self' 'unsafe-inline' https://tp-em.com${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self' data:",

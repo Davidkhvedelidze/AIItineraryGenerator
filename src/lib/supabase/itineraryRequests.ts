@@ -1,9 +1,19 @@
+import { nanoid } from "nanoid";
 import type { ItineraryResult, TripFormData } from "@/types/trip";
 
 type ItineraryRequestStatus = "pending" | "success" | "error";
 
 type SupabaseItineraryRequestRow = {
   id: string;
+  short_id: string | null;
+};
+
+type StoredItineraryRequestRow = {
+  short_id: string | null;
+  status: ItineraryRequestStatus;
+  itinerary_result: ItineraryResult | null;
+  form_data: TripFormData;
+  created_at: string;
 };
 
 type CreateItineraryRequestPayload = {
@@ -22,6 +32,7 @@ type CreateItineraryRequestPayload = {
   itinerary_result: ItineraryResult | null;
   status: ItineraryRequestStatus;
   error_message: string | null;
+  short_id: string;
 };
 
 type UpdateItineraryRequestPayload = {
@@ -64,12 +75,14 @@ async function parseSupabaseError(response: Response): Promise<string> {
 
 export async function createItineraryRequest(
   formData: TripFormData,
-): Promise<string | null> {
+): Promise<{ id: string; shortId: string } | null> {
   const config = getSupabaseConfig();
 
   if (!config) {
     return null;
   }
+
+  const shortId = nanoid(10);
 
   const payload: CreateItineraryRequestPayload = {
     email: formData.email,
@@ -86,6 +99,7 @@ export async function createItineraryRequest(
     itinerary_result: null,
     status: "pending",
     error_message: null,
+    short_id: shortId,
   };
 
   const response = await fetch(config.restUrl, {
@@ -103,7 +117,10 @@ export async function createItineraryRequest(
   }
 
   const rows = (await response.json()) as SupabaseItineraryRequestRow[];
-  return rows[0]?.id ?? null;
+  const row = rows[0];
+  if (!row) return null;
+
+  return { id: row.id, shortId: row.short_id ?? shortId };
 }
 
 export async function updateItineraryRequest(
@@ -138,7 +155,9 @@ export async function updateItineraryRequest(
  * Best-effort request logging: a Supabase outage must never block itinerary
  * generation. Failures are logged server-side and swallowed here.
  */
-export async function tryCreatePendingRequest(formData: TripFormData): Promise<string | null> {
+export async function tryCreatePendingRequest(
+  formData: TripFormData,
+): Promise<{ id: string; shortId: string } | null> {
   try {
     return await createItineraryRequest(formData);
   } catch (error) {
@@ -161,4 +180,33 @@ export async function tryUpdateRequest(
   } catch (error) {
     console.error("Unable to update itinerary request; continuing.", error);
   }
+}
+
+/**
+ * Reads a successfully generated itinerary by its shareable short_id.
+ * Server-only (Server Components / route handlers) — uses the service-role key.
+ */
+export async function getItineraryRequestByShortId(
+  shortId: string,
+): Promise<StoredItineraryRequestRow | null> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return null;
+  }
+
+  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&select=short_id,status,itinerary_result,form_data,created_at&limit=1`;
+
+  const response = await fetch(url, {
+    headers: getSupabaseHeaders(config.serviceRoleKey),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    console.error("Unable to fetch itinerary by short_id.", await parseSupabaseError(response));
+    return null;
+  }
+
+  const rows = (await response.json()) as StoredItineraryRequestRow[];
+  return rows[0] ?? null;
 }
