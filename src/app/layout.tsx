@@ -110,6 +110,7 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
         <GoogleAnalytics />
+        <Script src="https://tp-em.com/NTUyNzgw.js?t=552780" strategy="lazyOnload" />
       </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         {children}

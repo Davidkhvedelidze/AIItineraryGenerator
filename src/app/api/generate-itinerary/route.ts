@@ -64,7 +64,8 @@ export async function POST(request: Request) {
   }
 
   // Best-effort: a Supabase outage must not block itinerary generation.
-  const itineraryRequestId = await tryCreatePendingRequest(formData);
+  const pendingRequest = await tryCreatePendingRequest(formData);
+  const itineraryRequestId = pendingRequest?.id ?? null;
 
   try {
     const apiKey = process.env.OPENAI_API_KEY?.trim();
@@ -83,7 +84,10 @@ export async function POST(request: Request) {
       error_message: null,
     });
 
-    return NextResponse.json({ success: true, data: itinerary }, { status: 200 });
+    return NextResponse.json(
+      { success: true, data: itinerary, shareId: pendingRequest?.shortId ?? null },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Itinerary generation failed", getLoggableErrorDetails(error));
 

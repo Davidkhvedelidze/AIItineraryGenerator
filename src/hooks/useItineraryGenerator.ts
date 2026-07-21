@@ -11,11 +11,12 @@ type GeneratorState = {
   data: ItineraryResult | null;
   formData: TripFormData | null;
   error: string | null;
+  shareId: string | null;
 };
 
 type GeneratorAction =
   | { type: "GENERATE_START"; payload: TripFormData }
-  | { type: "GENERATE_SUCCESS"; payload: ItineraryResult }
+  | { type: "GENERATE_SUCCESS"; payload: { data: ItineraryResult; shareId: string | null } }
   | { type: "GENERATE_ERROR"; payload: string }
   | { type: "RESET" };
 
@@ -23,15 +24,16 @@ const initialState: GeneratorState = {
   status: "idle",
   data: null,
   formData: null,
-  error: null
+  error: null,
+  shareId: null
 };
 
 function generatorReducer(state: GeneratorState, action: GeneratorAction): GeneratorState {
   switch (action.type) {
     case "GENERATE_START":
-      return { status: "loading", data: null, formData: action.payload, error: null };
+      return { status: "loading", data: null, formData: action.payload, error: null, shareId: null };
     case "GENERATE_SUCCESS":
-      return { ...state, status: "success", data: action.payload, error: null };
+      return { ...state, status: "success", data: action.payload.data, error: null, shareId: action.payload.shareId };
     case "GENERATE_ERROR":
       return { ...state, status: "error", data: null, error: action.payload };
     case "RESET":
@@ -116,7 +118,7 @@ export function useItineraryGenerator() {
         throw new Error(message);
       }
 
-      dispatch({ type: "GENERATE_SUCCESS", payload: result.data });
+      dispatch({ type: "GENERATE_SUCCESS", payload: { data: result.data, shareId: result.shareId } });
       trackEvent("itinerary_generation_succeeded", tripAnalyticsParams(formData));
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
@@ -151,6 +153,7 @@ export function useItineraryGenerator() {
     data: state.data,
     formData: state.formData,
     error: state.error,
+    shareId: state.shareId,
     generateItinerary,
     reset,
     cancelGeneration

@@ -1,20 +1,34 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { TripPlannerForm } from "./TripPlannerForm";
 import { useItineraryGenerator } from "@/hooks/useItineraryGenerator";
 import { ErrorMessage } from "./ErrorMessage";
 import { ItineraryResult } from "./ItineraryResult";
 
 export function TripPlanner() {
+  const router = useRouter();
   const {
     status,
     data,
     formData,
     error,
+    shareId,
     generateItinerary,
     reset,
     cancelGeneration,
   } = useItineraryGenerator();
+
+  useEffect(() => {
+    if (status === "success" && shareId) {
+      router.push(`/itinerary/${shareId}`);
+    }
+  }, [status, shareId, router]);
+
+  // Falls back to inline rendering only when persistence failed (no shareId),
+  // so a Supabase outage never loses the user's generated trip.
+  const showInlineFallback = status === "success" && data && formData && !shareId;
 
   return (
     <section
@@ -53,7 +67,7 @@ export function TripPlanner() {
         {status === "error" && error && (
           <ErrorMessage message={error} onReset={reset} />
         )}
-        {status === "success" && data && formData && (
+        {showInlineFallback && data && formData && (
           <ItineraryResult result={data} formData={formData} onReset={reset} />
         )}
       </div>

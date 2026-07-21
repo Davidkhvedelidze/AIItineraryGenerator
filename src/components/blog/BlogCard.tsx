@@ -17,7 +17,9 @@ export function BlogCard({ post }: BlogCardProps) {
         .url()
     : null;
   const publishedDate = post.publishedAt
-    ? new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(post.publishedAt))
+    ? new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(
+        new Date(post.publishedAt),
+      )
     : null;
 
   return (
@@ -37,18 +39,27 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className="p-6">
         <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wide text-amber-700">
           {post.category ? <span>{post.category}</span> : null}
-          {publishedDate ? <time className="text-muted-foreground">{publishedDate}</time> : null}
+          {publishedDate ? (
+            <time className="text-muted-foreground">{publishedDate}</time>
+          ) : null}
         </div>
         <h2 className="mt-3 text-2xl font-semibold tracking-tight">
           <Link href={`/blog/${post.slug}`} className="hover:text-amber-700">
-            {post.title}
+            {post?.title}
           </Link>
         </h2>
-        {post.excerpt ? <p className="mt-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p> : null}
+        {post.excerpt ? (
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            {post.excerpt}
+          </p>
+        ) : null}
         {post.tags && post.tags.length > 0 ? (
           <ul className="mt-4 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <li key={tag} className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-foreground ring-1 ring-primary/25">
+            {post?.tags?.map((tag, index) => (
+              <li
+                key={index}
+                className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-foreground ring-1 ring-primary/25"
+              >
                 {tag}
               </li>
             ))}

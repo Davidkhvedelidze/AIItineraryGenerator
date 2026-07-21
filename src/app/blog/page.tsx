@@ -33,10 +33,10 @@ export default async function BlogPage() {
             </p>
           </header>
 
-          {posts.length > 0 ? (
+          {posts?.length > 0 ? (
             <section className="grid gap-5 md:grid-cols-2">
-              {posts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+              {posts?.map((post, index) => (
+                <BlogCard key={index} post={post} />
               ))}
             </section>
           ) : (

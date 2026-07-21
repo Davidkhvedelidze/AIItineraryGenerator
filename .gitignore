@@ -9,3 +9,4 @@ tsconfig.tsbuildinfo
 .vercel
 sanity/.sanity
 sanity/dist
+.tsbuildinfo

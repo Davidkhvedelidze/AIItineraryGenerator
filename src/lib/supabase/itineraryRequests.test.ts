@@ -47,15 +47,18 @@ describe("Supabase best-effort helpers", () => {
     expect(consoleErrorSpy).toHaveBeenCalled();
   });
 
-  it("tryCreatePendingRequest returns the created id on success", async () => {
+  it("tryCreatePendingRequest returns the created id and short id on success", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({ ok: true, json: async () => [{ id: "request-id-1" }] }),
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => [{ id: "request-id-1", short_id: "short-id-1" }],
+      }),
     );
 
     const result = await tryCreatePendingRequest(formData);
 
-    expect(result).toBe("request-id-1");
+    expect(result).toEqual({ id: "request-id-1", shortId: "short-id-1" });
   });
 
   it("tryUpdateRequest never throws even when the update fails", async () => {
