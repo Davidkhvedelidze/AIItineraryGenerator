@@ -7,3 +7,5 @@ npm-debug.log*
 .env.production
 tsconfig.tsbuildinfo
 .vercel
+sanity/.sanity
+sanity/dist

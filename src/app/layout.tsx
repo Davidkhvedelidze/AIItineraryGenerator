@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { getSiteUrl } from "@/lib/site";
 import "antd/dist/reset.css";
@@ -104,6 +105,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          src="https://tp-em.com/NTUyNzgw.js?t=552780"
+          strategy="lazyOnload"
+        />
         <GoogleAnalytics />
       </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
