@@ -58,6 +58,8 @@ export type GenerateItineraryResponse =
   | {
       success: true;
       data: ItineraryResult;
+      /** Short shareable ID for the persisted /itinerary/[id] page, or null if persistence failed. */
+      shareId: string | null;
     }
   | {
       success: false;
