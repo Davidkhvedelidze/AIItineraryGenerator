@@ -6,8 +6,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
-  CalendarDays,
-  MapPin,
   MessageCircle,
   Route,
   ShieldCheck,
