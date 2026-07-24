@@ -1,4 +1,4 @@
-import { ClipboardList, MessageCircle, Route, Sparkles } from "lucide-react";
+import { ClipboardList, MessageCircle, Route } from "lucide-react";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
 const steps = [
