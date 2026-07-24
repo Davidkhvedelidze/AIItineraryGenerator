@@ -1,5 +1,8 @@
 import type { ApiErrorCode } from "@/lib/api/apiError";
-import type { ItineraryDay, ItineraryResult } from "@/lib/validations/itineraryResultSchema";
+import type {
+  ItineraryDay,
+  ItineraryResult,
+} from "@/lib/validations/itineraryResultSchema";
 
 export type TripInterest =
   | "mountains"
@@ -13,7 +16,10 @@ export type TripInterest =
   | "family-friendly"
   | "photography";
 
-export type GeorgianAirport = "Tbilisi International Airport" | "Kutaisi International Airport" | "Batumi International Airport";
+export type GeorgianAirport =
+  | "Tbilisi International Airport"
+  | "Kutaisi International Airport"
+  | "Batumi International Airport";
 
 export type PreferredCity =
   | "Tbilisi"
@@ -46,7 +52,6 @@ export type TripFormData = {
   travelStyle: "relaxed" | "balanced" | "active";
   tourType: TourType;
   travelers: number;
-  language: "English" | "Georgian";
   email: string;
   mobileNumber?: string;
   tourDescription?: string;

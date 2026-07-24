@@ -31,7 +31,7 @@ const ideaImages: Record<string, { src: string; alt: string }> = {
 };
 
 export function PopularTripIdeas() {
-  const ideas = popularTripIdeas.slice(0, 6);
+  const ideas = popularTripIdeas.slice(0, 5);
   if (ideas.length === 0) return null;
 
   return (

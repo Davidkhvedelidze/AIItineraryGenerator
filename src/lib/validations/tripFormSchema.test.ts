@@ -11,7 +11,6 @@ const baseData = {
   travelStyle: "balanced",
   tourType: "private-guided",
   travelers: 2,
-  language: "English",
   email: "traveler@example.com",
   mobileNumber: "",
   tourDescription: "",
@@ -37,19 +36,27 @@ describe("tripFormSchema travel dates", () => {
 
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues.some((issue) => issue.message === "Departure must be after arrival.")).toBe(true);
+      expect(
+        result.error.issues.some(
+          (issue) => issue.message === "Departure must be after arrival.",
+        ),
+      ).toBe(true);
     }
   });
 
   it("rejects equal arrival and departure dates", () => {
     const sameInstant = "2026-08-01T10:00:00.000Z";
-    const result = tripFormSchema.safeParse(withTravelDates(sameInstant, sameInstant));
+    const result = tripFormSchema.safeParse(
+      withTravelDates(sameInstant, sameInstant),
+    );
 
     expect(result.success).toBe(false);
   });
 
   it("rejects invalid datetime strings", () => {
-    const result = tripFormSchema.safeParse(withTravelDates("not-a-date", "2026-08-06T18:00:00.000Z"));
+    const result = tripFormSchema.safeParse(
+      withTravelDates("not-a-date", "2026-08-06T18:00:00.000Z"),
+    );
 
     expect(result.success).toBe(false);
   });
@@ -64,7 +71,10 @@ describe("tripFormSchema request validation", () => {
 
   it("rejects an invalid email", () => {
     const result = tripFormSchema.safeParse({
-      ...withTravelDates("2026-08-01T10:00:00.000Z", "2026-08-06T18:00:00.000Z"),
+      ...withTravelDates(
+        "2026-08-01T10:00:00.000Z",
+        "2026-08-06T18:00:00.000Z",
+      ),
       email: "not-an-email",
     });
 

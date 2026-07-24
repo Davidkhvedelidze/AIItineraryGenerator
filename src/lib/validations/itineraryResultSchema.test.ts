@@ -14,6 +14,7 @@ const validItinerary = {
       evening: "Welcome dinner",
       foodSuggestion: "Khachapuri",
       travelTip: "Carry cash for small vendors",
+      overnightStay: "Tbilisi",
     },
   ],
   totalPrice: "$1200",
@@ -26,6 +27,7 @@ const validItinerary = {
   transportTips: ["Book transfers ahead"],
   localFoodToTry: ["Khinkali"],
   bookingSuggestion: "Book 2 weeks in advance.",
+  overnightStayPlan: [{ day: 1, city: "Tbilisi" }],
 };
 
 describe("itineraryResultSchema", () => {

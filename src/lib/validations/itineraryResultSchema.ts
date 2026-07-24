@@ -9,6 +9,7 @@ export const itineraryDaySchema = z.object({
   evening: z.string(),
   foodSuggestion: z.string(),
   travelTip: z.string(),
+  overnightStay: z.string(),
 });
 
 export const itineraryResultSchema = z.object({
@@ -25,6 +26,12 @@ export const itineraryResultSchema = z.object({
   transportTips: z.array(z.string()),
   localFoodToTry: z.array(z.string()),
   bookingSuggestion: z.string(),
+  overnightStayPlan: z.array(
+    z.object({
+      day: z.number(),
+      city: z.string(),
+    }),
+  ),
 });
 
 export type ItineraryDay = z.infer<typeof itineraryDaySchema>;

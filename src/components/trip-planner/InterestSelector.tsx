@@ -9,11 +9,17 @@ interface InterestSelectorProps {
   selectedInterests: TripInterest[];
   onToggle: (interest: TripInterest) => void;
   disabled?: boolean;
+  error?: boolean;
 }
 
-function InterestSelectorComponent({ selectedInterests, onToggle, disabled = false }: InterestSelectorProps) {
+function InterestSelectorComponent({ selectedInterests, onToggle, disabled = false, error = false }: InterestSelectorProps) {
   return (
-    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+    <div
+      className={cn(
+        "grid grid-cols-2 gap-2 rounded-2xl sm:grid-cols-3",
+        error && "ring-2 ring-destructive/60 ring-offset-2"
+      )}
+    >
       {interestOptions.map((interest) => {
         const isSelected = selectedInterests.includes(interest.value);
 
@@ -28,7 +34,9 @@ function InterestSelectorComponent({ selectedInterests, onToggle, disabled = fal
               "rounded-xl border px-3 py-2 text-left text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               isSelected
                 ? "border-primary bg-primary-soft text-foreground shadow-sm"
-                : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50 hover:text-foreground"
+                : error
+                  ? "border-destructive/50 bg-white text-stone-700 hover:bg-stone-50 hover:text-foreground"
+                  : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50 hover:text-foreground"
             )}
           >
             {interest.label}
