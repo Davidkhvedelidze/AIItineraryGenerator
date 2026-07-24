@@ -6,6 +6,18 @@ import { TripPlannerForm } from "./TripPlannerForm";
 import { useItineraryGenerator } from "@/hooks/useItineraryGenerator";
 import { ErrorMessage } from "./ErrorMessage";
 import { ItineraryResult } from "./ItineraryResult";
+import { RouteSignature } from "../motion/RouteSignature";
+import { motion } from "framer-motion";
+import { GenerationLoadingModal } from "./form/GenerationLoadingModal";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
 
 export function TripPlanner() {
   const router = useRouter();
@@ -28,7 +40,8 @@ export function TripPlanner() {
 
   // Falls back to inline rendering only when persistence failed (no shareId),
   // so a Supabase outage never loses the user's generated trip.
-  const showInlineFallback = status === "success" && data && formData && !shareId;
+  const showInlineFallback =
+    status === "success" && data && formData && !shareId;
 
   return (
     <section
@@ -36,33 +49,20 @@ export function TripPlanner() {
       className="scroll-mt-24  bg-[hsl(42_48%_96%/0.78)] py-12 md:py-4"
     >
       <div className="container  scale-90">
-        <div className="grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
-          <div>
-            {/* <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft px-3 py-1 text-sm font-semibold text-foreground">
-              <ShieldCheck
-                className="h-4 w-4 text-amber-700"
-                aria-hidden="true"
-              />
-              Georgia itinerary builder
-            </div> */}
-            <h2 className="mt-3 max-w-2xl font-serif text-4xl font-semibold leading-tight tracking-normal text-foreground sm:text-5xl">
-              Build a route around your pace, people, and pickup details
-            </h2>
-          </div>
-          <p className="text-sm leading-7 text-stone-600 sm:text-base lg:max-w-2xl">
-            Answer a few questions about dates, interests, group size, pace,
-            pickup, and route preferences. You can review the plan, download it,
-            or request local booking support.
-          </p>
+        <div className=" w-full flex justify-between">
+          <h2 className="mt-3 max-w-4xl font-serif text-4xl font-semibold leading-tight tracking-normal text-foreground sm:text-5xl">
+            Tell us your dates, interests, and group size — get a real Georgia
+            route in minutes
+          </h2>
+          <motion.div variants={fadeUp} className="hidden sm:flex">
+            <RouteSignature className="h-[150px]  " />
+          </motion.div>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-xl shadow-yellow-900/10 md:p-6">
-          <TripPlannerForm
-            isLoading={status === "loading"}
-            onSubmit={generateItinerary}
-            onCancel={cancelGeneration}
-          />
-        </div>
+        <TripPlannerForm
+          onSubmit={generateItinerary}
+          isLoading={status === "loading"}
+        />
 
         {status === "error" && error && (
           <ErrorMessage message={error} onReset={reset} />
@@ -71,6 +71,10 @@ export function TripPlanner() {
           <ItineraryResult result={data} formData={formData} onReset={reset} />
         )}
       </div>
+      <GenerationLoadingModal
+        isOpen={status === "loading"}
+        onCancel={cancelGeneration}
+      />
     </section>
   );
 }

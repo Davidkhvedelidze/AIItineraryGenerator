@@ -1,12 +1,5 @@
 import dayjs from "dayjs";
 
-export const defaultArrivalDate = dayjs().add(14, "day").hour(10).minute(0).second(0).millisecond(0);
-export const defaultDepartureDate = defaultArrivalDate.add(5, "day").hour(18).minute(0).second(0).millisecond(0);
-export const defaultTravelDates: [string, string] = [
-  defaultArrivalDate.toISOString(),
-  defaultDepartureDate.toISOString(),
-];
-
 export function calculateTripLength(travelDates?: [string, string]) {
   if (!travelDates?.[0] || !travelDates?.[1]) return { days: null, nights: null };
 

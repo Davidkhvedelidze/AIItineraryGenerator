@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 import { getAllBlogPosts } from "@/lib/blog";
 import { getAllTours } from "@/lib/tours";
+import { listApprovedGalleryItineraries } from "@/lib/supabase/itineraryRequests";
 
 const siteUrl = "https://tripmategeorgia.com";
 
@@ -20,7 +21,11 @@ function maxDate(dates: (Date | undefined)[]): Date | undefined {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, tours] = await Promise.all([getAllBlogPosts(), getAllTours()]);
+  const [posts, tours, communityItineraries] = await Promise.all([
+    getAllBlogPosts(),
+    getAllTours(),
+    listApprovedGalleryItineraries(),
+  ]);
 
   const blogDates = posts.map((post) => new Date(post.publishedAt ?? post._updatedAt));
   const tourDates = tours.map((tour) => new Date(tour._updatedAt));
@@ -40,6 +45,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: absoluteUrl("/trip-ideas"),
       changeFrequency: "weekly",
       priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/trip-ideas/community"),
+      changeFrequency: "daily",
+      priority: 0.7,
     },
     {
       url: absoluteUrl("/blog"),
@@ -75,5 +85,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...routes, ...tripIdeaRoutes, ...blogRoutes, ...tourRoutes];
+  const communityRoutes: MetadataRoute.Sitemap = communityItineraries.map((item) => ({
+    url: absoluteUrl(`/trip-ideas/community/${item.shortId}`),
+    ...(item.submittedAt && { lastModified: new Date(item.submittedAt) }),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...routes, ...tripIdeaRoutes, ...blogRoutes, ...tourRoutes, ...communityRoutes];
 }

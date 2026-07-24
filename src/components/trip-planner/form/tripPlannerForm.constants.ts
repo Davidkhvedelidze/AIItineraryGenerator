@@ -5,7 +5,7 @@ export type FormStep = 1 | 2 | 3;
 
 export const STEP_FIELDS: Record<FormStep, (keyof TripFormSchema)[]> = {
   1: ["travelers", "travelDates", "arrivalAirport", "departureAirport", "tourType"],
-  2: ["interests", "budget", "travelStyle", "preferredCities", "language"],
+  2: ["interests", "budget", "travelStyle", "preferredCities"],
   3: ["email", "mobileNumber", "tourDescription"],
 };
 

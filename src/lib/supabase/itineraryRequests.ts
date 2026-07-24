@@ -1,7 +1,11 @@
 import { nanoid } from "nanoid";
+import { getPrimaryRegionImage, getPrimaryRegionLabel, type RegionImage } from "@/lib/itinerary/regionImages";
+import { deriveSeasonLabel } from "@/lib/itinerary/season";
 import type { ItineraryResult, TripFormData } from "@/types/trip";
 
 type ItineraryRequestStatus = "pending" | "success" | "error";
+
+export type SharingStatus = "private" | "pending" | "approved" | "rejected";
 
 type SupabaseItineraryRequestRow = {
   id: string;
@@ -14,6 +18,8 @@ type StoredItineraryRequestRow = {
   itinerary_result: ItineraryResult | null;
   form_data: TripFormData;
   created_at: string;
+  sharing_status: SharingStatus;
+  share_title: string | null;
 };
 
 type CreateItineraryRequestPayload = {
@@ -94,7 +100,7 @@ export async function createItineraryRequest(
     tour_type: formData.tourType,
     budget: formData.budget,
     travel_style: formData.travelStyle,
-    language: formData.language,
+    language: "English",
     form_data: formData,
     itinerary_result: null,
     status: "pending",
@@ -195,7 +201,7 @@ export async function getItineraryRequestByShortId(
     return null;
   }
 
-  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&select=short_id,status,itinerary_result,form_data,created_at&limit=1`;
+  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&select=short_id,status,itinerary_result,form_data,created_at,sharing_status,share_title&limit=1`;
 
   const response = await fetch(url, {
     headers: getSupabaseHeaders(config.serviceRoleKey),
@@ -209,4 +215,247 @@ export async function getItineraryRequestByShortId(
 
   const rows = (await response.json()) as StoredItineraryRequestRow[];
   return rows[0] ?? null;
+}
+
+type GallerySelectRow = {
+  short_id: string;
+  share_title: string | null;
+  submitted_at: string | null;
+  itinerary_result: ItineraryResult | null;
+  form_data: TripFormData;
+};
+
+const GALLERY_SELECT = "short_id,share_title,submitted_at,itinerary_result,form_data";
+
+export type SubmitToGalleryResult =
+  | { ok: true }
+  | { ok: false; reason: "not_eligible" };
+
+/**
+ * The only allowed sharing_status transition a client can trigger: private (or
+ * previously rejected, for resubmission) -> pending. Approve/reject are admin-only
+ * (see updateGallerySharingStatus). The filter below is enforced server-side by
+ * Postgres, not by trusting the caller — if the row isn't eligible, zero rows are
+ * updated and this returns `not_eligible` instead of silently no-op'ing.
+ */
+export async function submitItineraryToGallery(
+  shortId: string,
+  shareTitle: string,
+): Promise<SubmitToGalleryResult> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return { ok: false, reason: "not_eligible" };
+  }
+
+  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&status=eq.success&sharing_status=in.(private,rejected)`;
+
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      ...getSupabaseHeaders(config.serviceRoleKey),
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify({
+      sharing_status: "pending",
+      share_title: shareTitle,
+      submitted_at: new Date().toISOString(),
+    }),
+  });
+
+  if (!response.ok) {
+    const message = await parseSupabaseError(response);
+    throw new Error(`Unable to submit itinerary to gallery: ${message}`);
+  }
+
+  const rows = (await response.json()) as unknown[];
+  return rows.length > 0 ? { ok: true } : { ok: false, reason: "not_eligible" };
+}
+
+export type PendingGallerySubmission = {
+  shortId: string;
+  shareTitle: string | null;
+  submittedAt: string | null;
+  tripTitle: string;
+  tripLength: number;
+};
+
+/** Admin-only listing (full form_data/itinerary_result never leave this function). */
+export async function listPendingGallerySubmissions(): Promise<PendingGallerySubmission[]> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return [];
+  }
+
+  const url = `${config.restUrl}?sharing_status=eq.pending&select=${GALLERY_SELECT}&order=submitted_at.asc&limit=100`;
+
+  const response = await fetch(url, {
+    headers: getSupabaseHeaders(config.serviceRoleKey),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    console.error("Unable to list pending gallery submissions.", await parseSupabaseError(response));
+    return [];
+  }
+
+  const rows = (await response.json()) as GallerySelectRow[];
+
+  return rows.map((row) => ({
+    shortId: row.short_id,
+    shareTitle: row.share_title,
+    submittedAt: row.submitted_at,
+    tripTitle: row.itinerary_result?.tripTitle || "Untitled itinerary",
+    tripLength: row.form_data.days,
+  }));
+}
+
+/** Admin-only transition: pending -> approved | rejected. Never touches private/already-decided rows. */
+export async function updateGallerySharingStatus(
+  shortId: string,
+  status: "approved" | "rejected",
+): Promise<boolean> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return false;
+  }
+
+  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&sharing_status=eq.pending`;
+
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      ...getSupabaseHeaders(config.serviceRoleKey),
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify({ sharing_status: status }),
+  });
+
+  if (!response.ok) {
+    const message = await parseSupabaseError(response);
+    throw new Error(`Unable to update gallery sharing status: ${message}`);
+  }
+
+  const rows = (await response.json()) as unknown[];
+  return rows.length > 0;
+}
+
+export type GalleryListItem = {
+  shortId: string;
+  shareTitle: string;
+  tripLength: number;
+  travelStyle: TripFormData["travelStyle"];
+  budget: TripFormData["budget"];
+  regionLabel: string;
+  regionImage: RegionImage;
+  submittedAt: string | null;
+};
+
+/**
+ * PII HARD RULE: this is the only place that reads `form_data`/`itinerary_result`
+ * for the public catalog, and it must only ever return the fields listed in
+ * GalleryListItem below. Never spread the raw row or `form_data` into the return
+ * value — email, mobile_number, and tourDescription must never reach this type.
+ */
+function toGalleryListItem(row: GallerySelectRow): GalleryListItem | null {
+  if (!row.itinerary_result) return null;
+
+  return {
+    shortId: row.short_id,
+    shareTitle: row.share_title || row.itinerary_result.tripTitle || "A Georgia itinerary",
+    tripLength: row.form_data.days,
+    travelStyle: row.form_data.travelStyle,
+    budget: row.form_data.budget,
+    regionLabel: getPrimaryRegionLabel(row.itinerary_result.days),
+    regionImage: getPrimaryRegionImage(row.itinerary_result.days),
+    submittedAt: row.submitted_at,
+  };
+}
+
+/** Public catalog query — approved itineraries only, newest first, capped. */
+export async function listApprovedGalleryItineraries(limit = 50): Promise<GalleryListItem[]> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return [];
+  }
+
+  const url = `${config.restUrl}?sharing_status=eq.approved&select=${GALLERY_SELECT}&order=submitted_at.desc&limit=${limit}`;
+
+  const response = await fetch(url, {
+    headers: getSupabaseHeaders(config.serviceRoleKey),
+    next: { revalidate: 300 },
+  });
+
+  if (!response.ok) {
+    console.error("Unable to list approved gallery itineraries.", await parseSupabaseError(response));
+    return [];
+  }
+
+  const rows = (await response.json()) as GallerySelectRow[];
+
+  return rows
+    .map(toGalleryListItem)
+    .filter((item): item is GalleryListItem => item !== null);
+}
+
+export type GalleryItinerary = {
+  shortId: string;
+  shareTitle: string;
+  result: ItineraryResult;
+  tripLength: number;
+  travelStyle: TripFormData["travelStyle"];
+  budget: TripFormData["budget"];
+  interests: TripFormData["interests"];
+  seasonLabel: string | null;
+  submittedAt: string | null;
+};
+
+/**
+ * PII HARD RULE: same allowlist as toGalleryListItem, plus the full ItineraryResult
+ * (AI-generated trip content only — verified to contain no PII fields) and interests.
+ * `email`, `mobileNumber`, `tourDescription`, and exact `travelDates` must never be
+ * copied onto this type — season/month only, via deriveSeasonLabel.
+ */
+function toGalleryItinerary(row: GallerySelectRow): GalleryItinerary | null {
+  if (!row.itinerary_result) return null;
+
+  return {
+    shortId: row.short_id,
+    shareTitle: row.share_title || row.itinerary_result.tripTitle || "A Georgia itinerary",
+    result: row.itinerary_result,
+    tripLength: row.form_data.days,
+    travelStyle: row.form_data.travelStyle,
+    budget: row.form_data.budget,
+    interests: row.form_data.interests,
+    seasonLabel: deriveSeasonLabel(row.form_data.travelDates?.[0]),
+    submittedAt: row.submitted_at,
+  };
+}
+
+/** Public detail query — returns null for any status other than approved (pending/rejected/private all 404). */
+export async function getApprovedGalleryItinerary(shortId: string): Promise<GalleryItinerary | null> {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return null;
+  }
+
+  const url = `${config.restUrl}?short_id=eq.${encodeURIComponent(shortId)}&sharing_status=eq.approved&select=${GALLERY_SELECT}&limit=1`;
+
+  const response = await fetch(url, {
+    headers: getSupabaseHeaders(config.serviceRoleKey),
+    next: { revalidate: 300 },
+  });
+
+  if (!response.ok) {
+    console.error("Unable to fetch approved gallery itinerary.", await parseSupabaseError(response));
+    return null;
+  }
+
+  const rows = (await response.json()) as GallerySelectRow[];
+  const row = rows[0];
+  return row ? toGalleryItinerary(row) : null;
 }

@@ -1,7 +1,5 @@
-import Image from "next/image";
-import { Lightbulb, MapPin, Utensils } from "lucide-react";
+import { Lightbulb, Utensils } from "lucide-react";
 import { DayRecommendations } from "@/components/itinerary/DayRecommendations";
-import { getRegionImage } from "@/lib/itinerary/regionImages";
 import type { ItineraryDay } from "@/types/trip";
 import type { TourListItem } from "@/types/sanity-tour";
 
@@ -27,13 +25,27 @@ type DaySectionProps = {
   index: number;
   isLast: boolean;
   tours: TourListItem[];
+  tripStartDateTime?: string;
+  adults?: number;
+  showAccommodation?: boolean;
+  accommodationNights?: number;
+  accommodationCity?: string;
 };
 
-export function DaySection({ day, index, isLast, tours }: DaySectionProps) {
+export function DaySection({
+  day,
+  index,
+  isLast,
+  tours,
+  tripStartDateTime,
+  adults,
+  showAccommodation,
+  accommodationNights,
+  accommodationCity,
+}: DaySectionProps) {
   const region = cleanText(day.region);
   const title = cleanText(day.title);
   const numeral = String(day.day ?? index + 1).padStart(2, "0");
-  const image = region ? getRegionImage(region) : null;
 
   return (
     <article className="relative flex gap-4 sm:gap-6">
@@ -51,39 +63,12 @@ export function DaySection({ day, index, isLast, tours }: DaySectionProps) {
         {numeral}
       </span>
       <div className="relative z-10 flex-col  w-full ">
-        <div className="min-w-0 flex-1 gap-4  md:flex">
-          {image ? (
-            <div className="relative   overflow-hidden rounded-2xl min-w-full sm:min-w-[450px] min-h-40 sm:min-h-52">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                loading="lazy"
-                sizes="(min-width: 1024px) 680px, 100vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
-              <div className="absolute inset-x-4 bottom-3 flex items-end justify-between gap-3 sm:inset-x-5">
-                {region ? (
-                  <span className="mb-1 inline-flex items-center gap-1 rounded-full bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur">
-                    <MapPin className="h-3 w-3" aria-hidden="true" />
-                    {region}
-                  </span>
-                ) : null}
-              </div>
-            </div>
-          ) : (
-            <p className="font-[family-name:var(--font-fraunces)] text-4xl italic leading-none text-amber-800/70 sm:hidden">
-              {numeral}
-            </p>
-          )}
-
-          <div className="max-w-full  space-y-4 ">
-            <h3 className="font-[family-name:var(--font-fraunces)] text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+        <div className="min-w-0 flex-1 gap-5 md:flex">
+          <div className="mt-4 max-w-full space-y-4 md:mt-0">
+            <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
               Day {day.day}
               {title ? `: ${title}` : ""}
             </h3>
-
             <div className="grid gap-2 sm:gap-4 sm:grid-cols-3">
               <DetailRow label="Morning" value={day.morning} />
               <DetailRow label="Afternoon" value={day.afternoon} />
@@ -115,7 +100,18 @@ export function DaySection({ day, index, isLast, tours }: DaySectionProps) {
           </div>
         </div>
         {region ? (
-          <DayRecommendations dayRegion={region} tours={tours} />
+          <DayRecommendations
+            dayRegion={region}
+            accommodationCity={
+              accommodationCity || cleanText(day.overnightStay)
+            }
+            tours={tours}
+            dayNumber={day.day}
+            tripStartDateTime={tripStartDateTime}
+            adults={adults}
+            showAccommodation={showAccommodation}
+            nights={accommodationNights}
+          />
         ) : null}
       </div>
     </article>

@@ -8,11 +8,17 @@ import { cn } from "@/lib/utils";
 interface TravelStyleSelectorProps {
   value: TripFormData["travelStyle"];
   onChange: (value: TripFormData["travelStyle"]) => void;
+  error?: boolean;
 }
 
-function TravelStyleSelectorComponent({ value, onChange }: TravelStyleSelectorProps) {
+function TravelStyleSelectorComponent({ value, onChange, error = false }: TravelStyleSelectorProps) {
   return (
-    <div className="grid gap-2 sm:grid-cols-3">
+    <div
+      className={cn(
+        "grid gap-2 rounded-2xl sm:grid-cols-3",
+        error && "ring-2 ring-destructive/60 ring-offset-2"
+      )}
+    >
       {travelStyleOptions.map((option) => (
         <button
           key={option.value}
@@ -22,7 +28,9 @@ function TravelStyleSelectorComponent({ value, onChange }: TravelStyleSelectorPr
             "rounded-2xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             value === option.value
               ? "border-primary bg-primary-soft shadow-sm"
-              : "border-stone-200 bg-white hover:bg-stone-50"
+              : error
+                ? "border-destructive/50 bg-white hover:bg-stone-50"
+                : "border-stone-200 bg-white hover:bg-stone-50"
           )}
         >
           <p className="font-semibold text-foreground">{option.label}</p>

@@ -71,7 +71,7 @@ export function HowItWorks() {
           })}
         </ScrollReveal>
 
-        <ScrollReveal
+        {/* <ScrollReveal
           delay={0.15}
           className="mt-5 flex flex-col gap-3 rounded-2xl border border-yellow-200 bg-[#F5B700] px-5 py-4 text-sm leading-6 text-stone-950 shadow-lg shadow-yellow-900/10 sm:flex-row sm:items-center"
         >
@@ -83,7 +83,7 @@ export function HowItWorks() {
             The memorable promise: plan Georgia with AI, then make it real with
             local private tour support.
           </span>
-        </ScrollReveal>
+        </ScrollReveal> */}
       </div>
     </section>
   );

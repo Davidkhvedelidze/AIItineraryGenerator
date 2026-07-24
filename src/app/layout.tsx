@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import { Fraunces } from "next/font/google";
 import Script from "next/script";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { getSiteUrl } from "@/lib/site";
 import "antd/dist/reset.css";
 import "./globals.css";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
 
 const siteUrl = getSiteUrl();
 const siteName = "TripMate Georgia";
@@ -20,15 +27,22 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
+    "georgia itinerary planner",
+    "Tbilisi trip planner",
+    "georgia itinerary",
     "tours in Georgia",
     "private tours in Georgia",
     "Georgia travel planner",
     "Georgia itinerary",
     "AI travel planner",
-    "Tbilisi trip planner",
+    "kazbeki tour",
     "Kazbegi tour",
     "Kakheti wine tour",
     "Batumi travel",
+    "kutaisi travel",
+    "Svaneti travel",
+    "Georgia travel guide",
+    "sataplia cave tour",
     "Georgia tour booking",
     "Georgia itinerary generator",
     "free Georgia itinerary generator",
@@ -41,6 +55,13 @@ export const metadata: Metadata = {
     "Plan a trip to Georgia",
     "Georgia vacation planner",
     "Georgia travel guide",
+    "3-day Georgia itinerary",
+    "5-day Georgia itinerary",
+    "7-day Georgia itinerary",
+    "Georgia travel route",
+    "Georgia travel guide",
+    "Georgia travel tips",
+    "Georgia travel planning",
     "Georgia tour planner",
     "Georgia AI itinerary",
     "free AI Georgia itinerary",
@@ -52,6 +73,7 @@ export const metadata: Metadata = {
     "free custom Georgia itinerary",
     "Georgia itinerary for tourists",
     "Georgia travel route planner",
+    "Your Georgia trip, planned in 60 seconds",
   ],
   applicationName: siteName,
   authors: [{ name: siteName }],
@@ -103,7 +125,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fraunces.variable}>
       <head>
         <GoogleAnalytics />
         <Script

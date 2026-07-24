@@ -1,13 +1,18 @@
 "use client";
 
-import { Controller, type Control, type FieldErrors, type UseFormRegister, type UseFormSetValue } from "react-hook-form";
+import {
+  Controller,
+  type Control,
+  type FieldErrors,
+  type UseFormSetValue,
+} from "react-hook-form";
 import { DatePicker, Select } from "antd";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { airportOptions, tourTypeOptions } from "@/constants/trip-options";
+import { airportOptions, travelerOptions } from "@/constants/trip-options";
 import type { TripFormSchema } from "@/lib/validations/tripFormSchema";
+import { TourTypeSelector } from "../TourTypeSelector";
 import { calculateTripLength } from "./tripPlannerForm.utils";
 import { fieldVariants, formVariants } from "./tripPlannerForm.constants";
 
@@ -15,28 +20,41 @@ const { RangePicker } = DatePicker;
 
 interface TripBasicsStepProps {
   control: Control<TripFormSchema>;
-  register: UseFormRegister<TripFormSchema>;
   errors: FieldErrors<TripFormSchema>;
   setValue: UseFormSetValue<TripFormSchema>;
   isLoading: boolean;
   tripLength: { days: number | null; nights: number | null };
 }
 
-export function TripBasicsStep({ control, register, errors, setValue, isLoading, tripLength }: TripBasicsStepProps) {
+export function TripBasicsStep({
+  control,
+  errors,
+  setValue,
+  isLoading,
+  tripLength,
+}: TripBasicsStepProps) {
   return (
     <motion.div className="grid gap-4 sm:grid-cols-2" variants={formVariants}>
       <motion.div className="space-y-2" variants={fieldVariants}>
         <Label htmlFor="travelers">Travelers</Label>
-        <Input
-          id="travelers"
-          type="number"
-          min={1}
-          max={20}
-          disabled={isLoading}
-          className="h-11 rounded-xl border-stone-200 bg-stone-50/70"
-          aria-invalid={!!errors.travelers}
-          aria-describedby={errors.travelers ? "travelers-error" : undefined}
-          {...register("travelers", { valueAsNumber: true })}
+        <Controller
+          control={control}
+          name="travelers"
+          render={({ field }) => (
+            <Select
+              {...field}
+              id="travelers"
+              size="large"
+              className="w-full"
+              disabled={isLoading}
+              options={travelerOptions}
+              placeholder="Select number of travelers"
+              status={errors.travelers ? "error" : undefined}
+              aria-describedby={
+                errors.travelers ? "travelers-error" : undefined
+              }
+            />
+          )}
         />
         {errors.travelers && (
           <p id="travelers-error" className="text-xs text-destructive">
@@ -46,25 +64,22 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
       </motion.div>
 
       <motion.div className="space-y-2" variants={fieldVariants}>
-        <Label htmlFor="tourType">Tour Type</Label>
+        <Label>Tour Type</Label>
         <Controller
           control={control}
           name="tourType"
           render={({ field }) => (
-            <Select
-              {...field}
-              id="tourType"
-              size="large"
-              className="w-full"
-              disabled={isLoading}
-              options={tourTypeOptions}
-              status={errors.tourType ? "error" : undefined}
+            <TourTypeSelector
+              value={field.value}
+              onChange={field.onChange}
+              error={!!errors.tourType}
             />
           )}
         />
-        {errors.tourType && <p className="text-xs text-destructive">{errors.tourType.message}</p>}
+        {errors.tourType && (
+          <p className="text-xs text-destructive">{errors.tourType.message}</p>
+        )}
       </motion.div>
-
       <motion.div className="space-y-2 sm:col-span-2" variants={fieldVariants}>
         <Label htmlFor="travelDates">Travel Dates</Label>
         <Controller
@@ -73,14 +88,22 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
           render={({ field }) => (
             <RangePicker
               id="travelDates"
-              value={field.value?.length === 2 ? [dayjs(field.value[0]), dayjs(field.value[1])] : null}
+              value={
+                field.value?.length === 2
+                  ? [dayjs(field.value[0]), dayjs(field.value[1])]
+                  : null
+              }
               onChange={(dates) => {
                 const nextTravelDates: [string, string] | undefined =
-                  dates?.[0] && dates?.[1] ? [dates[0].toISOString(), dates[1].toISOString()] : undefined;
+                  dates?.[0] && dates?.[1]
+                    ? [dates[0].toISOString(), dates[1].toISOString()]
+                    : undefined;
                 const nextTripLength = calculateTripLength(nextTravelDates);
 
                 if (nextTripLength.days) {
-                  setValue("days", nextTripLength.days, { shouldValidate: true });
+                  setValue("days", nextTripLength.days, {
+                    shouldValidate: true,
+                  });
                 }
 
                 field.onChange(nextTravelDates);
@@ -97,7 +120,11 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
             />
           )}
         />
-        {errors.travelDates && <p className="text-xs text-destructive">{errors.travelDates.message}</p>}
+        {errors.travelDates && (
+          <p className="text-xs text-destructive">
+            {errors.travelDates.message}
+          </p>
+        )}
         <div className="flex min-h-11 items-center rounded-2xl border border-primary/25 bg-primary-soft px-3 text-sm text-foreground">
           <span className="font-semibold">Trip length:&nbsp;</span>
           {tripLength.days
@@ -106,7 +133,9 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
               }`
             : "Select valid travel dates"}
         </div>
-        {errors.days && <p className="text-xs text-destructive">{errors.days.message}</p>}
+        {errors.days && (
+          <p className="text-xs text-destructive">{errors.days.message}</p>
+        )}
       </motion.div>
 
       <motion.div className="space-y-2" variants={fieldVariants}>
@@ -122,11 +151,16 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
               className="w-full"
               disabled={isLoading}
               options={airportOptions}
+              placeholder="Select arrival airport"
               status={errors.arrivalAirport ? "error" : undefined}
             />
           )}
         />
-        {errors.arrivalAirport && <p className="text-xs text-destructive">{errors.arrivalAirport.message}</p>}
+        {errors.arrivalAirport && (
+          <p className="text-xs text-destructive">
+            {errors.arrivalAirport.message}
+          </p>
+        )}
       </motion.div>
 
       <motion.div className="space-y-2" variants={fieldVariants}>
@@ -142,11 +176,16 @@ export function TripBasicsStep({ control, register, errors, setValue, isLoading,
               className="w-full"
               disabled={isLoading}
               options={airportOptions}
+              placeholder="Select departure airport"
               status={errors.departureAirport ? "error" : undefined}
             />
           )}
         />
-        {errors.departureAirport && <p className="text-xs text-destructive">{errors.departureAirport.message}</p>}
+        {errors.departureAirport && (
+          <p className="text-xs text-destructive">
+            {errors.departureAirport.message}
+          </p>
+        )}
       </motion.div>
     </motion.div>
   );
