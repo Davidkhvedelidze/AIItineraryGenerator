@@ -1,23 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  BadgeCheck,
-  MessageCircle,
-  Route,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
+import heroImage from "../../../public/images/heroImage.png";
+import claudeLeft from "../../../public/images/left-cloud-transparent.png";
+import claudeRight from "../../../public/images/right-cloud-transparent.png";
+import styles from "./styles.module.css";
+import birdSprite from "../../../public/images/bird-flight-sprite-web.png";
+import { HeroTripPlanner } from "./HeroTripPlanner";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
-  },
-};
+// const container = {
+//   hidden: {},
+//   show: {
+//     transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+//   },
+// };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -28,52 +25,132 @@ const fadeUp = {
   },
 };
 
-const whatsappUrl =
-  "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
+// const whatsappUrl =
+//   "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
 
-const heroImage =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg/1280px-Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg";
+// const heroImage =
+//   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg/1280px-Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg";
 
-const trustBadges = [
-  "Private driver support",
-  "Family-friendly pacing",
-  "GCC traveler guidance",
-  "Flexible pickup",
-  "Local route checks",
-];
+// const trustBadges = [
+//   "Private driver support",
+//   "Family-friendly pacing",
+//   "GCC traveler guidance",
+//   "Flexible pickup",
+//   "Local route checks",
+// ];
 
-const heroStats = [
-  {
-    label: "Route style",
-    value: "AI plan refined by local Georgia support",
-    icon: Route,
-  },
-  {
-    label: "Best for",
-    value: "Families, first-time visitors, private groups",
-    icon: Users,
-  },
-  {
-    label: "Comfort layer",
-    value: "Pickup, timing, food stops, and driver notes",
-    icon: ShieldCheck,
-  },
-];
+// const heroStats = [
+//   {
+//     label: "Route style",
+//     value: "AI plan refined by local Georgia support",
+//     icon: Route,
+//   },
+//   {
+//     label: "Best for",
+//     value: "Families, first-time visitors, private groups",
+//     icon: Users,
+//   },
+//   {
+//     label: "Comfort layer",
+//     value: "Pickup, timing, food stops, and driver notes",
+//     icon: ShieldCheck,
+//   },
+// ];
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-black text-white min-h-[calc(100dvh-65px)]">
-      <Image
-        src={heroImage}
-        alt="Gergeti Trinity Church and Mount Kazbek in Kazbegi, Georgia"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-black/35" />
-      <motion.div
+    <section className="relative isolate overflow-hidden bg-black  text-white min-h-[calc(100dvh-65px)]">
+      <>
+        <Image
+          src={heroImage}
+          alt="Gergeti Trinity Church and Mount Kazbek in Kazbegi, Georgia"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+
+        <Image
+          src={claudeLeft}
+          alt=""
+          width={500}
+          height={160}
+          aria-hidden="true"
+          className={`${styles.cloud} ${styles.cloudLeft} z-50`}
+        />
+
+        <Image
+          src={claudeRight}
+          alt=""
+          width={450}
+          height={150}
+          aria-hidden="true"
+          className={`${styles.cloud} ${styles.cloudRight}`}
+        />
+
+        <div
+          className={`${styles.birdFlight} ${styles.birdOne}`}
+          aria-hidden="true"
+        >
+          <Image
+            src={birdSprite}
+            alt=""
+            width={2010}
+            height={440}
+            className={styles.birdFrames}
+          />
+        </div>
+
+        <div
+          className={`${styles.birdFlight} ${styles.birdTwo}`}
+          aria-hidden="true"
+        >
+          <Image
+            src={birdSprite}
+            alt=""
+            width={2010}
+            height={440}
+            className={styles.birdFrames}
+          />
+        </div>
+
+        <div
+          className={`${styles.birdFlight} ${styles.birdThree}`}
+          aria-hidden="true"
+        >
+          <Image
+            src={birdSprite}
+            alt=""
+            width={2010}
+            height={440}
+            className={styles.birdFrames}
+          />
+        </div>
+      </>
+
+      <div className="relative z-20 flex flex-col items-center px-6 mt-[70px]">
+        <motion.h1
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="max-w-2xl text-center font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl md:text-6xl"
+        >
+          Plan your perfect Georgia trip with AI for Free
+        </motion.h1>
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="mb-6 mt-3 max-w-xl text-center text-foreground leading-7 text-white/80 sm:text-lg"
+        >
+          Share your preferences and we&apos;ll create a itinerary tour for you.
+        </motion.h2>
+
+        <HeroTripPlanner />
+      </div>
+      {/* <div className="absolute inset-0 bg-black/45" /> */}
+      {/* <div className="absolute inset-x-0 bottom-0 h-32 bg-black/35" /> */}
+      {/* <motion.div
         className="container relative py-14 sm:py-16 md:py-20 lg:py-24  min-h-[calc(100dvh-65px)] flex flex-col md:items-end md:justify-end"
         variants={container}
         initial="hidden"
@@ -168,7 +245,7 @@ export function HeroSection() {
             );
           })}
         </motion.div>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 }

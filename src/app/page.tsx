@@ -6,7 +6,6 @@ import { ExampleItinerary } from "@/components/home/ExampleItinerary";
 import { HeroSection } from "@/components/home/HeroSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { PopularTripIdeas } from "@/components/home/PopularTripIdeas";
-import { DeferredTripPlanner } from "@/components/trip-planner/DeferredTripPlanner";
 import { getSiteUrl } from "@/lib/site";
 
 const siteUrl = getSiteUrl();
@@ -82,9 +81,9 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 scroll-smooth">
         <HeroSection />
-        <DeferredTripPlanner />
+        {/* <DeferredTripPlanner /> */}
         <ExampleItinerary />
         <HowItWorks />
         <PopularTripIdeas />
