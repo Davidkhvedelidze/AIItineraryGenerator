@@ -133,7 +133,7 @@ export function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="max-w-2xl text-center font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl md:text-6xl"
+          className="max-w-2xl text-center font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl md:text-5xl "
         >
           Plan your perfect Georgia trip with AI for Free
         </motion.h1>
