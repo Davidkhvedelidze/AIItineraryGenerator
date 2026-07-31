@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Route, ShieldCheck, Users } from "lucide-react";
 import heroImage from "../../../public/images/heroImage.png";
 import claudeLeft from "../../../public/images/left-cloud-transparent.png";
 import claudeRight from "../../../public/images/right-cloud-transparent.png";
