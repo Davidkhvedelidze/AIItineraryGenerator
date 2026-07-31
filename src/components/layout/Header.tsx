@@ -69,60 +69,61 @@ export function Header() {
             </span>
           </span>
         </Link>
-
-        <nav
-          className="hidden items-center gap-1 rounded-full border border-stone-200/80 bg-white/75 p-1 shadow-sm md:flex"
-          aria-label="Primary navigation"
-        >
-          {navLinks.map((link) => {
-            const active = isActive(link.href);
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-primary-soft text-foreground"
-                    : "text-stone-700 hover:bg-primary-soft hover:text-foreground",
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "gap-2 rounded-full bg-primary px-4 text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-md",
-            )}
+        <div className="flex">
+          <nav
+            className="hidden items-center gap-1   p-1 shadow-sm md:flex"
+            aria-label="Primary navigation"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            <span className="hidden sm:inline">Local help</span>
-            <span className="sm:hidden">Help</span>
-          </a>
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
 
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 shadow-sm transition-colors hover:bg-stone-50 md:hidden"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-            onClick={() => setIsOpen((value) => !value)}
-          >
-            {isOpen ? (
-              <X className="h-5 w-5" aria-hidden="true" />
-            ) : (
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            )}
-          </button>
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    active
+                      ? "bg-primary-soft text-foreground"
+                      : "text-stone-700 hover:bg-primary-soft hover:text-foreground",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "gap-2 rounded-full bg-primary px-4 text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-md",
+              )}
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              <span className="hidden sm:inline">Local help</span>
+              <span className="sm:hidden">Help</span>
+            </a>
+
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 shadow-sm transition-colors hover:bg-stone-50 md:hidden"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              onClick={() => setIsOpen((value) => !value)}
+            >
+              {isOpen ? (
+                <X className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Menu className="h-5 w-5" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

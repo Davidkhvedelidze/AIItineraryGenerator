@@ -82,9 +82,9 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 scroll-smooth">
         <HeroSection />
-        <DeferredTripPlanner />
+        {/* <DeferredTripPlanner /> */}
         <ExampleItinerary />
         <HowItWorks />
         <PopularTripIdeas />
