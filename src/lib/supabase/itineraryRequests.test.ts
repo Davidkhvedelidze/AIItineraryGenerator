@@ -13,7 +13,6 @@ const formData: TripFormData = {
   travelStyle: "balanced",
   tourType: "private-guided",
   travelers: 2,
-  language: "English",
   email: "traveler@example.com",
   mobileNumber: "",
   tourDescription: "",
@@ -38,7 +37,12 @@ describe("Supabase best-effort helpers", () => {
   it("tryCreatePendingRequest swallows a Supabase failure and returns null", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({ ok: false, json: async () => ({ message: "insert failed" }) }),
+      vi
+        .fn()
+        .mockResolvedValue({
+          ok: false,
+          json: async () => ({ message: "insert failed" }),
+        }),
     );
 
     const result = await tryCreatePendingRequest(formData);
@@ -64,11 +68,20 @@ describe("Supabase best-effort helpers", () => {
   it("tryUpdateRequest never throws even when the update fails", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({ ok: false, json: async () => ({ message: "update failed" }) }),
+      vi
+        .fn()
+        .mockResolvedValue({
+          ok: false,
+          json: async () => ({ message: "update failed" }),
+        }),
     );
 
     await expect(
-      tryUpdateRequest("request-id-1", { status: "success", itinerary_result: null, error_message: null }),
+      tryUpdateRequest("request-id-1", {
+        status: "success",
+        itinerary_result: null,
+        error_message: null,
+      }),
     ).resolves.toBeUndefined();
     expect(consoleErrorSpy).toHaveBeenCalled();
   });
@@ -77,7 +90,11 @@ describe("Supabase best-effort helpers", () => {
     const fetchSpy = vi.fn();
     vi.stubGlobal("fetch", fetchSpy);
 
-    await tryUpdateRequest(null, { status: "success", itinerary_result: null, error_message: null });
+    await tryUpdateRequest(null, {
+      status: "success",
+      itinerary_result: null,
+      error_message: null,
+    });
 
     expect(fetchSpy).not.toHaveBeenCalled();
   });

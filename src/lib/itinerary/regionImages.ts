@@ -72,8 +72,13 @@ export function getRegionImage(regionText: string): RegionImage {
   return REGION_IMAGES[imageKey] ?? GENERIC_FALLBACK;
 }
 
-/** Picks the most-frequently-visited known region across the trip, for the hero image. */
-export function getPrimaryRegionImage(days: Pick<ItineraryDay, "region">[]): RegionImage {
+type PrimaryRegionMatch = {
+  imageKey: string;
+  group: ReturnType<typeof findRegionGroup>;
+};
+
+/** Finds the known region group visited most often across the trip. */
+function findPrimaryRegionGroup(days: Pick<ItineraryDay, "region">[]): PrimaryRegionMatch | null {
   const counts = new Map<string, { count: number; sample: string }>();
 
   for (const day of days) {
@@ -95,6 +100,20 @@ export function getPrimaryRegionImage(days: Pick<ItineraryDay, "region">[]): Reg
     }
   }
 
-  if (!best) return GENERIC_FALLBACK;
-  return REGION_IMAGES[best.imageKey] ?? GENERIC_FALLBACK;
+  if (!best) return null;
+  return { imageKey: best.imageKey, group: findRegionGroup(best.sample) };
+}
+
+/** Picks the most-frequently-visited known region across the trip, for the hero image. */
+export function getPrimaryRegionImage(days: Pick<ItineraryDay, "region">[]): RegionImage {
+  const match = findPrimaryRegionGroup(days);
+  if (!match) return GENERIC_FALLBACK;
+  return REGION_IMAGES[match.imageKey] ?? GENERIC_FALLBACK;
+}
+
+/** Picks a short display label (e.g. "Tbilisi", "Svaneti") for the most-visited region, for gallery cards. */
+export function getPrimaryRegionLabel(days: Pick<ItineraryDay, "region">[]): string {
+  const match = findPrimaryRegionGroup(days);
+  const group = match?.group;
+  return group?.accommodationLabel ?? group?.tourRegionLabel ?? "Georgia";
 }

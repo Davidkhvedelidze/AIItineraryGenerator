@@ -116,7 +116,7 @@ export function RouteSignature({
         d={GEORGIA_SILHOUETTE}
         fill={dark ? "rgba(255,255,255,0.06)" : "rgba(28,25,23,0.05)"}
         stroke={dark ? "rgba(245,183,0,0.35)" : "rgba(180,83,9,0.25)"}
-        strokeWidth="1.5"
+        strokeWidth="3.5"
       />
       <path
         ref={pathRef}
@@ -156,14 +156,14 @@ export function RouteSignature({
           <text
             x="11"
             y="-7"
-            className={`text-[11px] font-semibold ${dark ? "fill-white" : "fill-stone-900"}`}
+            className={`text-[11px] font-semibold ${!dark ? "fill-white" : "fill-stone-900"}`}
           >
             {stop.label}
           </text>
           <text
             x="11"
             y="7"
-            className={`text-[9px] font-medium uppercase tracking-wide ${dark ? "fill-amber-200" : "fill-amber-700"}`}
+            className={`text-[11px] font-medium uppercase tracking-wide ${dark ? "fill-amber-200" : "fill-amber-700"}`}
           >
             {stop.sub}
           </text>

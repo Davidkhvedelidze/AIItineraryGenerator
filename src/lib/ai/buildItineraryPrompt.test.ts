@@ -13,7 +13,6 @@ const formData: TripFormData = {
   travelStyle: "balanced",
   tourType: "private-guided",
   travelers: 2,
-  language: "English",
   email: "traveler@example.com",
   mobileNumber: "",
   tourDescription: "",

@@ -52,7 +52,7 @@ User details:
 - Travel style: ${formData.travelStyle}
 - Tour type: ${tourTypeLabels[formData.tourType]}
 - Number of travelers: ${formData.travelers}
-- Language: ${formData.language}
+- Language: English
 - Mobile number: ${formData.mobileNumber || "Not provided"}
 - Customer tour description: ${formData.tourDescription || "Not provided"}
 
@@ -68,9 +68,12 @@ Rules:
 - Make the plan suitable for first-time visitors.
 - Do not invent exact hotel names, booking availability, or exact ticket prices.
 - Do not claim that bookings are confirmed.
+- Price every amount in US dollars (USD). totalPrice, pricePerPerson, and estimatedBudget must all be quoted in USD (e.g. "$450", "$220-$260"), never GEL, EUR, or any other currency — this must match the rest of the site, which prices exclusively in USD.
 - Keep the tone concise, professional, and WhatsApp-friendly.
 - Return only valid JSON.
 - The JSON must match the exact schema provided.
+- Every day's "overnightStay" must name the specific city/town where that night is spent (e.g. "Tbilisi", "Sighnaghi", "Stepantsminda", "Mestia", "Batumi", "Kutaisi") and must stay identical across every day of the same stay.
+- "overnightStayPlan" must list only the first day of each distinct accommodation stay, not every day — e.g. a 3-night Tbilisi stay followed by 1 night in Kazbegi is [{ "day": 1, "city": "Tbilisi" }, { "day": 4, "city": "Kazbegi" }], never a repeated entry per night. Each "city" must match the "overnightStay" value of that day exactly.
 
 JSON shape:
 {
@@ -85,7 +88,8 @@ JSON shape:
       "afternoon": "string",
       "evening": "string",
       "foodSuggestion": "string",
-      "travelTip": "string"
+      "travelTip": "string",
+      "overnightStay": "string"
     }
   ],
   "totalPrice": "string",
@@ -97,6 +101,7 @@ JSON shape:
   "packingTips": ["string"],
   "transportTips": ["string"],
   "localFoodToTry": ["string"],
-  "bookingSuggestion": "string"
+  "bookingSuggestion": "string",
+  "overnightStayPlan": [{ "day": 1, "city": "string" }]
 }`;
 }

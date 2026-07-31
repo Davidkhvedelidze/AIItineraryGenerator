@@ -1,6 +1,13 @@
 import { z } from "zod";
 
-const airportSchema = z.enum(["Tbilisi International Airport", "Kutaisi International Airport", "Batumi International Airport"]);
+const airportSchema = z.enum(
+  [
+    "Tbilisi International Airport",
+    "Kutaisi International Airport",
+    "Batumi International Airport",
+  ],
+  { required_error: "Select an airport." },
+);
 
 const preferredCitySchema = z.enum([
   "Tbilisi",
@@ -17,7 +24,7 @@ const preferredCitySchema = z.enum([
   "Ureki",
   "Kobuleti",
   "Akhaltsikhe",
-  "Ambrolauri"
+  "Ambrolauri",
 ]);
 
 const requiredNumber = (label: string, min: number, max: number) =>
@@ -26,11 +33,11 @@ const requiredNumber = (label: string, min: number, max: number) =>
     z
       .number({
         required_error: `${label} is required.`,
-        invalid_type_error: `${label} must be a number.`
+        invalid_type_error: `${label} must be a number.`,
       })
       .int(`${label} must be a whole number.`)
       .min(min, `${label} must be at least ${min}.`)
-      .max(max, `${label} must be ${max} or less.`)
+      .max(max, `${label} must be ${max} or less.`),
   );
 
 const optionalMobileNumber = z
@@ -50,29 +57,56 @@ export const tripFormSchema = z.object({
   travelDates: z
     .tuple([
       z.string().datetime("Choose a valid arrival date and time."),
-      z.string().datetime("Choose a valid departure date and time.")
+      z.string().datetime("Choose a valid departure date and time."),
     ])
-    .refine(([arrival, departure]) => new Date(departure).getTime() > new Date(arrival).getTime(), {
-      message: "Departure must be after arrival.",
-      path: [1]
-    }),
+    .refine(
+      ([arrival, departure]) =>
+        new Date(departure).getTime() > new Date(arrival).getTime(),
+      {
+        message: "Departure must be after arrival.",
+        path: [1],
+      },
+    ),
   arrivalAirport: airportSchema,
   departureAirport: airportSchema,
   preferredCities: z
     .array(preferredCitySchema)
     .min(1, "Choose at least one preferred overnight city.")
     .max(6, "Choose up to 6 preferred overnight cities."),
-  interests: z.array(z.enum(["mountains", "wine", "food", "history", "culture", "hiking", "sea", "nightlife", "family-friendly", "photography"]))
+  interests: z
+    .array(
+      z.enum([
+        "mountains",
+        "wine",
+        "food",
+        "history",
+        "culture",
+        "hiking",
+        "sea",
+        "nightlife",
+        "family-friendly",
+        "photography",
+      ]),
+    )
     .min(1, "Choose at least one interest.")
     .max(5, "Choose up to 5 interests."),
-  budget: z.enum(["low", "medium", "premium"]),
-  travelStyle: z.enum(["relaxed", "balanced", "active"]),
-  tourType: z.enum(["private-guided", "public-group", "self-guided"]),
-  travelers: requiredNumber("Travelers", 1, 20),
-  language: z.enum(["English", "Georgian"]),
-  email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address."),
+  budget: z.enum(["low", "medium", "premium"], {
+    required_error: "Choose a budget level.",
+  }),
+  travelStyle: z.enum(["relaxed", "balanced", "active"], {
+    required_error: "Choose a travel style.",
+  }),
+  tourType: z.enum(["private-guided", "public-group", "self-guided"], {
+    required_error: "Choose a tour type.",
+  }),
+  travelers: requiredNumber("Travelers", 1, 15),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required.")
+    .email("Enter a valid email address."),
   mobileNumber: optionalMobileNumber,
-  tourDescription: optionalTourDescription
+  tourDescription: optionalTourDescription,
 });
 
 export type TripFormSchema = z.infer<typeof tripFormSchema>;

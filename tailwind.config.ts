@@ -50,6 +50,12 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)"
+      },
+      fontFamily: {
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"]
+      },
+      textColor: {
+        white: "var(--text-on-dark)"
       }
     }
   },

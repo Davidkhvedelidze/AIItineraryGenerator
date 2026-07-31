@@ -2,6 +2,7 @@ import type OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { AiInvalidResponseError, AiTimeoutError } from "@/lib/api/apiError";
 import { buildItineraryPrompt } from "@/lib/ai/buildItineraryPrompt";
+import { ITINERARY_SYSTEM_PROMPT } from "@/lib/itinerary/system-prompt";
 import { parseItineraryResponse } from "@/lib/ai/parseItineraryResponse";
 import { itineraryResultSchema, type ItineraryResult } from "@/lib/validations/itineraryResultSchema";
 import type { TripFormData } from "@/types/trip";
@@ -24,7 +25,7 @@ async function requestCompletion(client: OpenAI, prompt: string): Promise<Itiner
       {
         model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
         messages: [
-          { role: "system", content: "Return only strict JSON matching the given schema." },
+          { role: "system", content: ITINERARY_SYSTEM_PROMPT },
           { role: "user", content: prompt },
         ],
         temperature: 0.3,

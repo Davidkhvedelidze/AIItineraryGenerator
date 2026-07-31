@@ -5,26 +5,27 @@
 @layer base {
   :root {
     --background: 45 100% 98.4%;
-    --foreground: 36.9 26.5% 9.6%;
+    --foreground: 45 80% 9%;
     --card: 0 0% 100%;
-    --card-foreground: 36.9 26.5% 9.6%;
+    --card-foreground: 45 80% 9%;
     --primary: 44.8 100% 48%;
     --primary-hover: 42.6 100% 42.5%;
     --primary-soft: 47.8 100% 91.8%;
-    --primary-foreground: 36.9 26.5% 9.6%;
+    --primary-foreground: 45 80% 9%;
     --secondary-gold: 31 83% 22%;
     --secondary: 48 70% 92%;
-    --secondary-foreground: 36.9 26.5% 9.6%;
+    --secondary-foreground: 45 80% 9%;
     --muted: 44 45% 92%;
-    --muted-foreground: 34 13% 36%;
+    --muted-foreground: 40 20% 32%;
     --accent: 48 100% 92%;
-    --accent-foreground: 36.9 26.5% 9.6%;
+    --accent-foreground: 45 80% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 42 34% 82%;
     --input: 42 34% 82%;
     --ring: 42.6 100% 42.5%;
     --radius: 0.6rem;
+    --text-on-dark: #faf6ef;
 
     /* Shared sticky offsets: keep Header, TourSectionNav, and TourBookingBox
        in sync so nothing scrolls under a bar above it. */
@@ -70,6 +71,6 @@
 
   ::selection {
     background: hsl(44.8 100% 48% / 0.42);
-    color: hsl(36.9 26.5% 9.6%);
+    color: hsl(45 80% 9%);
   }
 }
