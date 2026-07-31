@@ -2,14 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  BadgeCheck,
-  MessageCircle,
-  Route,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
+import { Route, ShieldCheck, Users } from "lucide-react";
 import heroImage from "../../../public/images/heroImage.png";
 import claudeLeft from "../../../public/images/left-cloud-transparent.png";
 import claudeRight from "../../../public/images/right-cloud-transparent.png";
@@ -17,12 +10,12 @@ import styles from "./styles.module.css";
 import birdSprite from "../../../public/images/bird-flight-sprite-web.png";
 import { HeroTripPlanner } from "./HeroTripPlanner";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
-  },
-};
+// const container = {
+//   hidden: {},
+//   show: {
+//     transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+//   },
+// };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -33,37 +26,37 @@ const fadeUp = {
   },
 };
 
-const whatsappUrl =
-  "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
+// const whatsappUrl =
+//   "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
 
 // const heroImage =
 //   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg/1280px-Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg";
 
-const trustBadges = [
-  "Private driver support",
-  "Family-friendly pacing",
-  "GCC traveler guidance",
-  "Flexible pickup",
-  "Local route checks",
-];
+// const trustBadges = [
+//   "Private driver support",
+//   "Family-friendly pacing",
+//   "GCC traveler guidance",
+//   "Flexible pickup",
+//   "Local route checks",
+// ];
 
-const heroStats = [
-  {
-    label: "Route style",
-    value: "AI plan refined by local Georgia support",
-    icon: Route,
-  },
-  {
-    label: "Best for",
-    value: "Families, first-time visitors, private groups",
-    icon: Users,
-  },
-  {
-    label: "Comfort layer",
-    value: "Pickup, timing, food stops, and driver notes",
-    icon: ShieldCheck,
-  },
-];
+// const heroStats = [
+//   {
+//     label: "Route style",
+//     value: "AI plan refined by local Georgia support",
+//     icon: Route,
+//   },
+//   {
+//     label: "Best for",
+//     value: "Families, first-time visitors, private groups",
+//     icon: Users,
+//   },
+//   {
+//     label: "Comfort layer",
+//     value: "Pickup, timing, food stops, and driver notes",
+//     icon: ShieldCheck,
+//   },
+// ];
 
 export function HeroSection() {
   return (
