@@ -12,7 +12,8 @@ const securityHeaders = [
       "default-src 'self'",
       // Next.js dev mode needs 'unsafe-eval' for HMR and source maps.
       // https://tp-em.com is the Travelpayouts ad/monetization script (see layout.tsx).
-      `script-src 'self' 'unsafe-inline' https://tp-em.com${isDev ? " 'unsafe-eval'" : ""}`,
+      // https://www.googletagmanager.com serves the GA4 gtag.js script (see GoogleAnalytics.tsx).
+      `script-src 'self' 'unsafe-inline' https://tp-em.com https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self' data:",
