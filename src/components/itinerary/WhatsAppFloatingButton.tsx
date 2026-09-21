@@ -1,3 +1,4 @@
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { MessageCircle } from "lucide-react";
 
 type WhatsAppFloatingButtonProps = {
@@ -9,7 +10,7 @@ export function WhatsAppFloatingButton({ pageUrl }: WhatsAppFloatingButtonProps)
   const whatsappUrl = `https://wa.me/995551181358?text=${encodeURIComponent(message)}`;
 
   return (
-    <a
+    <WhatsAppLink clickLocation="floating_button"
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
@@ -18,6 +19,6 @@ export function WhatsAppFloatingButton({ pageUrl }: WhatsAppFloatingButtonProps)
     >
       <MessageCircle className="h-6 w-6" aria-hidden="true" />
       <span className="hidden text-sm font-semibold sm:inline">Chat with us</span>
-    </a>
+    </WhatsAppLink>
   );
 }

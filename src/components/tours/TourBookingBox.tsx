@@ -1,5 +1,6 @@
 "use client";
 
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { useState } from "react";
 import { Drawer } from "antd";
 import {
@@ -120,7 +121,7 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
         </a>
       ) : null}
 
-      <a
+      <WhatsAppLink clickLocation="tour_detail"
         href={`https://wa.me/995551181358?text=${encodeURIComponent(
           `Hello, I would like help with ${tour.title}.`,
         )}`}
@@ -128,7 +129,7 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
       >
         <MessageCircle className="h-4 w-4" aria-hidden="true" />
         Ask on WhatsApp
-      </a>
+      </WhatsAppLink>
     </div>
   );
 

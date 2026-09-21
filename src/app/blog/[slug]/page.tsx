@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
+import { ArrowLeft, Clock3 } from "lucide-react";
 import { BlogCTA } from "@/components/blog/BlogCTA";
+import { BlogPostBody } from "@/components/blog/BlogPostBody";
+import { BlogTableOfContents } from "@/components/blog/BlogTableOfContents";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
-import { urlFor } from "@/lib/sanity/image";
+import {
+  formatBlogDate,
+  getBlogHeadings,
+  getBlogReadingMinutes,
+} from "@/lib/blog-presentation";
+import { getSanityImageUrl } from "@/lib/sanity/image";
 import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
+import styles from "@/components/blog/blog.module.css";
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -17,7 +26,6 @@ interface BlogPostPageProps {
 
 export async function generateStaticParams() {
   const slugs = await getBlogPostSlugs();
-
   return slugs.map((post) => ({ slug: post.slug }));
 }
 
@@ -25,9 +33,7 @@ export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const post = await getBlogPostBySlug(params.slug);
-
   if (!post) return { title: "Blog Post Not Found" };
-
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
@@ -38,30 +44,22 @@ export async function generateMetadata({
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await getBlogPostBySlug(params.slug);
   if (!post) notFound();
-
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage)
-        .width(1200)
-        .height(675)
-        .fit("crop")
-        .auto("format")
-        .url()
-    : null;
-  const publishedDate = post.publishedAt
-    ? new Intl.DateTimeFormat("en", { dateStyle: "long" }).format(
-        new Date(post.publishedAt),
-      )
-    : null;
+  const imageUrl = getSanityImageUrl(post.mainImage, {
+    width: 1600,
+    height: 800,
+    fit: "crop",
+  });
+  const publishedDate = formatBlogDate(post.publishedAt, "long");
+  const body = post.body || [];
+  const headings = getBlogHeadings(body);
+  const readingMinutes = getBlogReadingMinutes(body);
+  const tags = Array.from(
+    new Set((post.tags || []).map((tag) => tag.trim()).filter(Boolean)),
+  );
   const faqItems =
-    post.faq
-      ?.filter(
-        (item): item is { question: string; answer: string } =>
-          Boolean(item.question && item.answer),
-      )
-      .map((item) => ({
-        question: item.question,
-        answer: item.answer,
-      })) ?? [];
+    post.faq?.filter((item): item is { question: string; answer: string } =>
+      Boolean(item.question && item.answer),
+    ) ?? [];
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -77,151 +75,122 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const faqJsonLd = faqItems.length > 0 ? buildFAQJsonLd(faqItems) : null;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <Header />
-      <main className="container flex-1 py-4">
-        <article className="mx-auto max-w-4xl space-y-10">
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
-          {faqJsonLd ? (
+      <main className={`flex-1 ${styles.journal}`}>
+        <div className="container max-w-6xl pb-16 pt-8 sm:pb-20 sm:pt-10">
+          <nav
+            aria-label="Breadcrumb"
+            className={`mb-8 text-sm ${styles.muted}`}
+          >
+            <Link
+              href="/blog"
+              className={`inline-flex min-h-11 items-center gap-2 font-medium ${styles.accent}`}
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              All travel stories
+            </Link>
+          </nav>
+          <article>
             <script
               type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+              }}
             />
-          ) : null}
-          <header className="space-y-4">
-            {post.category ? (
-              <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
-                {post.category}
-              </p>
-            ) : null}
-            <h1 className="text-4xl font-semibold tracking-tight">
-              {post.title}
-            </h1>
-            {post.excerpt ? (
-              <p className="text-lg leading-8 text-muted-foreground">
-                {post.excerpt}
-              </p>
-            ) : null}
-            {publishedDate ? (
-              <time
-                className="block text-sm font-medium text-muted-foreground"
-                dateTime={post.publishedAt}
-              >
-                {publishedDate}
-              </time>
-            ) : null}
-            {post.tags && post.tags.length > 0 ? (
-              <ul className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-foreground ring-1 ring-primary/25"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </header>
-
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={post.title}
-              width={1200}
-              height={675}
-              priority
-              sizes="(min-width: 1024px) 896px, calc(100vw - 32px)"
-              className="aspect-[16/9] w-full rounded-lg object-cover"
-            />
-          ) : null}
-
-          {post.body && post.body.length > 0 ? (
-            <section className="space-y-6 text-base leading-8 text-muted-foreground">
-              <PortableText
-                value={post.body}
-                components={{
-                  block: {
-                    h2: ({ children }) => (
-                      <h2 className="pt-4 text-2xl font-semibold tracking-tight text-foreground">
-                        {children}
-                      </h2>
-                    ),
-                    h3: ({ children }) => (
-                      <h3 className="pt-2 text-xl font-semibold text-foreground">
-                        {children}
-                      </h3>
-                    ),
-                    normal: ({ children }) => <p>{children}</p>,
-                  },
-                  list: {
-                    bullet: ({ children }) => (
-                      <ul className="list-disc space-y-2 pl-6">{children}</ul>
-                    ),
-                    number: ({ children }) => (
-                      <ol className="list-decimal space-y-2 pl-6">
-                        {children}
-                      </ol>
-                    ),
-                  },
-                  listItem: {
-                    bullet: ({ children }) => <li>{children}</li>,
-                    number: ({ children }) => <li>{children}</li>,
-                  },
-                  types: {
-                    image: ({ value }) => {
-                      const inlineImageUrl = value
-                        ? urlFor(value)
-                            .width(1000)
-                            .fit("max")
-                            .auto("format")
-                            .url()
-                        : null;
-
-                      return inlineImageUrl ? (
-                        <Image
-                          src={inlineImageUrl}
-                          alt=""
-                          width={1000}
-                          height={650}
-                          sizes="(min-width: 1024px) 896px, calc(100vw - 32px)"
-                          className="my-8 w-full rounded-lg object-cover"
-                        />
-                      ) : null;
-                    },
-                  },
-                  marks: {
-                    link: ({ children, value }) => {
-                      const href =
-                        typeof value?.href === "string" ? value.href : "";
-                      const isExternal = href.startsWith("http");
-
-                      return (
-                        <a
-                          href={href}
-                          className="font-medium text-secondary-gold underline-offset-4 hover:text-amber-700 hover:underline"
-                          rel={isExternal ? "noreferrer" : undefined}
-                          target={isExternal ? "_blank" : undefined}
-                        >
-                          {children}
-                        </a>
-                      );
-                    },
-                  },
+            {faqJsonLd ? (
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
                 }}
               />
-            </section>
-          ) : null}
-
-          {faqItems.length > 0 ? <FAQSection items={faqItems} /> : null}
-
-          <BlogCTA cta={post.cta} />
-
-          <RelatedPosts currentSlug={post.slug} />
-        </article>
+            ) : null}
+            <header className="max-w-4xl">
+              {post.category ? (
+                <p
+                  className={`mb-4 text-xs font-semibold uppercase tracking-[.14em] ${styles.accent}`}
+                >
+                  {post.category}
+                </p>
+              ) : null}
+              <h1 className="font-serif text-4xl font-medium leading-[1.14] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+                {post.title}
+              </h1>
+              {post.excerpt ? (
+                <p
+                  className={`mt-5 max-w-3xl text-lg leading-8 ${styles.muted}`}
+                >
+                  {post.excerpt}
+                </p>
+              ) : null}
+              <div
+                className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-xs sm:text-sm ${styles.muted}`}
+              >
+                <span className={`font-semibold ${styles.accent}`}>
+                  By TripMate Georgia
+                </span>
+                {publishedDate ? (
+                  <time dateTime={post.publishedAt}>{publishedDate}</time>
+                ) : null}
+                {readingMinutes ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock3 className="h-4 w-4" aria-hidden="true" />
+                    {readingMinutes} min read
+                  </span>
+                ) : null}
+              </div>
+            </header>
+            <div className="relative my-9 aspect-[4/3] overflow-hidden rounded-2xl sm:my-12 sm:aspect-[2/1]">
+              <Image
+                src={imageUrl || "/tbilisiHD.jpg"}
+                alt={
+                  imageUrl
+                    ? post.title
+                    : "Tbilisi’s historic cityscape in Georgia"
+                }
+                fill
+                priority
+                sizes="(min-width: 1280px) 1120px, calc(100vw - 32px)"
+                className="object-cover"
+              />
+            </div>
+            <div
+              className={`grid gap-10 lg:gap-16 ${headings.length > 1 ? "lg:grid-cols-[minmax(0,1fr)_250px]" : "mx-auto max-w-3xl"}`}
+            >
+              <BlogTableOfContents headings={headings} />
+              <div className="min-w-0 space-y-12 lg:col-start-1 lg:row-start-1">
+                {body.length > 0 ? (
+                  <BlogPostBody body={body} title={post.title} />
+                ) : null}
+                {tags.length > 0 ? (
+                  <div className={`border-t pt-6 ${styles.border}`}>
+                    <p className={`mb-3 text-sm font-medium ${styles.muted}`}>
+                      Covered in this story
+                    </p>
+                    <ul className="flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className={`rounded-full px-3 py-1.5 text-xs ${styles.soft} ${styles.accent}`}
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {faqItems.length > 0 ? <FAQSection items={faqItems} /> : null}
+              </div>
+            </div>
+            <div className="mt-16">
+              <BlogCTA cta={post.cta} />
+            </div>
+          </article>
+          <div className="mt-16 sm:mt-20">
+            <RelatedPosts currentSlug={post.slug} />
+          </div>
+        </div>
       </main>
       <Footer />
     </div>

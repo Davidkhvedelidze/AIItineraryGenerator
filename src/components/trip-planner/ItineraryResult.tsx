@@ -572,26 +572,17 @@ export function ItineraryResult({
   }, []);
 
   const handleBookingHelp = () => {
-    trackEvent("booking_whatsapp_click", {
-      trip_title: result.tripTitle,
-      days: formData.days,
-      travelers: formData.travelers,
-      budget: formData.budget,
-      travel_style: formData.travelStyle,
-    });
+    trackEvent("whatsapp_click", { click_location: "itinerary_result" });
     window.open(whatsappBookingUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleEmailBookingHelp = () => {
-    trackEvent("booking_email_click", {
-      trip_title: result.tripTitle,
-    });
+    trackEvent("booking_email_click");
     window.location.href = emailBookingUrl;
   };
 
   const handleDownloadPdf = () => {
     trackEvent("itinerary_pdf_download_click", {
-      trip_title: result.tripTitle,
       days: days.length,
     });
     printItinerary(result);

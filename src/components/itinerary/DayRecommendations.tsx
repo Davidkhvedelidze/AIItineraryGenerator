@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { TourLink } from "@/components/analytics/TourLink";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getAccommodationAffiliateLink } from "@/lib/affiliate-config";
 import { matchToursForDayRegion } from "@/lib/itinerary/matchTours";
@@ -32,8 +32,9 @@ function OwnTourCard({ tour }: { tour: TourListItem; dayRegion: string }) {
     fit: "crop",
   });
   return (
-    <Link
-      href={`/tours/${tour.slug}`}
+    <TourLink
+      tourSlug={tour.slug}
+      clickLocation="itinerary_recommendation"
       className="group flex items-center gap-2 lg:gap-4 lg:w-auto overflow-hidden rounded-2xl border border-primary/30 bg-primary-soft/60 p-1 lg:p-3 transition hover:border-primary/50 hover:bg-primary-soft w-full"
     >
       <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-20">
@@ -63,7 +64,7 @@ function OwnTourCard({ tour }: { tour: TourListItem; dayRegion: string }) {
         className="h-5 w-5 shrink-0 text-amber-700 transition group-hover:translate-x-0.5"
         aria-hidden="true"
       />
-    </Link>
+    </TourLink>
   );
 }
 

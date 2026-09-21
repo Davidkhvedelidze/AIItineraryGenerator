@@ -1,65 +1,64 @@
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import type { BlogCTA as BlogCTAContent } from "@/types/sanity-blog";
+import styles from "./blog.module.css";
 
-type BlogCTAProps = {
-  cta?: BlogCTAContent;
+const defaultCTA: BlogCTAContent = {
+  title: "Make it your Georgia story.",
+  description:
+    "Take the places you’ve been reading about and explore them with a local. Find a private tour that fits your pace.",
+  primaryButtonLabel: "Explore private tours",
+  primaryButtonLink: "/tours",
+  secondaryButtonLabel: "Browse trip ideas",
+  secondaryButtonLink: "/trip-ideas",
 };
 
-export function BlogCTA({ cta }: BlogCTAProps) {
-  if (!cta || (!cta.title && !cta.description)) {
-    return null;
-  }
-
-  const primaryButton =
-    cta.primaryButtonLabel && cta.primaryButtonLink
-      ? {
-          label: cta.primaryButtonLabel,
-          href: cta.primaryButtonLink,
-        }
-      : null;
-  const secondaryButton =
-    cta.secondaryButtonLabel && cta.secondaryButtonLink
-      ? {
-          label: cta.secondaryButtonLabel,
-          href: cta.secondaryButtonLink,
-        }
-      : null;
-
+export function BlogCTA({ cta }: { cta?: BlogCTAContent }) {
+  const content = cta && (cta.title || cta.description) ? cta : defaultCTA;
   return (
-    <section className="my-12 overflow-hidden rounded-3xl border border-[#E8C766]/60 bg-[linear-gradient(135deg,#FFFDF7_0%,#FFF3BF_55%,#F8D66D_100%)] p-6 shadow-[0_18px_50px_rgba(120,78,12,0.12)] md:p-8">
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl">
-          {cta.title ? (
-            <h2 className="text-2xl font-semibold tracking-tight text-[#1F1A12] md:text-3xl">
-              {cta.title}
-            </h2>
+    <section
+      className={`grid overflow-hidden rounded-2xl border md:grid-cols-[1fr_240px] ${styles.border} ${styles.soft}`}
+    >
+      <div className="p-7 sm:p-10">
+        {content.title ? (
+          <h2 className="max-w-xl font-serif text-3xl font-medium leading-tight sm:text-4xl">
+            {content.title}
+          </h2>
+        ) : null}
+        {content.description ? (
+          <p className={`mt-4 max-w-xl text-base leading-7 ${styles.muted}`}>
+            {content.description}
+          </p>
+        ) : null}
+        <div className="mt-6 flex flex-wrap gap-3">
+          {content.primaryButtonLabel && content.primaryButtonLink ? (
+            <Link
+              href={content.primaryButtonLink}
+              className={styles.primaryButton}
+            >
+              {content.primaryButtonLabel}
+              <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </Link>
           ) : null}
-          {cta.description ? (
-            <p className="mt-3 text-base leading-7 text-[#4B3B18]">
-              {cta.description}
-            </p>
+          {content.secondaryButtonLabel && content.secondaryButtonLink ? (
+            <Link
+              href={content.secondaryButtonLink}
+              className={styles.secondaryButton}
+            >
+              {content.secondaryButtonLabel}
+            </Link>
           ) : null}
         </div>
-        {primaryButton || secondaryButton ? (
-          <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
-            {primaryButton ? (
-              <Link
-                href={primaryButton.href}
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#F5B700] px-5 py-2.5 text-sm font-semibold text-[#1F1A12] shadow-sm transition hover:bg-[#D99A00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A4E0C]"
-              >
-                {primaryButton.label}
-              </Link>
-            ) : null}
-            {secondaryButton ? (
-              <Link
-                href={secondaryButton.href}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#D6B44B] bg-white/80 px-5 py-2.5 text-sm font-semibold text-[#1F1A12] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7A4E0C]"
-              >
-                {secondaryButton.label}
-              </Link>
-            ) : null}
-          </div>
-        ) : null}
+      </div>
+      <div className="relative hidden min-h-64 md:block">
+        <Image
+          src="/tbilisiHD.jpg"
+          alt="Tbilisi’s historic cityscape"
+          fill
+          sizes="240px"
+          className="object-cover"
+        />
       </div>
     </section>
   );

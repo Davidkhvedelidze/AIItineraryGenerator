@@ -1,3 +1,4 @@
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
@@ -40,12 +41,12 @@ export default async function ToursPage() {
               >
                 Build a custom itinerary
               </Link>
-              <a
+              <WhatsAppLink clickLocation="tours_page"
                 href="https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20choosing%20a%20private%20Georgia%20tour."
                 className="inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-semibold transition hover:bg-muted"
               >
                 Ask on WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </header>
 
