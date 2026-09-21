@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { TourLink } from "@/components/analytics/TourLink";
 import { motion } from "framer-motion";
 import { MapPin, Star } from "lucide-react";
 import { getTourPriceSummary } from "@/lib/tour-pricing";
@@ -44,7 +44,7 @@ export function TourCard({ tour }: TourCardProps) {
       className="overflow-hidden rounded-2xl border bg-card shadow-sm transition hover:shadow-md"
     >
       {imageUrl ? (
-        <Link href={`/tours/${tour.slug}`} className="block">
+        <TourLink tourSlug={tour.slug} clickLocation="tour_card" className="block">
           <Image
             src={imageUrl}
             alt={tour.title}
@@ -53,7 +53,7 @@ export function TourCard({ tour }: TourCardProps) {
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, calc(100vw - 32px)"
             className="aspect-[3/2] w-full object-cover"
           />
-        </Link>
+        </TourLink>
       ) : null}
       <div className="space-y-4 p-5">
         <div className="flex flex-wrap gap-2">
@@ -70,9 +70,9 @@ export function TourCard({ tour }: TourCardProps) {
         </div>
         <div>
           <h2 className="text-xl font-semibold tracking-tight">
-            <Link href={`/tours/${tour.slug}`} className="hover:text-amber-700">
+            <TourLink tourSlug={tour.slug} clickLocation="tour_card" className="hover:text-amber-700">
               {tour.title}
-            </Link>
+            </TourLink>
           </h2>
           <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
             {tour.excerpt}
@@ -104,12 +104,12 @@ export function TourCard({ tour }: TourCardProps) {
             </p>
           ) : null}
         </div>
-        <Link
-          href={`/tours/${tour.slug}`}
+        <TourLink
+          tourSlug={tour.slug} clickLocation="tour_card"
           className="inline-flex w-full items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover"
         >
           View tour
-        </Link>
+        </TourLink>
       </div>
     </motion.article>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useReducer, useRef } from "react";
+import { itineraryResultSchema } from "@/lib/validations/itineraryResultSchema";
 import { trackEvent } from "@/lib/analytics";
 import type {
   GenerateItineraryResponse,
@@ -67,10 +68,8 @@ function generatorReducer(
 
 function tripAnalyticsParams(formData: TripFormData) {
   return {
-    days: formData.days,
-    travelers: formData.travelers,
-    budget: formData.budget,
-    travel_style: formData.travelStyle,
+    trip_duration: formData.days,
+    travelers_count: formData.travelers,
     tour_type: formData.tourType,
   };
 }
@@ -79,10 +78,14 @@ async function parseGenerateItineraryResponse(
   response: Response,
 ): Promise<GenerateItineraryResponse> {
   try {
-    return (await response.json()) as GenerateItineraryResponse;
+    const result = (await response.json()) as GenerateItineraryResponse;
+    if (result?.success === false) return result;
+    if (result?.success === true && itineraryResultSchema.safeParse(result.data).success) return result;
+    return { success: false, code: "AI_INVALID_RESPONSE", message: "Received invalid itinerary format. Please try again." };
   } catch {
     return {
       success: false,
+      code: "AI_INVALID_RESPONSE",
       message: "Something went wrong. Please try again.",
     };
   }
@@ -91,7 +94,6 @@ async function parseGenerateItineraryResponse(
 export function useItineraryGenerator() {
   const [state, dispatch] = useReducer(generatorReducer, initialState);
   const abortControllerRef = useRef<AbortController | null>(null);
-  const timedOutRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -101,22 +103,23 @@ export function useItineraryGenerator() {
 
   const generateItinerary = useCallback(
     async (formData: TripFormData) => {
-      if (state.status === "loading") {
+      if (abortControllerRef.current && !abortControllerRef.current.signal.aborted) {
         return;
       }
 
       abortControllerRef.current?.abort();
       const abortController = new AbortController();
       abortControllerRef.current = abortController;
-      timedOutRef.current = false;
+      let timedOut = false;
+      let failureTracked = false;
 
       const timeoutId = setTimeout(() => {
-        timedOutRef.current = true;
+        timedOut = true;
         abortController.abort();
       }, CLIENT_TIMEOUT_MS);
 
       dispatch({ type: "GENERATE_START", payload: formData });
-      trackEvent("itinerary_generation_started", tripAnalyticsParams(formData));
+      trackEvent("itinerary_start", tripAnalyticsParams(formData));
 
       try {
         const response = await fetch("/api/generate-itinerary", {
@@ -127,6 +130,7 @@ export function useItineraryGenerator() {
         });
 
         const result = await parseGenerateItineraryResponse(response);
+        if (abortController.signal.aborted) throw new DOMException("Aborted", "AbortError");
 
         if (!response.ok || !result.success) {
           const retryAfterSeconds =
@@ -140,10 +144,16 @@ export function useItineraryGenerator() {
                 ? result.message
                 : "Failed to generate itinerary.";
 
-          trackEvent("itinerary_generation_failed", {
-            code: !result.success ? (result.code ?? "UNKNOWN") : "UNKNOWN",
-            status: response.status,
+          const rateLimited = response.status === 429 || (!result.success && result.code === "RATE_LIMITED");
+          // Treat API codes as untrusted at runtime; never forward arbitrary response text.
+          const knownCodes = ["INVALID_REQUEST", "RATE_LIMITED", "AI_NOT_CONFIGURED", "AI_INVALID_RESPONSE", "AI_UNAVAILABLE", "AI_TIMEOUT", "INTERNAL_ERROR"];
+          const code = !result.success && result.code && knownCodes.includes(result.code) ? result.code : "UNKNOWN";
+          trackEvent(rateLimited ? "itinerary_rate_limited" : "itinerary_generate_error", {
+            ...tripAnalyticsParams(formData),
+            error_code: rateLimited ? "RATE_LIMITED" : code,
+            http_status: response.status,
           });
+          failureTracked = true;
 
           throw new Error(message);
         }
@@ -153,19 +163,20 @@ export function useItineraryGenerator() {
           payload: { data: result.data, shareId: result.shareId },
         });
         trackEvent(
-          "itinerary_generation_succeeded",
+          "itinerary_generate_success",
           tripAnalyticsParams(formData),
         );
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
-          if (timedOutRef.current) {
+          if (timedOut) {
             dispatch({
               type: "GENERATE_ERROR",
               payload: "This is taking longer than expected. Please try again.",
             });
-            trackEvent("itinerary_generation_failed", {
-              code: "CLIENT_TIMEOUT",
-              status: 0,
+            trackEvent("itinerary_generate_error", {
+              ...tripAnalyticsParams(formData),
+              error_code: "CLIENT_TIMEOUT",
+              http_status: 0,
             });
             return;
           }
@@ -174,6 +185,13 @@ export function useItineraryGenerator() {
           return;
         }
 
+        if (!failureTracked) {
+          trackEvent("itinerary_generate_error", {
+            ...tripAnalyticsParams(formData),
+            error_code: "NETWORK_ERROR",
+            http_status: 0,
+          });
+        }
         const message =
           error instanceof Error
             ? error.message
@@ -181,9 +199,10 @@ export function useItineraryGenerator() {
         dispatch({ type: "GENERATE_ERROR", payload: message });
       } finally {
         clearTimeout(timeoutId);
+        if (abortControllerRef.current === abortController) abortControllerRef.current = null;
       }
     },
-    [state.status],
+    [],
   );
 
   const reset = useCallback(() => {

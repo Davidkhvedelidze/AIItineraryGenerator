@@ -3,7 +3,7 @@ import type { PortableTextBlock } from "next-sanity";
 export type SanityImage = {
   asset?: {
     _ref?: string;
-    _type?: string;
+    _type?: "reference";
   };
   hotspot?: unknown;
   crop?: unknown;

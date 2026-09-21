@@ -1,3 +1,4 @@
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
@@ -43,7 +44,7 @@ export function CTASection() {
               >
                 Browse Tours
               </Link>
-              <a
+              <WhatsAppLink clickLocation="home_cta"
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +52,7 @@ export function CTASection() {
               >
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 Local Help
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </ScrollReveal>

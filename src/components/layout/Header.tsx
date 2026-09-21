@@ -1,5 +1,6 @@
 "use client";
 
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -96,7 +97,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
+            <WhatsAppLink clickLocation="header"
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -108,7 +109,7 @@ export function Header() {
               <MessageCircle className="h-4 w-4" aria-hidden="true" />
               <span className="hidden sm:inline">Local help</span>
               <span className="sm:hidden">Help</span>
-            </a>
+            </WhatsAppLink>
 
             <button
               type="button"
