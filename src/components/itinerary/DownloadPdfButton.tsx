@@ -9,7 +9,6 @@ import type { ItineraryResult } from "@/types/trip";
 export function DownloadPdfButton({ result, className }: { result: ItineraryResult; className?: string }) {
   function handleClick() {
     trackEvent("itinerary_pdf_download_click", {
-      trip_title: result.tripTitle,
       days: result.days?.length ?? 0,
     });
     printItinerary(result);
