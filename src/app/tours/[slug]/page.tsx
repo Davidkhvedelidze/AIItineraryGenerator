@@ -14,6 +14,7 @@ import { TourCTA } from "@/components/tours/TourCTA";
 import { TourGallery } from "@/components/tours/TourGallery";
 import { TourHero } from "@/components/tours/TourHero";
 import { TourHighlights } from "@/components/tours/TourHighlights";
+import { TourHotelWidget } from "@/components/tours/TourHotelWidget";
 import { TourItinerary } from "@/components/tours/TourItinerary";
 import { TourOverview } from "@/components/tours/TourOverview";
 import { TourPricing } from "@/components/tours/TourPricing";
@@ -446,6 +447,7 @@ export default async function TourDetailPage({ params }: TourPageProps) {
                   title={tour.title}
                 />
                 <TourHighlights highlights={tour.highlights} />
+                <TourHotelWidget />
                 <TourPricing tour={tour} />
                 <TourItinerary items={tour.itinerary} />
                 <InclusionsSection tour={tour} />

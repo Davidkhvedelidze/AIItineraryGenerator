@@ -74,3 +74,12 @@
     color: hsl(45 80% 9%);
   }
 }
+
+/* The Travelpayouts automonetization script (tp-em.com, see layout.tsx) injects
+   an .emerald-block widget at an unpredictable spot inside the page — often
+   mid-flex-row inside a Highlights card, breaking its layout. TourHotelWidget
+   relocates it into a dedicated section via MutationObserver; this rule hides
+   it in the meantime (script blocked/slow) so it never flashes inside Highlights. */
+#highlights .emerald-block {
+  display: none !important;
+}
