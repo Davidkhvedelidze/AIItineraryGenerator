@@ -2,6 +2,9 @@ export type AnalyticsEventParams = Record<string, string | number | boolean | un
 
 export type AnalyticsEventName =
   | "page_view"
+  | "planner_start"
+  | "planner_step_view"
+  | "planner_validation_error"
   | "itinerary_start"
   | "itinerary_generate_success"
   | "itinerary_generate_error"
