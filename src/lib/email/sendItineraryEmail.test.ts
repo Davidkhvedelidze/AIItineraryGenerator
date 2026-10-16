@@ -45,8 +45,24 @@ describe("buildItineraryEmail", () => {
     expect(text).toContain("Day 1 – Old Tbilisi (Tbilisi)");
   });
 
-  it("omits the button when there is no saved itinerary page", () => {
-    expect(buildItineraryEmail({ itinerary, shareUrl: null }).html).not.toContain("href=");
+  it("includes a WhatsApp contact prefilled with the itinerary link", () => {
+    const shareUrl = "https://tripmategeorgia.com/itinerary/abc";
+    const { html, text } = buildItineraryEmail({ itinerary, shareUrl });
+    const expectedUrl = `https://wa.me/995551181358?text=${encodeURIComponent(
+      `Hi! I have a question about my Georgia itinerary: ${shareUrl}`,
+    )}`;
+
+    expect(html).toContain(`href="${expectedUrl}"`);
+    expect(html).toContain("+995 551 18 13 58");
+    expect(text).toContain(`+995 551 18 13 58 (${expectedUrl})`);
+    expect(text).not.toContain("reply to this email");
+  });
+
+  it("omits the itinerary link when there is no saved itinerary page", () => {
+    const { html } = buildItineraryEmail({ itinerary, shareUrl: null });
+
+    expect(html).not.toContain("full day-by-day plan");
+    expect(html).toContain("https://wa.me/995551181358");
   });
 });
 

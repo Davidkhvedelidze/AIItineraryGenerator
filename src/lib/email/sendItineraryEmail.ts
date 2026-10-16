@@ -2,6 +2,9 @@ import type { ItineraryResult } from "@/lib/validations/itineraryResultSchema";
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const SEND_TIMEOUT_MS = 8_000;
+// Same number as the site's WhatsApp buttons.
+const WHATSAPP_NUMBER = "995551181358";
+const WHATSAPP_DISPLAY = "+995 551 18 13 58";
 
 type ItineraryEmail = {
   to: string;
@@ -45,10 +48,14 @@ export function buildItineraryEmail({
     ...(linkLine ? [linkLine] : []),
   ];
 
-  const closing = [
-    "If anything should change – dates, pace, places – just reply to this email and we'll help.",
-    "Have a great trip,\nTripMate Georgia",
-  ];
+  // Prefilled like the site's floating WhatsApp button, so we know which plan they mean.
+  const whatsappMessage = shareUrl
+    ? `Hi! I have a question about my Georgia itinerary: ${shareUrl}`
+    : `Hi! I have a question about my Georgia itinerary: ${itinerary.tripTitle}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+  const contactIntro =
+    "Questions, changes to dates or places, or want us to arrange the trip? Message us on WhatsApp:";
+  const signOff = "Have a great trip,\nTripMate Georgia";
 
   const toHtml = (paragraph: string) =>
     `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`;
@@ -60,10 +67,16 @@ export function buildItineraryEmail({
 ${paragraphs.slice(0, 3).map(toHtml).join("\n")}
 ${linkHtml}
 <p>${dayLines.map(escapeHtml).join("<br>")}</p>
-${closing.map(toHtml).join("\n")}
+<p>${escapeHtml(contactIntro)} <a href="${escapeHtml(whatsappUrl)}">${WHATSAPP_DISPLAY}</a></p>
+${toHtml(signOff)}
 </div>`;
 
-  const text = [...paragraphs, dayLines.join("\n"), ...closing].join("\n\n");
+  const text = [
+    ...paragraphs,
+    dayLines.join("\n"),
+    `${contactIntro} ${WHATSAPP_DISPLAY} (${whatsappUrl})`,
+    signOff,
+  ].join("\n\n");
 
   return { subject, html, text };
 }
