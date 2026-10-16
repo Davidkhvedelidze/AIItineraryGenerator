@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useForm, type FieldErrors, type Path } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
@@ -42,6 +42,7 @@ import {
 import { calculateTripLength } from "@/components/trip-planner/form/tripPlannerForm.utils";
 import { useItineraryGenerator } from "@/hooks/useItineraryGenerator";
 import { trackEvent } from "@/lib/analytics";
+import type { ItineraryResult } from "@/lib/validations/itineraryResultSchema";
 import {
   airportOptions,
   budgetOptions,
@@ -447,8 +448,81 @@ function GeneratingState() {
   );
 }
 
+/**
+ * Shown in place of an instant redirect: tells the traveler where the plan was
+ * emailed (so a mistyped address is noticed) while still offering the full page.
+ */
+function ReadyState({
+  itinerary,
+  shareId,
+  email,
+  emailSent,
+}: {
+  itinerary: ItineraryResult;
+  shareId: string | null;
+  email: string;
+  emailSent: boolean;
+}) {
+  return (
+    <motion.div
+      key="ready"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      role="status"
+      className="space-y-5"
+    >
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-soft">
+          <Check className="h-5 w-5 text-secondary-gold" aria-hidden="true" />
+        </span>
+        <div className="min-w-0 space-y-1">
+          <p className="font-serif text-xl font-semibold text-foreground">
+            Your itinerary is ready
+          </p>
+          <p className="break-words text-sm text-muted-foreground">
+            {emailSent ? (
+              <>
+                We&apos;ve sent it to{" "}
+                <span className="font-medium text-foreground">{email}</span>.
+              </>
+            ) : (
+              "We couldn't email it this time, so keep the link below."
+            )}
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-2 rounded-2xl bg-muted px-4 py-3 text-sm">
+        <p className="font-semibold text-foreground">{itinerary.tripTitle}</p>
+        <ul className="space-y-1 text-muted-foreground">
+          {itinerary.days.slice(0, 2).map((day) => (
+            <li key={day.day}>
+              Day {day.day} · {day.title}
+            </li>
+          ))}
+          {itinerary.days.length > 2 && (
+            <li>+ {itinerary.days.length - 2} more days</li>
+          )}
+        </ul>
+      </div>
+
+      {shareId && (
+        <Link href={`/itinerary/${shareId}`} className={primaryButtonClass}>
+          View full plan
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      )}
+      {emailSent && (
+        <p className="text-center text-xs text-muted-foreground">
+          Not in your inbox? Check the Promotions or Spam folder.
+        </p>
+      )}
+    </motion.div>
+  );
+}
+
 export function HeroTripPlanner() {
-  const router = useRouter();
   const [step, setStep] = useState<Step>("trip");
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -466,6 +540,7 @@ export function HeroTripPlanner() {
     handleSubmit,
     setValue,
     watch,
+    getValues,
     trigger,
     clearErrors,
     formState: { errors },
@@ -490,14 +565,9 @@ export function HeroTripPlanner() {
     },
   });
 
-  const { status, error, shareId, generateItinerary } = useItineraryGenerator();
+  const { status, error, data, shareId, emailSent, generateItinerary } =
+    useItineraryGenerator();
   const isLoading = status === "loading";
-
-  useEffect(() => {
-    if (status === "success" && shareId) {
-      router.push(`/itinerary/${shareId}`);
-    }
-  }, [status, shareId, router]);
 
   const markStarted = useCallback(() => {
     if (startTracked.current) return;
@@ -693,6 +763,13 @@ export function HeroTripPlanner() {
         <AnimatePresence mode="wait" initial={false}>
           {isLoading ? (
             <GeneratingState />
+          ) : status === "success" && data ? (
+            <ReadyState
+              itinerary={data}
+              shareId={shareId}
+              email={getValues("email")}
+              emailSent={emailSent}
+            />
           ) : step === "trip" ? (
             <motion.form
               key="trip"
@@ -1077,6 +1154,7 @@ export function HeroTripPlanner() {
                     autoComplete="email"
                     inputMode="email"
                     placeholder="you@example.com"
+                    aria-required="true"
                     aria-invalid={!!errors.email}
                     className={inputClass}
                     {...register("email")}

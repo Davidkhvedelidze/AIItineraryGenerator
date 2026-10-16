@@ -88,14 +88,14 @@ export async function POST(request: Request) {
 
     // Awaited rather than fire-and-forget: serverless functions may freeze once the response is sent.
     const shortId = pendingRequest?.shortId;
-    await trySendItineraryEmail({
+    const emailSent = await trySendItineraryEmail({
       to: formData.email,
       itinerary,
       shareUrl: shortId ? `${getSiteUrl()}/itinerary/${shortId}` : null,
     });
 
     return NextResponse.json(
-      { success: true, data: itinerary, shareId: pendingRequest?.shortId ?? null },
+      { success: true, data: itinerary, shareId: pendingRequest?.shortId ?? null, emailSent },
       { status: 200 },
     );
   } catch (error) {
