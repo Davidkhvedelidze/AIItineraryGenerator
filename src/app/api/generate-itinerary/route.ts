@@ -8,6 +8,8 @@ import {
   getLoggableErrorDetails,
 } from "@/lib/api/apiError";
 import { generateItineraryCompletion } from "@/lib/ai/generateItineraryCompletion";
+import { trySendItineraryEmail } from "@/lib/email/sendItineraryEmail";
+import { getSiteUrl } from "@/lib/site";
 import { checkRateLimit, checkSupabaseRateLimit, getClientIp } from "@/lib/rateLimit";
 import { tryCreatePendingRequest, tryUpdateRequest } from "@/lib/supabase/itineraryRequests";
 import { tripFormSchema } from "@/lib/validations/tripFormSchema";
@@ -82,6 +84,14 @@ export async function POST(request: Request) {
       status: "success",
       itinerary_result: itinerary,
       error_message: null,
+    });
+
+    // Awaited rather than fire-and-forget: serverless functions may freeze once the response is sent.
+    const shortId = pendingRequest?.shortId;
+    await trySendItineraryEmail({
+      to: formData.email,
+      itinerary,
+      shareUrl: shortId ? `${getSiteUrl()}/itinerary/${shortId}` : null,
     });
 
     return NextResponse.json(
