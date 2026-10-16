@@ -97,7 +97,8 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <WhatsAppLink clickLocation="header"
+            <WhatsAppLink
+              clickLocation="header"
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
