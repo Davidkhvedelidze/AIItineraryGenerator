@@ -65,6 +65,8 @@ export type GenerateItineraryResponse =
       data: ItineraryResult;
       /** Short shareable ID for the persisted /itinerary/[id] page, or null if persistence failed. */
       shareId: string | null;
+      /** Whether the itinerary email was accepted by the mail provider. */
+      emailSent?: boolean;
     }
   | {
       success: false;
