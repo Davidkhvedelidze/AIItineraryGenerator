@@ -562,6 +562,8 @@ export function HeroTripPlanner() {
       email: "",
       mobileNumber: "",
       tourDescription: "",
+      // This form only asks for days; toTravelDates fills in placeholder times.
+      flightTimesUnknown: true,
     },
   });
 

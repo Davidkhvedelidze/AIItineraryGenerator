@@ -29,4 +29,20 @@ describe("buildItineraryPrompt date ordering", () => {
     expect(departureIndex).toBeGreaterThan(-1);
     expect(arrivalIndex).toBeLessThan(departureIndex);
   });
+
+  it("never sends the traveler's contact details to the model", () => {
+    const prompt = buildItineraryPrompt({ ...formData, mobileNumber: "+995 555 123 456" });
+
+    expect(prompt).not.toContain("+995 555 123 456");
+    expect(prompt).not.toContain(formData.email);
+  });
+
+  it("sends dates only when the form's flight times are placeholders", () => {
+    const prompt = buildItineraryPrompt({ ...formData, flightTimesUnknown: true });
+
+    expect(prompt).toContain("Arrival date: 2026-08-01 (flight time not provided");
+    expect(prompt).toContain("Departure date: 2026-08-06 (flight time not provided");
+    expect(prompt).not.toContain("T10:00:00");
+    expect(prompt).not.toContain("T18:00:00");
+  });
 });

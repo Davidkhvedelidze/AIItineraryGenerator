@@ -67,6 +67,7 @@ export const tripFormSchema = z.object({
         path: [1],
       },
     ),
+  flightTimesUnknown: z.boolean().optional(),
   arrivalAirport: airportSchema,
   departureAirport: airportSchema,
   preferredCities: z

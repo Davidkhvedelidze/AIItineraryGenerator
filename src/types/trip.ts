@@ -44,6 +44,8 @@ export type TripFormData = {
   days: number;
   /** [arrivalDateTime, departureDateTime] — index 0 is always the earlier date. */
   travelDates: [string, string];
+  /** True when the form only asked for days, so the times in travelDates are placeholders. */
+  flightTimesUnknown?: boolean;
   arrivalAirport: GeorgianAirport;
   departureAirport: GeorgianAirport;
   preferredCities: PreferredCity[];
