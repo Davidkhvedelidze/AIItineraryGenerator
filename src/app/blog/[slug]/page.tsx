@@ -184,7 +184,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
             <div className="mt-16">
-              <BlogCTA cta={post.cta} />
+              <BlogCTA cta={post.cta} postTitle={post.title} postSlug={post.slug} />
             </div>
           </article>
           <div className="mt-16 sm:mt-20">
