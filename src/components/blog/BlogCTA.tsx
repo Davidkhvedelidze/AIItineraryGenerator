@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle } from "lucide-react";
-import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { ArrowUpRight } from "lucide-react";
+import { BlogBookingLink } from "./BlogBookingLink";
 import type { BlogCTA as BlogCTAContent } from "@/types/sanity-blog";
 import styles from "./blog.module.css";
 
@@ -23,11 +23,6 @@ export function BlogCTA({
   postSlug?: string;
 }) {
   const content = cta && (cta.title || cta.description) ? cta : defaultCTA;
-  const message =
-    postTitle && postSlug
-      ? `Hello! I’d like to book a private Georgia tour. I was reading "${postTitle}":\nhttps://tripmategeorgia.com/blog/${encodeURIComponent(postSlug)}\n\nCould you help with availability and pricing?`
-      : "Hello! I’d like to book a private Georgia tour. Could you help me choose a route and confirm availability and pricing?";
-  const whatsappUrl = `https://wa.me/995551181358?text=${encodeURIComponent(message)}`;
   return (
     <section
       className={`grid overflow-hidden rounded-2xl border md:grid-cols-[1fr_240px] ${styles.border} ${styles.soft}`}
@@ -50,16 +45,11 @@ export function BlogCTA({
           </p>
         ) : null}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <WhatsAppLink
-            clickLocation="blog_cta"
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BlogBookingLink
+            postTitle={postTitle}
+            postSlug={postSlug}
             className={styles.primaryButton}
-          >
-            <MessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
-            Book a tour on WhatsApp
-          </WhatsAppLink>
+          />
           {content.primaryButtonLabel && content.primaryButtonLink ? (
             <Link
               href={content.primaryButtonLink}
