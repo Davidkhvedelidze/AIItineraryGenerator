@@ -1,0 +1,1366 @@
+[
+  {
+    "_id": "MrEMtYwMtrFDGWmRnBnbpa",
+    "_rev": "MrEMtYwMtrFDGWmRnPZAWQ",
+    "body": [
+      {
+        "_key": "2a6169cfea43",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5e01720ca7d0",
+            "_type": "span",
+            "marks": [],
+            "text": "Georgia remains one of the easiest countries in the region to enter — citizens of roughly 90+ countries can still show up with just a passport and stay for up to a year. But 2026 brought a real change that catches a lot of travelers off guard: "
+          },
+          {
+            "_key": "763b19a70bd7",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "travel insurance is now a legal entry requirement"
+          },
+          {
+            "_key": "30e0e0414789",
+            "_type": "span",
+            "marks": [],
+            "text": ", checked alongside your passport at the border. This guide covers both halves of getting into the country — the visa rules that mostly haven't changed, and the insurance rule that's brand new."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "e3eef15f9a31",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "39e28d198cee",
+            "_type": "span",
+            "marks": [],
+            "text": "*General information only, not legal advice — entry rules can change without notice, so confirm current requirements for your nationality with Georgia's Ministry of Foreign Affairs or your airline before you travel.*"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f1f723b89c73",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "26495c2aa13f",
+            "_type": "span",
+            "marks": [],
+            "text": "Do You Need a Visa for Georgia?"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "3b83dd6e1ed1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "4cfdeb183c4d",
+            "_type": "span",
+            "marks": [],
+            "text": "For most travelers, no. Georgia's visa-free policy is unusually generous:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "2030db8a12f2",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "138ed1c787a6",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Citizens of the EU, US, UK, Canada, Australia, New Zealand, and most CIS countries"
+          },
+          {
+            "_key": "c2018d499bb8",
+            "_type": "span",
+            "marks": [],
+            "text": " can enter visa-free and stay up to 365 days per calendar year — no paperwork beyond a valid passport"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "6982384eb29d",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "042e80aef443",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "A passport valid for the duration of your stay"
+          },
+          {
+            "_key": "de550cb4f963",
+            "_type": "span",
+            "marks": [],
+            "text": " is the baseline requirement; some nationalities can use a national ID card instead, but check this before flying rather than assuming"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "a250a6e692e4",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "6b54cdbfc09d",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Citizens of countries not on the visa-free list"
+          },
+          {
+            "_key": "1f7552dacd22",
+            "_type": "span",
+            "marks": [],
+            "text": " generally need an e-Visa, applied for online before travel, or in some cases a visa from a Georgian diplomatic mission"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "25e7e3afc8db",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "0d731a47be1b",
+            "_type": "span",
+            "marks": [],
+            "text": "The GCC Residence-Permit Rule (Important for Gulf-Based Travelers)"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "a34cc2a52300",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e0bfb3865c91",
+            "_type": "span",
+            "marks": [],
+            "text": "A specific rule matters for people living in or holding residency in Gulf countries, even if they're not GCC nationals themselves: travelers who hold a valid multiple-entry visa or residence permit from a GCC country (UAE, Saudi Arabia, Qatar, Bahrain, Kuwait, or Oman) that's valid for at least one year can enter Georgia visa-free, for up to 90 days per 180-day period, even if their own nationality would normally require a visa. This rule tightened in 2025 — previously any valid GCC visa or permit qualified, regardless of its remaining validity; now the one-year minimum is enforced, and border officers will ask to see the documentation."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "18ef2f79139e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "958cb6488adc",
+            "_type": "span",
+            "marks": [],
+            "text": "If you fall into this category, carry the physical or digital proof of your GCC residence permit alongside your passport — it's routinely requested at the border for exactly this exemption. This detail matters for much of TripMate's own audience — see our guides for "
+          },
+          {
+            "_key": "9786158b8078",
+            "_type": "span",
+            "marks": [
+              "3dde886f8132"
+            ],
+            "text": "Saudi visitors"
+          },
+          {
+            "_key": "5f6938ace539",
+            "_type": "span",
+            "marks": [],
+            "text": " and "
+          },
+          {
+            "_key": "63a722ff203e",
+            "_type": "span",
+            "marks": [
+              "56be39f9c644"
+            ],
+            "text": "Gulf family trips"
+          },
+          {
+            "_key": "c69dc3aa501a",
+            "_type": "span",
+            "marks": [],
+            "text": " for the wider picture of planning from the GCC."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "3dde886f8132",
+            "_type": "link",
+            "href": "/blog/georgia-travel-guide-for-saudi-visitors"
+          },
+          {
+            "_key": "56be39f9c644",
+            "_type": "link",
+            "href": "/blog/georgia-family-trip-for-gulf-travelers"
+          }
+        ],
+        "style": "normal"
+      },
+      {
+        "_key": "43569b932ceb",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "c3d24e9e5189",
+            "_type": "span",
+            "marks": [],
+            "text": "The New Rule: Mandatory Travel Insurance (Since January 1, 2026)"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "650b19465f58",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "684377124a12",
+            "_type": "span",
+            "marks": [],
+            "text": "This is the change worth planning around. Since the start of 2026, nearly every foreign visitor entering Georgia — tourists, business travelers, digital nomads, and long-stay visitors alike — must hold a compliant travel insurance policy and be able to show it at the border."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "5abc068c4e75",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "67e21556e6e9",
+            "_type": "span",
+            "marks": [],
+            "text": "What the Policy Must Cover"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "e5ab69df8fdb",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "68bc4f34724f",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Medical treatment and accident-related expenses"
+          },
+          {
+            "_key": "96f7baddcc37",
+            "_type": "span",
+            "marks": [],
+            "text": ", both required, not either/or"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "37efd3150843",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "c71815a54d65",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "A minimum insured sum of 30,000 GEL"
+          },
+          {
+            "_key": "6d3bdcd4e6ab",
+            "_type": "span",
+            "marks": [],
+            "text": " (roughly $11,000) — this is a coverage limit your policy must meet, not a deposit you pay"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "e4222415c5c1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "fe9ba63b72ee",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Valid for your entire stay in Georgia"
+          },
+          {
+            "_key": "0b804888babd",
+            "_type": "span",
+            "marks": [],
+            "text": ", from the day you enter to the day you leave"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1b2c57b60f90",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e446aad00e00",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Presentable at the border"
+          },
+          {
+            "_key": "de88a43a0799",
+            "_type": "span",
+            "marks": [],
+            "text": " as a paper printout or a digital document, in Georgian or English"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "77a3660e14f7",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "78c3d9fb4860",
+            "_type": "span",
+            "marks": [],
+            "text": "Who's Exempt"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "35e5f6c63ba9",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "1eb6c9907359",
+            "_type": "span",
+            "marks": [],
+            "text": "The exemption list is narrow: diplomats, certain treaty-country nationals, and passengers who stay within an airport's international transit zone without clearing passport control. Being a business traveler, property owner, frequent visitor, or family member of a Georgian citizen does "
+          },
+          {
+            "_key": "778d83590851",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "not"
+          },
+          {
+            "_key": "8b1ebc6f4672",
+            "_type": "span",
+            "marks": [],
+            "text": " exempt you on its own — these aren't listed as general exemptions in the decree, so travel with proof of whatever status you believe applies rather than assuming a border officer will infer it."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "7d0cd0cdf639",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5c8ed01986cb",
+            "_type": "span",
+            "marks": [],
+            "text": "Does It Apply to Children?"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "30ba05760214",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "066b0386f2a3",
+            "_type": "span",
+            "marks": [],
+            "text": "Yes — the rule applies to every tourist entering Georgia, including infants. Each family member, regardless of age, needs their own qualifying policy or to be named on a policy that meets the coverage minimum."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "9a0a0d5289bb",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "671f33dfcf97",
+            "_type": "span",
+            "marks": [],
+            "text": "What Happens If You Don't Have It"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "42f9cfc3fc44",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "d2afbf61f94f",
+            "_type": "span",
+            "marks": [],
+            "text": "In practice, the check happens in a few different places: sometimes at airline check-in before you fly, sometimes at Georgian passport control. If you arrive without a compliant policy, border agents in some cases offer to sell a basic one on the spot — but on-arrival policies tend to be pricier and more limited (commonly excluding activities like skiing or paragliding) than one bought online in advance. The stated consequence for non-compliance is refusal of entry, so this isn't a rule worth testing."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f8ab3d200ce0",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5268b7a6641d",
+            "_type": "span",
+            "marks": [],
+            "text": "Getting Covered Before You Fly"
+          }
+        ],
+        "markDefs": [],
+        "style": "h3"
+      },
+      {
+        "_key": "46970b08df03",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "2d99d0e36e08",
+            "_type": "span",
+            "marks": [],
+            "text": "Buying a compliant policy online before departure is faster and cheaper than sorting it out at the border, and gives you a document you can show without last-minute stress. "
+          },
+          {
+            "_key": "70a71a8c52e3",
+            "_type": "span",
+            "marks": [
+              "f7da8f51e1ae"
+            ],
+            "text": "VisitorsCoverage"
+          },
+          {
+            "_key": "b7511b1e6f10",
+            "_type": "span",
+            "marks": [],
+            "text": " is one option for comparing travel insurance plans that meet destination-specific coverage requirements like Georgia's — worth checking before you book flights, not after."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "f7da8f51e1ae",
+            "_type": "link",
+            "href": "https://visitorscoverage.tpk.lu/ki7iMPPK"
+          }
+        ],
+        "style": "normal"
+      },
+      {
+        "_key": "dbba56fa9a36",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f6220209877b",
+            "_type": "span",
+            "marks": [
+              "em"
+            ],
+            "text": "This post contains an affiliate link. If you buy through it, it doesn't cost you anything extra and helps support this site."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1350ad7c1de3",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f3db9cc0ba3c",
+            "_type": "span",
+            "marks": [],
+            "text": "Other Practical Entry Details"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "bff542eaa879",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "345a041f04f9",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Proof of onward travel or accommodation"
+          },
+          {
+            "_key": "c5076f1248cf",
+            "_type": "span",
+            "marks": [],
+            "text": " isn't formally documented as a requirement for visa-free travelers, but airlines and border officers sometimes ask for it informally — a hotel booking or return ticket costs nothing to have ready"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "b4874a8802d1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "0d2e34754066",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Currency declaration"
+          },
+          {
+            "_key": "d7097006ff76",
+            "_type": "span",
+            "marks": [],
+            "text": ": carrying large sums of cash across the border may require declaration; check current thresholds if this applies to you"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "961df9079729",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f80a45e425b3",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Land border crossings"
+          },
+          {
+            "_key": "9c23ac0e6082",
+            "_type": "span",
+            "marks": [],
+            "text": " (from Armenia, Azerbaijan, or Turkey) follow the same visa and insurance rules as arriving by air"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "199399515cd5",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "99ea1679d38e",
+            "_type": "span",
+            "marks": [],
+            "text": "Why This Changed"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "d8f85da2e42a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "dd111d22c01e",
+            "_type": "span",
+            "marks": [],
+            "text": "Georgia's insurance requirement was introduced under the country's Law on Tourism, aimed at ensuring visitors can cover emergency medical costs without those costs falling on Georgian hospitals or the traveler being unable to pay. It's a pattern several destinations have moved toward in recent years — making coverage a checked entry condition rather than a recommendation. For Georgia specifically, given the country's mountain day trips ("
+          },
+          {
+            "_key": "e0485e5f7697",
+            "_type": "span",
+            "marks": [
+              "e18aaabf3b89"
+            ],
+            "text": "Kazbegi's altitude"
+          },
+          {
+            "_key": "c084120664f6",
+            "_type": "span",
+            "marks": [],
+            "text": ", "
+          },
+          {
+            "_key": "e748baac95f8",
+            "_type": "span",
+            "marks": [
+              "47597a113c9a"
+            ],
+            "text": "Svaneti's trekking"
+          },
+          {
+            "_key": "30cc31ca6a8f",
+            "_type": "span",
+            "marks": [],
+            "text": ") carry real activity-related risk, a policy that explicitly covers accidents — not just illness — is worth checking for regardless of the legal minimum. Factor the cost of a compliant policy into your trip planning alongside the rest of your costs — see our "
+          },
+          {
+            "_key": "0f3a14cbad94",
+            "_type": "span",
+            "marks": [
+              "0e0f4eded085"
+            ],
+            "text": "Georgia budget breakdown"
+          },
+          {
+            "_key": "a00e7356d33b",
+            "_type": "span",
+            "marks": [],
+            "text": " for the full picture."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "e18aaabf3b89",
+            "_type": "link",
+            "href": "/blog/tbilisi-to-kazbegi-day-trip-is-it-worth-it"
+          },
+          {
+            "_key": "47597a113c9a",
+            "_type": "link",
+            "href": "/blog/svaneti-travel-guide-mestia-ushguli-is-it-worth-the-journey"
+          },
+          {
+            "_key": "0e0f4eded085",
+            "_type": "link",
+            "href": "/blog/how-much-does-a-trip-to-georgia-cost-budget-breakdown"
+          }
+        ],
+        "style": "normal"
+      }
+    ],
+    "category": "Practical Tips",
+    "cta": {
+      "_type": "object",
+      "description": "Visa-free entry is still one of Georgia's biggest advantages as a destination — but 2026's insurance rule means \"just show up with a passport\" is no longer quite true. Confirm your visa status, sort out a compliant policy before you fly, and the border crossing itself stays exactly as easy as it's always been. Once that's settled, TripMate's itinerary planner can handle the rest of the trip.",
+      "primaryButtonLabel": "Plan My Trip",
+      "primaryButtonLink": "/",
+      "title": "Sort This Before You Pack"
+    },
+    "excerpt": "What you need to enter Georgia in 2026 — visa-free rules by nationality, GCC residence-permit changes, and the new mandatory travel insurance law, explained.",
+    "faq": [
+      {
+        "_key": "07c61dbd0f5a",
+        "_type": "object",
+        "answer": "Most travelers don't — citizens of the EU, US, UK, Canada, Australia, and most CIS countries can enter visa-free for up to 365 days with just a valid passport. Check the current list for your specific nationality, since it can change.",
+        "question": "Do I need a visa to visit Georgia?"
+      },
+      {
+        "_key": "9a0e4bcab3b7",
+        "_type": "object",
+        "answer": "Yes. Since January 1, 2026, nearly all foreign visitors must hold a policy covering medical treatment and accidents, valid for their full stay, with a minimum insured sum of 30,000 GEL, and be able to present it at the border.",
+        "question": "Is travel insurance really mandatory for Georgia in 2026?"
+      },
+      {
+        "_key": "6c65c567565f",
+        "_type": "object",
+        "answer": "You may be offered a basic policy for purchase at the border, though it's typically more expensive and more limited than buying online in advance. In practice, the stated consequence for arriving without compliant coverage is refusal of entry.",
+        "question": "What happens if I arrive in Georgia without travel insurance?"
+      },
+      {
+        "_key": "ad4e40501e5c",
+        "_type": "object",
+        "answer": "Yes — the rule applies to every tourist regardless of age, including infants, with no age-based exemption written into the decree.",
+        "question": "Do children and infants need their own travel insurance for Georgia?"
+      },
+      {
+        "_key": "38f534fe6397",
+        "_type": "object",
+        "answer": "Possibly, if it explicitly covers medical treatment and accidents, is valid in Georgia for your full stay, and clearly documents a coverage limit of at least 30,000 GEL in a format border officers can verify. A policy that doesn't make these facts easy to prove on paper may cause problems even if it's commercially adequate.",
+        "question": "Can I use my existing health insurance instead of buying separate travel insurance?"
+      }
+    ],
+    "mainImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-e895572e9b940dd184dec6224ebfc3252cc7a9a2-1536x1024-png",
+        "_type": "reference"
+      }
+    },
+    "metaDescription": "What you need to enter Georgia in 2026 — visa-free rules by nationality, GCC residence-permit changes, and the new mandatory travel insurance law, explained.",
+    "metaTitle": "Georgia Entry Requirements 2026: Visa Rules and the New Mandatory Travel Insurance",
+    "publishedAt": "2026-07-31T00:00:00.000Z",
+    "slug": {
+      "_type": "slug",
+      "current": "georgia-entry-requirements-2026-visa-and-mandatory-insurance"
+    },
+    "tags": [
+      "Practical Tips",
+      "Visa",
+      "Insurance"
+    ],
+    "title": "Georgia Entry Requirements 2026: Visa Rules and the New Mandatory Travel Insurance"
+  },
+  {
+    "_id": "XWX1g76A3Cfv3p9doIeJoF",
+    "_rev": "AuQCNv5xteZ2Z5nRjN2tR8",
+    "body": [
+      {
+        "_key": "21dbf2338ec1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "fc3fbe376afb",
+            "_type": "span",
+            "marks": [],
+            "text": "If you've seen a photo of a diamond-shaped glass bar suspended over a Georgian canyon and wondered where it is, the answer is KassLand — one of the country's newest and most talked-about attractions, and a genuinely different kind of day out from the monasteries and wine cellars that dominate most Georgia itineraries. Here's what it actually is, what's real versus marketing, and whether it belongs in your trip."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1cdaee925704",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "2947c771bda6",
+            "_type": "span",
+            "marks": [],
+            "text": "What KassLand Actually Is"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "ac58f0a4faf9",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "7d0a52b789ea",
+            "_type": "span",
+            "marks": [],
+            "text": "KassLand is a large-scale adventure and eco-tourism destination built into Tsalka Canyon (also called Dashbashi Canyon), roughly 90 minutes southwest of Tbilisi. It opened in 2022 as a $70 million Israeli investment led by the Kass Group in partnership with the Segal family, and has since drawn more than two million visitors, with a notable share coming from Israel — reflected in the on-site kosher restaurant option."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "7888364d8cba",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5ee8e3847a1b",
+            "_type": "span",
+            "marks": [],
+            "text": "The centerpiece is the "
+          },
+          {
+            "_key": "cca487aa6fb1",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Diamond Bridge"
+          },
+          {
+            "_key": "afa6ea9af592",
+            "_type": "span",
+            "marks": [],
+            "text": ": a 240-meter glass walkway suspended roughly 210 meters above a series of waterfalls, with a diamond-shaped glass sky bar at its center that's been positioned as a candidate for a Guinness World Record. It's the kind of structure that photographs dramatically and is genuinely unlike anything else in the country."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "50a46dfd6906",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "0fc31ac2d827",
+            "_type": "span",
+            "marks": [],
+            "text": "What's There Beyond the Bridge"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "b2a76347942a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "7cd8f0109928",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Sky Bike"
+          },
+          {
+            "_key": "f7945a4149bc",
+            "_type": "span",
+            "marks": [],
+            "text": " — a bike-line crossing the canyon at roughly 1,100–1,450 meters elevation, described as the first attraction of its kind in Georgia"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "a6962c2c0be3",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a254a32a2c77",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Giant Swing"
+          },
+          {
+            "_key": "8fa0dad7648a",
+            "_type": "span",
+            "marks": [],
+            "text": " — a swing-style attraction over the canyon edge for an extra jolt of height-based adrenaline"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "b0c910dc06b0",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "933f5fb6b94d",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Go-kart track"
+          },
+          {
+            "_key": "0636c135a3f9",
+            "_type": "span",
+            "marks": [],
+            "text": " — one of the longer tracks in the region"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "17e8aecc98db",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "0fafd82c1686",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "1,800-meter nature trail"
+          },
+          {
+            "_key": "01551425d8a5",
+            "_type": "span",
+            "marks": [],
+            "text": " — a calmer option, winding past a cascading waterfall for visitors who'd rather skip the height-focused attractions entirely"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "c7bbb221327e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "6abd9cd0f7e4",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Diamond Resort Hotel"
+          },
+          {
+            "_key": "3da3de93d4ce",
+            "_type": "span",
+            "marks": [],
+            "text": " — 120 rooms and villas on site, with a spa and heated pool, for visitors who want to turn the day into an overnight stay"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "98780c4d2b5d",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "7474eec60ae0",
+            "_type": "span",
+            "marks": [],
+            "text": "The range matters: KassLand isn't purely a thrill-seeker's park. The nature trail and canyon views work for visitors who want the scenery without the adrenaline."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "6ee21d3a8f0a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ccf19aaf6b68",
+            "_type": "span",
+            "marks": [],
+            "text": "Is It Worth the Trip?"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "27afc62b551a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "193da3bb1a77",
+            "_type": "span",
+            "marks": [],
+            "text": "That depends on what you're comparing it to. KassLand doesn't compete with Georgia's historic sites — it's not trying to be Uplistsikhe or Jvari Monastery, and comparing it on those terms misses the point. What it offers is a modern, purpose-built adventure day that's genuinely rare in the country's current tourism landscape, and for families or travelers who want a break from church-and-monastery-heavy itineraries, that novelty has real value. If your trip is built entirely around history and culture, this will feel like a detour rather than a highlight; if you're looking for one adrenaline-and-scenery day to break up a longer trip, it fits well."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "b5e6e5d4f242",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5024db0b1083",
+            "_type": "span",
+            "marks": [],
+            "text": "Practical Details"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "c5d9d084427d",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a52949de5681",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Distance from Tbilisi"
+          },
+          {
+            "_key": "9060ac4a8b1d",
+            "_type": "span",
+            "marks": [],
+            "text": ": about 90 minutes each way, making this a full-day trip once travel time and time at the park are factored in"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f9ab74dd4a32",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e6b9512b9186",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Entrance and attractions"
+          },
+          {
+            "_key": "8c2804c7e6a0",
+            "_type": "span",
+            "marks": [],
+            "text": ": the park entrance, Diamond Bridge access, and individual attractions (Sky Bike, Giant Swing, go-karting) are ticketed separately at the venue rather than bundled into one price — budget for this as a variable cost depending on what you want to do"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "08b15aa418f8",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "633b65c944d6",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Seasonal note"
+          },
+          {
+            "_key": "18a5fb762610",
+            "_type": "span",
+            "marks": [],
+            "text": ": parts of the wider attraction park have had seasonal operating variation in the past, while the bridge, spa, and karting have generally run more consistently; confirm current opening status for specific attractions before planning your day around them"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "bf05c4c1a60e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e52579965b44",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Heights"
+          },
+          {
+            "_key": "7fda41d4fb7a",
+            "_type": "span",
+            "marks": [],
+            "text": ": the bridge and sky attractions involve real exposure to height — travelers uncomfortable with that should plan around the ground-level trail and viewpoints instead"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "00645b807913",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ba5595ef96fb",
+            "_type": "span",
+            "marks": [],
+            "text": "How to Get There"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "7d0632034b18",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "4ebfeb392f29",
+            "_type": "span",
+            "marks": [],
+            "text": "The drive from Tbilisi takes about 90 minutes through Kvemo Kartli toward Tsalka. Given the distance, ticketing logistics, and the value of not navigating rural roads to a relatively new venue on your own, a private driver is the practical way to visit for most travelers — TripMate's "
+          },
+          {
+            "_key": "e8b5666894d4",
+            "_type": "span",
+            "marks": [
+              "612570091764"
+            ],
+            "text": "KassLand day tour"
+          },
+          {
+            "_key": "ca0287dc11e7",
+            "_type": "span",
+            "marks": [],
+            "text": " covers the transport and a driver-guide for the day, with entrance and on-site attractions purchased directly at the venue."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "612570091764",
+            "_type": "link",
+            "href": "/tours/kassland-day-tour-from-tbilisi-diamond-bridge-and-tsalka-canyon"
+          }
+        ],
+        "style": "normal"
+      },
+      {
+        "_key": "41b57b1b369b",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "d795b9568c24",
+            "_type": "span",
+            "marks": [],
+            "text": "Who Should Add This to Their Itinerary"
+          }
+        ],
+        "markDefs": [],
+        "style": "h2"
+      },
+      {
+        "_key": "d9f1a544ca4e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a6c824549237",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Good fit"
+          },
+          {
+            "_key": "83ca74d5bfb6",
+            "_type": "span",
+            "marks": [],
+            "text": ": families with a mix of ages and comfort levels (the trail plus the thrill attractions cover both — see our "
+          },
+          {
+            "_key": "846b27d1af27",
+            "_type": "span",
+            "marks": [
+              "484f3f724768"
+            ],
+            "text": "Georgia with kids guide"
+          },
+          {
+            "_key": "efee697eecec",
+            "_type": "span",
+            "marks": [],
+            "text": " for how this compares to Tbilisi's more central family activities), travelers on a longer trip looking to break up history-heavy days, and anyone specifically drawn to the Diamond Bridge itself as a photo destination."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "484f3f724768",
+            "_type": "link",
+            "href": "/blog/things-to-do-in-georgia-with-kids-family-travel-guide"
+          }
+        ],
+        "style": "normal"
+      },
+      {
+        "_key": "0041fdd5feb2",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "95e20a42ae52",
+            "_type": "span",
+            "marks": [
+              "strong"
+            ],
+            "text": "Less of a fit"
+          },
+          {
+            "_key": "0615ac3a839b",
+            "_type": "span",
+            "marks": [],
+            "text": ": very short trips where every day needs to earn its place among Georgia's headline historic and natural sites, and travelers with limited tolerance for heights who wouldn't get much from the park's signature attraction."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "50021bc65c1b",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ff824a0ac4da",
+            "_type": "span",
+            "marks": [],
+            "text": "If KassLand doesn't end up fitting your dates, our "
+          },
+          {
+            "_key": "b12b92fb0966",
+            "_type": "span",
+            "marks": [
+              "63af805a4fb7"
+            ],
+            "text": "7 best day trips from Tbilisi, ranked"
+          },
+          {
+            "_key": "39c9f4202dec",
+            "_type": "span",
+            "marks": [],
+            "text": " covers the more traditional options it's competing against for a spot in your itinerary. For budgeting purposes, keep in mind this is one of the pricier single-day additions to a Georgia trip once on-site attraction tickets are factored in — our "
+          },
+          {
+            "_key": "d6269a9a5897",
+            "_type": "span",
+            "marks": [
+              "23cd33ba14ed"
+            ],
+            "text": "Georgia budget breakdown"
+          },
+          {
+            "_key": "84a0c8844722",
+            "_type": "span",
+            "marks": [],
+            "text": " covers where a day like this fits against the rest of your costs."
+          }
+        ],
+        "markDefs": [
+          {
+            "_key": "63af805a4fb7",
+            "_type": "link",
+            "href": "/blog/best-day-trips-from-tbilisi-ranked"
+          },
+          {
+            "_key": "23cd33ba14ed",
+            "_type": "link",
+            "href": "/blog/how-much-does-a-trip-to-georgia-cost-budget-breakdown"
+          }
+        ],
+        "style": "normal"
+      }
+    ],
+    "category": "Destinations",
+    "cta": {
+      "_type": "object",
+      "description": "KassLand is a genuinely novel addition to Georgia's tourism landscape, and it earns its place best as one distinctive day within a broader trip rather than the reason for the whole visit. TripMate's itinerary planner can help you work out where a day like this fits alongside the country's more traditional highlights.",
+      "primaryButtonLabel": "Plan My Trip",
+      "primaryButtonLink": "/",
+      "title": "Plan Around It, Not Just For It"
+    },
+    "excerpt": "A complete guide to KassLand and the Diamond Bridge in Tsalka Canyon — what it actually is, what it costs, and whether it fits your Georgia itinerary.",
+    "faq": [
+      {
+        "_key": "a0324d1e9a2b",
+        "_type": "object",
+        "answer": "KassLand is an adventure and eco-tourism park built into Tsalka Canyon (Dashbashi Canyon), about 90 minutes from Tbilisi, centered on the 240-meter glass Diamond Bridge suspended above the canyon's waterfalls. It opened in 2022 and includes additional attractions like a sky bike, a giant swing, go-karting, and a resort hotel.",
+        "question": "What is KassLand?"
+      },
+      {
+        "_key": "ba778f1bd210",
+        "_type": "object",
+        "answer": "Entrance and individual attractions are ticketed separately at the venue rather than bundled into one price, so the total cost depends on which activities you choose. Transport to and from Tbilisi is a separate cost if you're not driving yourself.",
+        "question": "How much does it cost to visit KassLand?"
+      },
+      {
+        "_key": "ea44592bd8a4",
+        "_type": "object",
+        "answer": "About 90 minutes each way by car, making it a full-day trip once you include time at the park itself.",
+        "question": "How far is KassLand from Tbilisi?"
+      },
+      {
+        "_key": "813d2841083a",
+        "_type": "object",
+        "answer": "The signature Diamond Bridge and sky attractions involve real height exposure and aren't for everyone, but the canyon's ground-level nature trail and waterfall views offer a calmer alternative within the same visit.",
+        "question": "Is KassLand suitable for people afraid of heights?"
+      },
+      {
+        "_key": "c63717ee57b4",
+        "_type": "object",
+        "answer": "It's a different category entirely — a modern adventure park rather than a historic or cultural site — so it's best thought of as a complement to a history-and-wine-focused itinerary rather than a replacement for sites like Uplistsikhe or Kakheti's wineries.",
+        "question": "Is KassLand worth visiting compared to Georgia's historic sites?"
+      }
+    ],
+    "mainImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-9db219337344eb9104f4ac228f2833267f5f4b56-1920x1080-webp",
+        "_type": "reference"
+      }
+    },
+    "metaDescription": "A complete guide to KassLand and the Diamond Bridge in Tsalka Canyon — what it actually is, what it costs, and whether it fits your Georgia itinerary.",
+    "metaTitle": "KassLand: Georgia's New Diamond Bridge and Adventure Park (Full Guide)",
+    "publishedAt": "2026-08-14T00:00:00.000Z",
+    "slug": {
+      "_type": "slug",
+      "current": "kassland-diamond-bridge-tsalka-canyon-guide"
+    },
+    "tags": [
+      "Destinations",
+      "Tsalka",
+      "Adventure"
+    ],
+    "title": "KassLand: Georgia's New Diamond Bridge and Adventure Park (Full Guide)"
+  }
+]

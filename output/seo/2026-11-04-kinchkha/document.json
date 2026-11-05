@@ -1,0 +1,1019 @@
+{
+  "title": "Kinchkha Waterfall: Tickets, Walks & Kutaisi Day Trips",
+  "slug": {
+    "_type": "slug",
+    "current": "kinchkha-waterfall-tickets-kutaisi-guide"
+  },
+  "excerpt": "Visit Kinchkha Waterfall near Kutaisi with checked ticket information, practical walking and transport tips, and clear advice on combining it with Okatse Canyon.",
+  "category": "Hiking & Nature",
+  "tags": [
+    "Kinchkha Waterfall",
+    "Okatse Waterfall",
+    "Kutaisi",
+    "Imereti",
+    "Waterfalls",
+    "Practical Tips"
+  ],
+  "metaTitle": "Kinchkha Waterfall: Tickets, Walks & Kutaisi Day Trips",
+  "metaDescription": "Plan your Kinchkha Waterfall visit with ticket prices, walking tips and routes from Kutaisi. Compare Okatse Canyon and choose a day trip that suits your group.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "b2",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s1",
+          "text": "Kinchkha Waterfall is a worthwhile stop near Kutaisi if you want a tall limestone-cliff waterfall without making the whole day a mountain hike. Also called Okatse Waterfall, it is a different attraction from Okatse Canyon, a distinction that matters when arranging transport and buying tickets. This guide covers the entrance fees, walking experience, route choices and ways to fit the waterfall into a western Georgia itinerary.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b4",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s3",
+          "text": "Kinchkha Waterfall or Okatse Canyon: which place are you booking?",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b9",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s5",
+          "text": "Kinchkha is in Khoni municipality, in Georgia's Imereti region. The protected natural monument has a three-stage cascade, with its main drop reaching about 70 metres. The ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s7",
+          "text": "Agency of Protected Areas' description",
+          "marks": [
+            "l6"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s8",
+          "text": " places it near Kinchkha village, below the limestone cliffs of the Askhi massif.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l6",
+          "_type": "link",
+          "href": "https://apa.gov.ge/En/ProtectedAreas/ProtectedAreaDetails?areaId=104"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b11",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s10",
+          "text": "Think of two separate outings: Kinchkha is the waterfall visit, while Okatse Canyon is the nearby canyon experience with an elevated walkway. A driver saying “Okatse” might mean either. Send the full name “Okatse (Kinchkha) Waterfall” and ask whether your agreed route includes the canyon, the waterfall or both.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b13",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s12",
+          "text": "The waterfall is particularly appealing when you want to spend time looking up at a cliff and watching the falling water. If your priority is a longer walk and the sensation of being high above a gorge, investigate the canyon separately. They share a convenient touring area, but the experience and walking demands are not interchangeable.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b15",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s14",
+          "text": "Kinchkha Waterfall tickets and opening hours",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b20",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s16",
+          "text": "The following information was checked against the ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s18",
+          "text": "official APA waterfall fee page",
+          "marks": [
+            "l17"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s19",
+          "text": " on 4 November 2026:",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l17",
+          "_type": "link",
+          "href": "https://www.apa.ge/en/eco-tourism/servisebi-da-tarifebi/okaces-chanchqeri"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b22",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s21",
+          "text": "Foreign adult entrance: 20 GEL.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b24",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s23",
+          "text": "Georgian citizen or resident adult entrance: 12 GEL.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b26",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s25",
+          "text": "Children aged 6–18: 5.50 GEL, as listed by APA.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b28",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s27",
+          "text": "Children under six: free.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b30",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s29",
+          "text": "Published opening hours: daily, 10:00–18:00.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b32",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s31",
+          "text": "Visitor information phone: +995 591 54 15 22.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "b34",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s33",
+          "text": "Bring identification for age or residency eligibility. These are the agency's published rates, not a guarantee that every ticket category or seasonal operating arrangement will remain unchanged. Confirm the current closing time and last admission before setting off, especially for a winter afternoon visit.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b36",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s35",
+          "text": "For a simple budgeting example, two foreign adults and two children in the listed paid child category would spend 51 GEL on waterfall admission. Transport, meals and any optional activities are additional. Keep those separate when comparing a driver's quote with a tour advertised at a single starting price.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b38",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s37",
+          "text": "Some search results describe Kinchkha as a free, unmanaged swimming spot. That does not match the ticketed natural monument described by APA. Likewise, do not assume that an Okatse Canyon ticket automatically covers the waterfall: ask which attractions a combined offer includes before paying.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b40",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s39",
+          "text": "What the walk and viewpoints are like",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b45",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s41",
+          "text": "The local tourism organisation describes a metal visitor walkway through the gorge. Its ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s43",
+          "text": "Kinchkha visitor page",
+          "marks": [
+            "l42"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s44",
+          "text": " is useful for understanding the setting: an organised viewing experience beneath high rock walls, rather than an unrestricted scramble to the water.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l42",
+          "_type": "link",
+          "href": "https://kutaisi.travel/en/5499/kinchkha-waterfall-ka/"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b47",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s46",
+          "text": "Expect to spend time on foot and to encounter changes of level around the visitor route. Choose shoes with grip and keep your hands free where possible. If someone in your party has difficulty with steps, ask staff about the current route before buying tickets; a relatively short attraction is not automatically an accessible one.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b49",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s48",
+          "text": "Allow around 45–60 minutes for the waterfall stop as a planning allowance, and more if you enjoy photography or need breaks. This is our suggested time budget, not an official walking duration. Waiting, ticketing and the point where your vehicle leaves you can all change how long the outing takes.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b51",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s50",
+          "text": "Why do walking distances online differ?",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b53",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s52",
+          "text": "APA describes a 2.1-kilometre marked approach from Kinchkha village to the natural monument. That is a route from the village, not a stated measurement of the walk from every possible parking or ticketing point. Before accepting a quote or setting your navigation, establish exactly where the vehicle can drop you off.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b55",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s54",
+          "text": "This matters if you have seen both “a short waterfall stop” and “a village hike” in your research. Ask your driver to identify the visitor entrance, the parking location and the walking required from there. You can then decide whether the outing suits everyone without relying on a single distance copied between travel pages.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b57",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s56",
+          "text": "Getting from Kutaisi to Kinchkha Waterfall",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b62",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s58",
+          "text": "Kutaisi is a practical base for this part of western Georgia. Stay in the city if you want restaurants and other sightseeing around your excursion; our ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s60",
+          "text": "Kutaisi travel guide",
+          "marks": [
+            "l59"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s61",
+          "text": " helps put the waterfall into a wider stay.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l59",
+          "_type": "link",
+          "href": "/blog/kutaisi-travel-guide-canyons-caves-and-georgias-second-city"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b64",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s63",
+          "text": "For route orientation, APA lists Khoni to Kinchkha village as approximately 26 kilometres and 40 minutes by road. It also lists about five kilometres and 15 minutes from the Okatse Canyon visitor centre in Gordi to Kinchkha village. Those estimates end at the village, so allow for the final approach, parking and local conditions.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b66",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s65",
+          "text": "Private driver or taxi",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b68",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s67",
+          "text": "A prearranged return trip is the simplest option if you want to choose your pace. Give the driver the waterfall's full name and agree on the pickup location, waiting time, return destination and any additional stops. Ask for the whole vehicle price and clarify whether admission is excluded.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b70",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s69",
+          "text": "Do not leave the return journey vague. A city taxi ride and an excursion with a driver waiting while you walk are different services. For families, request a suitable child seat when arranging the vehicle and make space in the schedule for a meal rather than treating lunch as whatever happens between entrances.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b72",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s71",
+          "text": "Self-driving or public transport",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b74",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s73",
+          "text": "If you drive, navigate to the confirmed visitor entrance and check the final approach before departure. Download the route while you have a connection, and leave enough time to return without rushing along unfamiliar roads after dark.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b76",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s75",
+          "text": "We have not verified a direct scheduled bus to the waterfall entrance. Travellers considering public transport should ask locally about services toward Khoni and the onward journey, including a return pickup. Compare the total transfers and waiting time with a shared private-car arrangement before assuming the cheapest first leg gives the easiest day.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b78",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s77",
+          "text": "How to combine Kinchkha with nearby sights",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b80",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s79",
+          "text": "The most useful starting point is deciding how much walking your group actually wants. A waterfall, a canyon and a cave offer different experiences, but collecting all three in one day can turn the visit into a sequence of queues and departure deadlines.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b82",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s81",
+          "text": "A relaxed waterfall outing",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b84",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s83",
+          "text": "Make Kinchkha the main stop, have lunch on your return route and leave the rest of the afternoon flexible. This is the option we would choose for photographers, families who prefer an unhurried pace, or travellers who already have several long driving days elsewhere in Georgia.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b86",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s85",
+          "text": "You do not need another paid attraction to justify leaving Kutaisi. A deliberately modest plan lets you wait for a clearer view, take a break or finish early without feeling that you have missed a prepaid stop.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b88",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s87",
+          "text": "Kinchkha and Okatse Canyon",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b90",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s89",
+          "text": "This is the geographically natural pairing. Confirm both attractions are operating, then decide the order around their admission arrangements and the weather. Give the canyon its own walking allowance rather than using the waterfall's suggested stop duration for both places.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b92",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s91",
+          "text": "If anyone dislikes exposed walkways or becomes tired on steps, discuss that before booking the combination. Splitting up at an entrance can create waiting and pickup complications, especially when the driver has a fixed timetable.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b94",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s93",
+          "text": "Adding Martvili Canyon or a cave",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b99",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s95",
+          "text": "Martvili offers a different canyon visit, including a separately managed boat activity when operating. Read our ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s97",
+          "text": "Martvili Canyon ticket and boat guide",
+          "marks": [
+            "l96"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s98",
+          "text": " before building a schedule around the water activity. Keep a three-attraction day flexible enough to drop one stop.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l96",
+          "_type": "link",
+          "href": "/blog/martvili-canyon-tickets-boat-visit-guide"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b104",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s100",
+          "text": "For an underground alternative, compare the ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s102",
+          "text": "Prometheus Cave visit",
+          "marks": [
+            "l101"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s103",
+          "text": ". It can add variety to a western Georgia stay, but it is a separate journey and admission. Choosing a cave does not guarantee that every associated activity will operate in poor weather.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l101",
+          "_type": "link",
+          "href": "/blog/prometheus-cave-tickets-boat-visit-guide"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b106",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s105",
+          "text": "Best time to visit, including November",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b108",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s107",
+          "text": "Choose the day by visibility and walking conditions as well as the calendar. A large waterfall may be less satisfying when low cloud hides the upper cliff, while a clear view with a more modest flow can still make an excellent stop. Photographs taken during different conditions will not predict exactly what you will see.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b110",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s109",
+          "text": "In warmer months, carry water and sun protection for the exposed parts of your outing. Keep a light layer available for a shaded or breezy viewpoint. Avoid planning around an assumption that every refreshment stop will be open when you arrive.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b112",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s111",
+          "text": "For November, make the waterfall a daytime priority and leave the final hours of the excursion flexible. Check the local forecast, current access and last entry that morning. Pack a rain layer and footwear you are comfortable using on damp surfaces; postpone the visit if staff advise that access is unsuitable.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b114",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s113",
+          "text": "There is little value in chasing a stronger waterfall immediately after heavy rain if the route is closed or uncomfortable. A forecast change is a reason to rearrange the day's order, not to bypass a barrier. Ask your host or driver to help confirm operating conditions before making the journey.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b116",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s115",
+          "text": "Family visits, swimming and photography",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b118",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s117",
+          "text": "For families, decide in advance who will carry small bags, snacks and children's layers. Keep children close on the visitor route and avoid stopping for group photographs where other people need to pass. Ask about stroller suitability and step-free access directly; we cannot confirm either for the full route.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b120",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s119",
+          "text": "Treat this as a waterfall-viewing trip. We have not verified an authorised swimming area within the ticketed attraction, and photographs of people bathing elsewhere in the valley do not establish permission or conditions here. Follow the marked route and staff directions rather than searching for a way down to a pool.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b122",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s121",
+          "text": "For photographs, start with a wide view that includes the rock face, then try a tighter frame showing the water against the limestone. Protect your camera or phone from spray and keep lens cleaning simple with a dry cloth. Stay behind railings even if a different angle looks tempting.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b124",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s123",
+          "text": "The local tourism page also lists a zipline. If that is a priority, confirm the operator's current availability, price and participation requirements separately. Do not make a child a promise about an activity before checking their eligibility, and do not treat it as included in ordinary waterfall admission.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b126",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s125",
+          "text": "Visiting from Tbilisi with a bookable tour",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b131",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s127",
+          "text": "TripMate's ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "s129",
+          "text": "Canyons Tour in Imereti Region",
+          "marks": [
+            "l128"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "s130",
+          "text": " explicitly includes Kinchkha Waterfall alongside Martvili and Okatse canyons. The current listing starts from USD 84 and describes a private full-day trip from Tbilisi, with a 07:00 departure and approximately 45 minutes at Kinchkha.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "l128",
+          "_type": "link",
+          "href": "/tours/canyons-tour-in-imereti-region"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b133",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s132",
+          "text": "Entrance fees and food are excluded. Check the final quote for your group size, and use the current attraction tariffs rather than treating older approximate dollar amounts in a tour description as official gate prices.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "b135",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "s134",
+          "text": "This route suits travellers who want those three stops and accept a long day from Tbilisi. If you are already staying in Kutaisi, request a route starting there rather than booking a Tbilisi departure by mistake. Tell the planner your base, walking comfort and must-see attraction so the itinerary can give Kinchkha the time it deserves.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ],
+  "faq": [
+    {
+      "_type": "object",
+      "_key": "kinfaq0",
+      "question": "Is Kinchkha Waterfall the same as Okatse Waterfall?",
+      "answer": "Yes. Both names refer to the waterfall natural monument near Kinchkha village. Okatse Canyon is a separate nearby attraction, so confirm which place your transport or ticket includes."
+    },
+    {
+      "_type": "object",
+      "_key": "kinfaq1",
+      "question": "How much does Kinchkha Waterfall cost?",
+      "answer": "APA's page checked on 4 November 2026 lists 20 GEL for foreign adults, 12 GEL for Georgian citizens and residents, 5.50 GEL for ages 6–18, and free entry under six. Confirm eligibility and current rates before visiting."
+    },
+    {
+      "_type": "object",
+      "_key": "kinfaq2",
+      "question": "How long should you spend at Kinchkha Waterfall?",
+      "answer": "We suggest allowing 45–60 minutes for the waterfall stop, plus travel and any longer approach from your drop-off point. Photography, children or mobility needs may require more time."
+    },
+    {
+      "_type": "object",
+      "_key": "kinfaq3",
+      "question": "Can you visit Kinchkha and Okatse Canyon in one day?",
+      "answer": "Yes, they are a logical pairing, provided both are operating and you allow separately for the canyon walk, transfers and waterfall visit. Check each attraction's admission and access arrangements."
+    },
+    {
+      "_type": "object",
+      "_key": "kinfaq4",
+      "question": "Can you swim at Kinchkha Waterfall?",
+      "answer": "We have not verified an authorised swimming area within the ticketed monument. Plan to use the visitor viewpoints, stay on marked routes and follow staff instructions."
+    }
+  ],
+  "cta": {
+    "_type": "object",
+    "title": "Plan your Kinchkha Waterfall day",
+    "description": "Build a Georgia itinerary around your starting city, preferred pace and the caves, canyons or waterfalls you most want to see.",
+    "primaryButtonLabel": "Plan my Georgia trip",
+    "primaryButtonLink": "/#trip-planner"
+  },
+  "_id": "ceccb11c-4845-4d8e-af30-797baf095ba8",
+  "publishedAt": "2026-11-04T10:05:51Z",
+  "mainImage": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-454fbb4e2b9df2b382bc469fd6991206b70367ac-1376x768-jpg"
+    }
+  }
+}

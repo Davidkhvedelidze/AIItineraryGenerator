@@ -42,10 +42,26 @@ async function requestCompletion(client: OpenAI, prompt: string): Promise<Itiner
 
     // response_format already enforces the JSON schema server-side; parsing
     // and re-validating here is a defensive fallback, not the primary contract.
-    const parsed = parseItineraryResponse(aiText);
+    let parsed: unknown;
+    try {
+      parsed = parseItineraryResponse(aiText);
+    } catch {
+      console.error("Itinerary AI response was not valid JSON.");
+      throw new AiInvalidResponseError();
+    }
+
     const validated = itineraryResultSchema.safeParse(parsed);
 
     if (!validated.success) {
+      // Log only where/why validation failed — never the values, which may echo user input.
+      console.error(
+        "Itinerary AI response failed schema validation",
+        validated.error.issues.map((issue) => ({
+          path: issue.path.join("."),
+          code: issue.code,
+          message: issue.message,
+        })),
+      );
       throw new AiInvalidResponseError();
     }
 

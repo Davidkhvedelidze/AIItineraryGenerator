@@ -1,0 +1,279 @@
+[
+  {
+    "_id": "C0JSb66CHOxy1G14nmI1nX",
+    "directBookingEnabled": true,
+    "excerpt": "A private 3-day tour from Tbilisi to Georgia's most dramatic region — the medieval towers of Mestia, UNESCO-listed Ushguli beneath Mount Shkhara, and the scenic road through western Georgia.",
+    "itinerary": [
+      {
+        "description": "Morning pickup from your Tbilisi hotel, then the scenic cross-country drive west. Depending on your preferences, stop at Prometheus Cave or Martvili Canyon in Imereti before continuing through Zugdidi and up the dramatic Enguri Gorge to Mestia. Evening arrival with time for a first walk among the Svan towers and a traditional dinner of kubdari and Svan specialties.",
+        "stops": [
+          "Rikoti Pass",
+          "Prometheus Cave or Martvili Canyon (optional)",
+          "Zugdidi",
+          "Enguri Gorge",
+          "Mestia"
+        ],
+        "title": "Tbilisi to Mestia via Western Georgia"
+      },
+      {
+        "description": "After breakfast, drive the mountain road from Mestia to Ushguli, a UNESCO World Heritage settlement beneath Mount Shkhara. Walk the narrow lanes of Chazhashi among medieval defensive towers, visit the 12th-century Lamaria Church, and take in the views toward Georgia's highest peak. Optional jeep ride or walk toward the Shkhara Glacier viewpoint before returning to Mestia for the evening.",
+        "stops": [
+          "Mestia-Ushguli mountain road",
+          "Chazhashi towers",
+          "Lamaria Church",
+          "Shkhara viewpoints",
+          "Mestia"
+        ],
+        "title": "Ushguli: The Land of a Thousand Towers"
+      },
+      {
+        "description": "A free morning in Mestia — visit the Svaneti Museum of History and Ethnography, climb a Svan tower, or take the Hatsvali cable car for panoramic mountain views. Early afternoon departure down the Enguri Gorge with an optional stop at the Dadiani Palace in Zugdidi, then the drive back east, arriving in Tbilisi in the evening.",
+        "stops": [
+          "Svaneti Museum (optional)",
+          "Hatsvali viewpoint (optional)",
+          "Enguri Gorge",
+          "Dadiani Palace, Zugdidi (optional)",
+          "Tbilisi"
+        ],
+        "title": "Mestia Morning & Return to Tbilisi"
+      }
+    ],
+    "notIncluded": [
+      "Accommodation in Mestia (2 nights) — we can help arrange guesthouses or hotels to suit your budget",
+      "Food and drinks",
+      "Entrance tickets, if applicable (e.g. Svaneti Museum, tower visits)",
+      "Local 4WD transfer in Ushguli area, if required by road conditions",
+      "Personal expenses",
+      "Travel insurance"
+    ],
+    "priceFrom": 189,
+    "slug": "3-day-svaneti-tour-from-tbilisi-mestia-ushguli-and-the-land-of-towers",
+    "title": "3-Day Svaneti Tour from Tbilisi: Mestia, Ushguli & the Land of Towers"
+  },
+  {
+    "_id": "I02pFZIEVcuOi5ODxOE78W",
+    "directBookingEnabled": true,
+    "excerpt": "A private full-day tour from Tbilisi along the Georgian Military Highway to Kazbegi, with stops at Ananuri Fortress, Gudauri viewpoints, and Gergeti Trinity Church beneath Mount Kazbek.",
+    "itinerary": [
+      {
+        "description": "Morning pickup from your Tbilisi hotel, then a scenic drive north along the Georgian Military Highway. Stop at Ananuri Fortress overlooking the Zhinvali Reservoir, continue over the Jvari Pass with a panoramic stop at the Russia–Georgia Friendship Monument in Gudauri, and arrive in Stepantsminda for the visit to Gergeti Trinity Church (optional local 4WD transfer or hike). Free time for lunch in Stepantsminda before the return drive, arriving back in Tbilisi in the evening.",
+        "stops": [
+          "Zhinvali Reservoir viewpoint",
+          "Ananuri Fortress",
+          "Gudauri panoramic viewpoints",
+          "Russia–Georgia Friendship Monument",
+          "Stepantsminda (Kazbegi)",
+          "Gergeti Trinity Church"
+        ],
+        "title": "Tbilisi – Ananuri – Gudauri – Kazbegi – Tbilisi"
+      }
+    ],
+    "notIncluded": [
+      "Food and drinks",
+      "Entrance tickets, if applicable",
+      "Transportation from Kazbegi to Gergeti Trinity Church by local 4WD car",
+      "Personal expenses",
+      "Travel insurance"
+    ],
+    "priceFrom": 79,
+    "slug": "kazbegi-day-tour-from-tbilisi-ananuri-gudauri-and-gergeti-trinity-church",
+    "title": "Kazbegi Day Tour from Tbilisi: Ananuri, Gudauri & Gergeti Trinity Church"
+  },
+  {
+    "_id": "I02pFZIEVcuOi5ODxOF4m2",
+    "directBookingEnabled": true,
+    "excerpt": "A private full-day tour from Tbilisi to Georgia's Kakheti wine region — with a KTW wine tasting, Bodbe Monastery, the hilltop streets of Sighnaghi, and the Khareba tunnel winery, lunch included.",
+    "itinerary": [
+      {
+        "description": "Morning pickup from your Tbilisi hotel around 9:00 AM, then a scenic drive east into Kakheti. Start with a wine tasting at the KTW factory, continue to Bodbe Monastery of St. Nino, then enjoy free time and lunch in Sighnaghi with its hilltop views over the Alazani Valley. In the afternoon, visit the Khareba tunnel winery before the return drive, arriving back in Tbilisi in the evening.",
+        "stops": [
+          "KTW wine factory",
+          "Bodbe Monastery of St. Nino",
+          "Sighnaghi",
+          "Khareba Tunnel Winery"
+        ],
+        "title": "Tbilisi – KTW – Bodbe – Sighnaghi – Khareba Tunnel Winery – Tbilisi"
+      }
+    ],
+    "notIncluded": [
+      "Additional food and drinks beyond the included lunch",
+      "Personal expenses",
+      "Travel insurance",
+      "Lunch"
+    ],
+    "priceFrom": 69,
+    "slug": "kakheti-full-day-private-tour-sighnaghi-bodbe-and-wine-tasting",
+    "title": "Kakheti Full Day Private Tour: Sighnaghi, Bodbe & Wine Tasting"
+  },
+  {
+    "_id": "INS19dHgvewSbWudKHXc8Z",
+    "directBookingEnabled": true,
+    "excerpt": "A private half-day driving and walking tour of Tbilisi — the Old Town's carved balconies, Narikala Fortress by cable car, the sulfur bath district, Holy Trinity Cathedral, and the city's best panoramic viewpoints.",
+    "itinerary": [
+      {
+        "description": "Pickup from your hotel, then a walking loop through the Old Town: Metekhi Church viewpoint, the sulfur bath district of Abanotubani, hidden courtyards and carved balconies, and the Bridge of Peace. Ride the cable car up to Narikala Fortress and the Mother of Georgia statue for the classic city panorama. Continue by car to Holy Trinity (Sameba) Cathedral, then the Chronicle of Georgia monument overlooking the Tbilisi Sea, finishing at the Mtatsminda viewpoint before drop-off at your hotel or a restaurant of your choice.",
+        "stops": [
+          "Metekhi Church viewpoint",
+          "Abanotubani sulfur bath district",
+          "Old Town walking loop",
+          "Bridge of Peace",
+          "Narikala Fortress (cable car)",
+          "Mother of Georgia",
+          "Holy Trinity (Sameba) Cathedral",
+          "Chronicle of Georgia",
+          "Mtatsminda viewpoint"
+        ],
+        "title": "Old Town Walk, Narikala & Panoramic Viewpoints"
+      }
+    ],
+    "notIncluded": [
+      "Food and drinks",
+      "Cable car tickets (a few GEL per person, paid on site)",
+      "Sulfur bath entry, if you choose to add a bath visit",
+      "Personal expenses",
+      "Travel insurance"
+    ],
+    "priceFrom": 35,
+    "slug": "tbilisi-city-tour-old-town-narikala-and-panoramic-views",
+    "title": "Tbilisi City Tour: Old Town, Narikala & Panoramic Views (Private Half-Day)"
+  },
+  {
+    "_id": "a49a00da-f441-4e35-aeae-29396305a2fb",
+    "directBookingEnabled": true,
+    "excerpt": "Discover Georgia’s top highlights in 3 days with a private driver-guide from Tbilisi. Visit Tbilisi, Mtskheta, Kakheti wine region, Ananuri, Gudauri, and Kazbegi with flexible pickup, airport transfers, and a comfortable private vehicle.",
+    "itinerary": [
+      {
+        "description": "Start your private tour with pickup from your hotel, apartment, or Shota Rustaveli Tbilisi International Airport. The first day focuses on Tbilisi and Mtskheta, combining city atmosphere, history, viewpoints, and cultural landmarks.\n\nIn Tbilisi, explore the old town area, traditional streets, viewpoints, and important city highlights. After that, continue to Mtskheta, one of Georgia’s most important historical and spiritual places.\n\nThis day is planned with comfortable pacing and is suitable for first-time visitors, families, couples, and travelers who want a relaxed introduction to Georgia.",
+        "stops": [
+          "Old Tbilisi",
+          "Metekhi area",
+          "Narikala Fortress area",
+          "Bridge of Peace",
+          "Rike Park",
+          "Mtskheta",
+          "Jvari Monastery",
+          "Svetitskhoveli Cathedral"
+        ],
+        "title": "Mtskheta & Tbilisi"
+      },
+      {
+        "description": "The second day takes you to Kakheti, Georgia’s famous wine and countryside region. This day is ideal for travelers who enjoy scenic views, traditional food, local culture, and wine region atmosphere.\n\nDepending on timing and preferences, the route can include Sighnaghi, Bodbe Monastery, Telavi area, local wineries, viewpoints, and traditional food stops.\n\nKakheti is also a good day for relaxed travel, making it suitable for couples, families, and Gulf travelers who prefer a comfortable private route.",
+        "stops": [
+          "KTW winery",
+          "Sighnaghi",
+          "Bodbe Monastery",
+          "Kakheti countryside",
+          "Local winery or wine cellar",
+          "Telavi area, depending on route timing",
+          "Traditional food stop, optional"
+        ],
+        "title": "Kakheti Full Day"
+      },
+      {
+        "description": "The final day is focused on Georgia’s mountain route. Travel from Tbilisi along the Georgian Military Highway toward Kazbegi, with scenic stops on the way.\n\nVisit Zhinvali Reservoir, Ananuri Fortress, Gudauri viewpoints, and continue toward Kazbegi / Stepantsminda. If weather and timing allow, the route can also include the Gergeti Trinity Church area.\n\nPlease note that transportation from Kazbegi to Gergeti Trinity Church by local 4WD car is optional and not included in the tour price.\n\nThis is one of the most scenic days of the tour and a memorable ending to a short Georgia highlights itinerary.",
+        "stops": [
+          "Zhinvali Reservoir",
+          "Ananuri Fortress",
+          "Gudauri Viewpoint",
+          "Stepantsminda / Kazbegi",
+          "Gergeti Trinity Church area, weather and timing dependent"
+        ],
+        "title": "Ananuri, Gudauri & Kazbegi"
+      }
+    ],
+    "notIncluded": [
+      "Food and drinks",
+      "Accommodation",
+      "Meals",
+      "Entrance tickets, if applicable",
+      "Transportation from Kazbegi to Gergeti Trinity Church by local 4WD car",
+      "Personal expenses",
+      "Travel insurance"
+    ],
+    "priceFrom": 129,
+    "slug": "3-day-private-georgia-tour-from-tbilisi-tbilisi-kakheti-kazbegi-and-mtskheta",
+    "title": "3-Day Private Georgia Tour from Tbilisi: Tbilisi, Kakheti, Kazbegi & Mtskheta"
+  },
+  {
+    "_id": "fVIKqGH79vXJcuevAtE9SV",
+    "directBookingEnabled": true,
+    "excerpt": "A private full-day history tour from Tbilisi — UNESCO-listed Jvari Monastery and Svetitskhoveli Cathedral in Mtskheta, the Stalin Museum in Gori, and the ancient cave town of Uplistsikhe, with lunch included.",
+    "itinerary": [
+      {
+        "description": "Morning pickup from your Tbilisi hotel, then a short drive to Jvari Monastery for the panoramic view over Mtskheta (about 1 hour). Continue west to Gori for an optional visit to the Stalin Museum (about 1 hour 10 minutes), followed by lunch. In the afternoon, explore the Uplistsikhe cave town (about 1 hour), then return east to Mtskheta for Svetitskhoveli Cathedral (about 1 hour 10 minutes) before arriving back in Tbilisi in the early evening.",
+        "stops": [
+          "Jvari Monastery",
+          "Gori",
+          "Stalin Museum (optional)",
+          "Uplistsikhe Cave Town",
+          "Svetitskhoveli Cathedral",
+          "Mtskheta"
+        ],
+        "title": "Tbilisi – Jvari – Gori – Uplistsikhe – Svetitskhoveli – Tbilisi"
+      }
+    ],
+    "notIncluded": [
+      "Entrance fee to the Stalin Museum in Gori (5 USD per person, optional visit)",
+      "Entrance fee to Uplistsikhe (5 USD per person, optional visit)",
+      "Additional food and drinks beyond the included lunch",
+      "Personal expenses",
+      "Travel insurance",
+      "Lunch"
+    ],
+    "priceFrom": 69,
+    "slug": "mtskheta-gori-uplistsikhe-full-day-tour-ancient-capitals-and-stalin-museum",
+    "title": "Mtskheta, Gori & Uplistsikhe Full-Day Tour: Ancient Capitals and the Stalin Museum"
+  },
+  {
+    "_id": "tmZWNwgCJ0qLSEyzeJXf5X",
+    "directBookingEnabled": true,
+    "excerpt": "A private full-day tour from Tbilisi to David Gareja's 6th-century cave monastery complex and the striking Rainbow Hills, with a driver-guide who knows the current border situation.",
+    "itinerary": [
+      {
+        "description": "Morning pickup from your Tbilisi hotel, then the drive southeast toward the Gareja plateau, with a rougher final stretch of road. Explore Lavra Monastery's cave complex, frescoes, and chapels, then walk the Rainbow Hills — a roughly two-hour round-trip hike among the striped sandstone formations. If current border conditions allow, continue up to Udabno Monastery for its most celebrated frescoes. Return drive to Tbilisi in the late afternoon or early evening.",
+        "stops": [
+          "Lavra Monastery",
+          "Cave cells and frescoes",
+          "Rainbow Hills",
+          "Udabno Monastery (conditions permitting)"
+        ],
+        "title": "Tbilisi – Lavra Monastery – Rainbow Hills – Udabno (conditions permitting) – Tbilisi"
+      }
+    ],
+    "notIncluded": [
+      "Food and drinks",
+      "Personal expenses",
+      "Travel insurance"
+    ],
+    "priceFrom": 79,
+    "slug": "david-gareja-day-tour-from-tbilisi-cave-monastery-and-rainbow-hills",
+    "title": "David Gareja Day Tour from Tbilisi: Cave Monastery & Rainbow Hills"
+  },
+  {
+    "_id": "tour-canyons-tour-in-imereti-region",
+    "directBookingEnabled": true,
+    "excerpt": "A private full-day Georgia tour from Tbilisi to Martvili Canyon, Okatse Canyon, and Kinchkha Waterfall with a private driver, hotel pickup, and flexible comfort for families and groups.",
+    "itinerary": [
+      {
+        "description": "Depart from Tbilisi at 7:00 AM and travel west by private car or minivan. Pass through Kutaisi without stopping, then visit Martvili Canyon, Okatse Canyon, and Kinchkha Waterfall before returning to Tbilisi.",
+        "stops": [
+          "Kutaisi, pass by without stopping",
+          "Martvili Canyon, 1 hour",
+          "Okatse Canyon, 1 hour 30 minutes",
+          "Kinchkha Waterfall, 45 minutes"
+        ],
+        "title": "Tbilisi to Kutaisi and the Imereti Canyons"
+      }
+    ],
+    "notIncluded": [
+      "Food and drink",
+      "Entrance to Martvili Canyon, approximately USD 6 per adult",
+      "Entrance to Okatse Canyon, approximately USD 7 per adult",
+      "Entrance to Kinchkha Waterfall, approximately USD 7 per person",
+      "Optional 4x4 car in Okatse Canyon"
+    ],
+    "priceFrom": 84,
+    "slug": "canyons-tour-in-imereti-region",
+    "title": "Canyons Tour in Imereti Region"
+  }
+]
