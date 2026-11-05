@@ -17,13 +17,14 @@ type GeneratorState = {
   formData: TripFormData | null;
   error: string | null;
   shareId: string | null;
+  emailSent: boolean;
 };
 
 type GeneratorAction =
   | { type: "GENERATE_START"; payload: TripFormData }
   | {
       type: "GENERATE_SUCCESS";
-      payload: { data: ItineraryResult; shareId: string | null };
+      payload: { data: ItineraryResult; shareId: string | null; emailSent: boolean };
     }
   | { type: "GENERATE_ERROR"; payload: string }
   | { type: "RESET" };
@@ -34,6 +35,7 @@ const initialState: GeneratorState = {
   formData: null,
   error: null,
   shareId: null,
+  emailSent: false,
 };
 
 function generatorReducer(
@@ -48,6 +50,7 @@ function generatorReducer(
         formData: action.payload,
         error: null,
         shareId: null,
+        emailSent: false,
       };
     case "GENERATE_SUCCESS":
       return {
@@ -56,6 +59,7 @@ function generatorReducer(
         data: action.payload.data,
         error: null,
         shareId: action.payload.shareId,
+        emailSent: action.payload.emailSent,
       };
     case "GENERATE_ERROR":
       return { ...state, status: "error", data: null, error: action.payload };
@@ -160,7 +164,7 @@ export function useItineraryGenerator() {
 
         dispatch({
           type: "GENERATE_SUCCESS",
-          payload: { data: result.data, shareId: result.shareId },
+          payload: { data: result.data, shareId: result.shareId, emailSent: result.emailSent ?? false },
         });
         trackEvent(
           "itinerary_generate_success",
@@ -220,6 +224,7 @@ export function useItineraryGenerator() {
     formData: state.formData,
     error: state.error,
     shareId: state.shareId,
+    emailSent: state.emailSent,
     generateItinerary,
     reset,
     cancelGeneration,

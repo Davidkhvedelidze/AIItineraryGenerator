@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CheckCircle2, Info, MinusCircle } from "lucide-react";
+import { ExploreDestinations } from "@/components/destinations/ExploreDestinations";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -433,6 +434,10 @@ export default async function TourDetailPage({ params }: TourPageProps) {
         <div className="container py-8 sm:py-10">
           <div className="mx-auto max-w-6xl space-y-10">
             <TourQuickFacts tour={tour} />
+            <ExploreDestinations
+              destinations={tour.destinations}
+              chipClassName="bg-card text-foreground hover:border-primary/40 hover:bg-primary-soft"
+            />
 
             <div id="booking" className="scroll-mt-24 lg:hidden">
               <TourBookingBox tour={bookingTour} compact />

@@ -9,9 +9,9 @@ const tourTypeLabels: Record<TripFormData["tourType"], string> = {
 function buildTourTypeRules(formData: TripFormData): string {
   if (formData.tourType === "private-guided") {
     return `Private custom tour offer rules:
-- Create a private Georgia tour itinerary for ${formData.travelers} guests from ${formData.travelDates[0]} to ${formData.travelDates[1]}.
+- Create a private Georgia tour itinerary for ${formData.travelers} guests from ${formData.travelDates[0].slice(0, 10)} to ${formData.travelDates[1].slice(0, 10)}.
 - Write as the private guide and driver using your own car.
-- Treat preferred overnight cities and customer tour description as the overnight schedule when specific nights are provided.
+- Treat preferred overnight cities as must-include stays, not the only stays. Use the customer tour description as the overnight schedule when it specifies nights.
 - Treat the customer tour description as the source for places to include when provided.
 - Generate a customer-ready offer with a short intro, day-by-day itinerary, overnight locations, total price, price per person, included services, not included services, and a WhatsApp-friendly tone.
 - The price must include private guide/driver service, car, fuel, airport transfers, route planning, and the guide's travel expenses.
@@ -33,19 +33,29 @@ function buildTourTypeRules(formData: TripFormData): string {
 - Included services should focus on route planning guidance; not included services should include hotels, meals, entrance tickets, transport bookings, and personal expenses unless explicitly requested.`;
 }
 
-export function buildItineraryPrompt(formData: TripFormData): string {
+function buildTravelDateLines(formData: TripFormData): string {
   const [arrivalDateTime, departureDateTime] = formData.travelDates;
 
-  return `You are a professional travel planner specializing in Georgia.
+  // Placeholder times would otherwise be read as real flight times (e.g. "06:00Z" as a dawn arrival).
+  if (formData.flightTimesUnknown) {
+    return `- Arrival date: ${arrivalDateTime.slice(0, 10)} (flight time not provided: assume a midday arrival)
+- Departure date: ${departureDateTime.slice(0, 10)} (flight time not provided: assume a mid-afternoon departure)`;
+  }
 
-Create a personalized day-by-day travel itinerary based on the user's preferences.
+  return `- Arrival date and time: ${arrivalDateTime}
+- Departure date and time: ${departureDateTime}`;
+}
+
+// General itinerary rules live in ITINERARY_SYSTEM_PROMPT (src/lib/itinerary/system-prompt.ts);
+// this prompt carries the request itself plus rules that only apply to it.
+export function buildItineraryPrompt(formData: TripFormData): string {
+  return `Create a personalized day-by-day travel itinerary based on the user's preferences.
 
 User details:
 - Trip length: ${formData.days} days
 - Arrival airport: ${formData.arrivalAirport}
 - Departure airport: ${formData.departureAirport}
-- Arrival date and time: ${arrivalDateTime}
-- Departure date and time: ${departureDateTime}
+${buildTravelDateLines(formData)}
 - Preferred overnight cities: ${formData.preferredCities.join(", ")}
 - Interests: ${formData.interests.join(", ")}
 - Budget: ${formData.budget}
@@ -53,29 +63,15 @@ User details:
 - Tour type: ${tourTypeLabels[formData.tourType]}
 - Number of travelers: ${formData.travelers}
 - Language: English
-- Mobile number: ${formData.mobileNumber || "Not provided"}
 - Customer tour description: ${formData.tourDescription || "Not provided"}
 
 ${buildTourTypeRules(formData)}
 
 Rules:
-- Focus only on realistic routes in Georgia.
-- Prioritize the customer's tour description when it is provided, while still keeping the route realistic.
-- Avoid overloaded days.
-- Do not include impossible routes for a normal tourist day.
-- Include local food suggestions.
-- Include practical travel notes when useful.
-- Make the plan suitable for first-time visitors.
-- Do not invent exact hotel names, booking availability, or exact ticket prices.
-- Do not claim that bookings are confirmed.
+- If the trip is longer than 3 days and only one preferred overnight city is selected (e.g. only "Tbilisi"), that city is the home base, not the whole trip. Do not spend every day in it: the traveler wants varied experiences and the best use of their time. Besides the arrival and departure days, give the base city itself about 1-2 full days and use the rest for different regions and experiences — day trips from the base (from Tbilisi: Mtskheta, Kazbegi, Kakheti/Sighnaghi, Gori & Uplistsikhe), plus an overnight elsewhere when it saves a long return drive or the place deserves it. Follow the customer's tour description instead if it asks to stay in one city.
 - Price every amount in US dollars (USD). totalPrice, pricePerPerson, and estimatedBudget must all be quoted in USD (e.g. "$450", "$220-$260"), never GEL, EUR, or any other currency — this must match the rest of the site, which prices exclusively in USD.
-- Keep the tone concise, professional, and WhatsApp-friendly.
-- Return only valid JSON.
-- The JSON must match the exact schema provided.
-- Every day's "overnightStay" must name the specific city/town where that night is spent (e.g. "Tbilisi", "Sighnaghi", "Stepantsminda", "Mestia", "Batumi", "Kutaisi") and must stay identical across every day of the same stay.
-- "overnightStayPlan" must list only the first day of each distinct accommodation stay, not every day — e.g. a 3-night Tbilisi stay followed by 1 night in Kazbegi is [{ "day": 1, "city": "Tbilisi" }, { "day": 4, "city": "Kazbegi" }], never a repeated entry per night. Each "city" must match the "overnightStay" value of that day exactly.
 
-JSON shape:
+Return only valid JSON in exactly this shape:
 {
   "tripTitle": "string",
   "overview": "string",

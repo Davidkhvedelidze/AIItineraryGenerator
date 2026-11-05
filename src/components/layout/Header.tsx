@@ -18,6 +18,10 @@ const navLinks = [
     href: "/tours",
   },
   {
+    label: "Destinations",
+    href: "/destinations",
+  },
+  {
     label: "Trip Ideas",
     href: "/trip-ideas",
   },
@@ -65,7 +69,7 @@ export function Header() {
             <span className="block font-serif text-base font-semibold tracking-normal text-foreground sm:text-lg">
               TripMate Georgia
             </span>
-            <span className="hidden text-xs font-medium text-stone-600 sm:block">
+            <span className="hidden text-xs font-medium text-stone-600 sm:block md:hidden lg:block">
               Local private trips, planned with care
             </span>
           </span>
@@ -84,7 +88,7 @@ export function Header() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    "whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors lg:px-4",
                     active
                       ? "bg-primary-soft text-foreground"
                       : "text-stone-700 hover:bg-primary-soft hover:text-foreground",
@@ -97,7 +101,8 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <WhatsAppLink clickLocation="header"
+            <WhatsAppLink
+              clickLocation="header"
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"

@@ -7,9 +7,12 @@ import styles from "./blog.module.css";
 export function BlogPostBody({
   body,
   title,
+  sponsoredLinks = false,
 }: {
   body: PortableTextBlock[];
   title: string;
+  /** Render external links as affiliate links (rel="sponsored noopener"). */
+  sponsoredLinks?: boolean;
 }) {
   return (
     <div className={styles.prose}>
@@ -65,7 +68,13 @@ export function BlogPostBody({
                 <a
                   href={href}
                   target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
+                  rel={
+                    external
+                      ? sponsoredLinks
+                        ? "sponsored noopener"
+                        : "noopener noreferrer"
+                      : undefined
+                  }
                 >
                   {children}
                 </a>

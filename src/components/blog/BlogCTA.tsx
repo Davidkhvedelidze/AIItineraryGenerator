@@ -1,20 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { BlogBookingLink } from "./BlogBookingLink";
 import type { BlogCTA as BlogCTAContent } from "@/types/sanity-blog";
 import styles from "./blog.module.css";
 
 const defaultCTA: BlogCTAContent = {
-  title: "Make it your Georgia story.",
+  title: "Ready to book a private Georgia tour?",
   description:
-    "Take the places you’ve been reading about and explore them with a local. Find a private tour that fits your pace.",
+    "Message us on WhatsApp with your travel dates and group size. We’ll help you choose a route and confirm availability and pricing.",
   primaryButtonLabel: "Explore private tours",
   primaryButtonLink: "/tours",
-  secondaryButtonLabel: "Browse trip ideas",
-  secondaryButtonLink: "/trip-ideas",
 };
 
-export function BlogCTA({ cta }: { cta?: BlogCTAContent }) {
+export function BlogCTA({
+  cta,
+  postTitle,
+  postSlug,
+}: {
+  cta?: BlogCTAContent;
+  postTitle?: string;
+  postSlug?: string;
+}) {
   const content = cta && (cta.title || cta.description) ? cta : defaultCTA;
   return (
     <section
@@ -31,11 +38,22 @@ export function BlogCTA({ cta }: { cta?: BlogCTAContent }) {
             {content.description}
           </p>
         ) : null}
-        <div className="mt-6 flex flex-wrap gap-3">
+        {content !== defaultCTA ? (
+          <p className={`mt-4 max-w-xl text-sm leading-6 ${styles.muted}`}>
+            Ready to book a private tour? Message us on WhatsApp with your
+            travel dates and group size for availability and pricing.
+          </p>
+        ) : null}
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <BlogBookingLink
+            postTitle={postTitle}
+            postSlug={postSlug}
+            className={styles.primaryButton}
+          />
           {content.primaryButtonLabel && content.primaryButtonLink ? (
             <Link
               href={content.primaryButtonLink}
-              className={styles.primaryButton}
+              className={styles.secondaryButton}
             >
               {content.primaryButtonLabel}
               <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -50,15 +68,6 @@ export function BlogCTA({ cta }: { cta?: BlogCTAContent }) {
             </Link>
           ) : null}
         </div>
-      </div>
-      <div className="relative hidden min-h-64 md:block">
-        <Image
-          src="/tbilisiHD.jpg"
-          alt="Tbilisi’s historic cityscape"
-          fill
-          sizes="240px"
-          className="object-cover"
-        />
       </div>
     </section>
   );

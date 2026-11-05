@@ -49,6 +49,14 @@ export const blogPost = defineType({
       of: [{ type: "string" }],
     }),
     defineField({
+      name: "destinations",
+      title: "Destinations",
+      type: "array",
+      description: "Destination hub pages this post belongs to. The first one is used in breadcrumbs.",
+      of: [{ type: "reference", to: [{ type: "destination" }] }],
+      validation: (Rule) => Rule.unique(),
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published At",
       type: "datetime",

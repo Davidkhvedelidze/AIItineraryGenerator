@@ -4,12 +4,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import { BlogCTA } from "@/components/blog/BlogCTA";
+import { BlogBookingLink } from "@/components/blog/BlogBookingLink";
 import { BlogPostBody } from "@/components/blog/BlogPostBody";
 import { BlogTableOfContents } from "@/components/blog/BlogTableOfContents";
+import { ExploreDestinations } from "@/components/destinations/ExploreDestinations";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { FAQSection } from "@/components/seo/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import {
   formatBlogDate,
@@ -17,7 +20,9 @@ import {
   getBlogReadingMinutes,
 } from "@/lib/blog-presentation";
 import { getSanityImageUrl } from "@/lib/sanity/image";
+import { buildBreadcrumbJsonLd } from "@/lib/seo/breadcrumbJsonLd";
 import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
+import { getSiteUrl } from "@/lib/site";
 import styles from "@/components/blog/blog.module.css";
 
 interface BlogPostPageProps {
@@ -73,6 +78,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     publisher: { name: "TripMate Georgia" },
   };
   const faqJsonLd = faqItems.length > 0 ? buildFAQJsonLd(faqItems) : null;
+  const siteUrl = getSiteUrl();
+  const primaryDestination = post.destinations?.[0];
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", url: siteUrl },
+    ...(primaryDestination
+      ? [
+          { name: "Destinations", url: `${siteUrl}/destinations` },
+          {
+            name: primaryDestination.title,
+            url: `${siteUrl}/destinations/${primaryDestination.slug}`,
+          },
+        ]
+      : [{ name: "Blog", url: `${siteUrl}/blog` }]),
+    { name: post.title, url: `${siteUrl}/blog/${post.slug}` },
+  ]);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -106,6 +126,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 }}
               />
             ) : null}
+            <JsonLd data={breadcrumbJsonLd} />
             <header className="max-w-4xl">
               {post.category ? (
                 <p
@@ -140,20 +161,40 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   </span>
                 ) : null}
               </div>
-            </header>
-            <div className="relative my-9 aspect-[4/3] overflow-hidden rounded-2xl sm:my-12 sm:aspect-[2/1]">
-              <Image
-                src={imageUrl || "/tbilisiHD.jpg"}
-                alt={
-                  imageUrl
-                    ? post.title
-                    : "Tbilisi’s historic cityscape in Georgia"
-                }
-                fill
-                priority
-                sizes="(min-width: 1280px) 1120px, calc(100vw - 32px)"
-                className="object-cover"
+              <ExploreDestinations
+                destinations={post.destinations}
+                className="mt-6"
+                chipClassName={`${styles.border} ${styles.accent} hover:bg-[var(--journal-soft)]`}
               />
+            </header>
+            <div className="relative my-9 sm:my-12">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[2/1]">
+                <Image
+                  src={imageUrl || "/tbilisiHD.jpg"}
+                  alt={
+                    imageUrl
+                      ? post.title
+                      : "Tbilisi’s historic cityscape in Georgia"
+                  }
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 1120px, calc(100vw - 32px)"
+                  className="object-cover"
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-1/2 bg-gradient-to-t from-black/60 to-transparent md:block"
+                />
+              </div>
+              <div className="mt-4 md:absolute md:bottom-6 md:left-6 md:right-6 md:mt-0">
+                <BlogBookingLink
+                  postTitle={post.title}
+                  postSlug={post.slug}
+                  location="blog_cover"
+                  label="Book a private tour on WhatsApp"
+                  className={`${styles.primaryButton} w-full shadow-sm md:w-auto md:ring-1 md:ring-white/30`}
+                />
+              </div>
             </div>
             <div
               className={`grid gap-10 lg:gap-16 ${headings.length > 1 ? "lg:grid-cols-[minmax(0,1fr)_250px]" : "mx-auto max-w-3xl"}`}
@@ -184,7 +225,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
             <div className="mt-16">
-              <BlogCTA cta={post.cta} />
+              <BlogCTA cta={post.cta} postTitle={post.title} postSlug={post.slug} />
             </div>
           </article>
           <div className="mt-16 sm:mt-20">

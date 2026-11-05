@@ -1,3 +1,12 @@
+import Link from "next/link";
+
+const footerLinks = [
+  { label: "Destinations", href: "/destinations" },
+  { label: "Tours", href: "/tours" },
+  { label: "Trip Ideas", href: "/trip-ideas" },
+  { label: "Blog", href: "/blog" },
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-stone-200 bg-black py-8 text-amber-50">
@@ -10,6 +19,17 @@ export function Footer() {
             © {new Date().getFullYear()} TripMate Georgia. Built for first-time
             visitors exploring Georgia.
           </p>
+          <nav aria-label="Footer navigation" className="mt-3">
+            <ul className="flex flex-wrap gap-x-5 gap-y-1">
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link className="inline-flex min-h-11 items-center hover:text-white" href={link.href}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
         <div className="flex flex-col gap-1 sm:items-end">
           <a className="hover:text-white" href="mailto:info@mustseegeorgia.com">
