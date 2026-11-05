@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { popularTripIdeas } from "@/constants/popular-trip-ideas";
 import { getAllBlogPosts } from "@/lib/blog";
+import { getLiveDestinations } from "@/lib/destinations";
 import { getAllTours } from "@/lib/tours";
 import { listApprovedGalleryItineraries } from "@/lib/supabase/itineraryRequests";
 
@@ -21,10 +22,11 @@ function maxDate(dates: (Date | undefined)[]): Date | undefined {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, tours, communityItineraries] = await Promise.all([
+  const [posts, tours, communityItineraries, destinations] = await Promise.all([
     getAllBlogPosts(),
     getAllTours(),
     listApprovedGalleryItineraries(),
+    getLiveDestinations(),
   ]);
 
   const blogDates = posts.map((post) => new Date(post.publishedAt ?? post._updatedAt));
@@ -32,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogLastModified = maxDate(blogDates);
   const tourLastModified = maxDate(tourDates);
+  const destinationLastModified = maxDate(destinations.map((destination) => new Date(destination._updatedAt)));
   const siteLastModified = maxDate([...blogDates, ...tourDates]);
 
   const routes: MetadataRoute.Sitemap = [
@@ -85,6 +88,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // /destinations is noindex until a destination is live, so only list it once there is one.
+  const destinationRoutes: MetadataRoute.Sitemap =
+    destinations.length > 0
+      ? [
+          {
+            url: absoluteUrl("/destinations"),
+            ...(destinationLastModified && { lastModified: destinationLastModified }),
+            changeFrequency: "weekly",
+            priority: 0.8,
+          },
+          ...destinations.map((destination) => ({
+            url: absoluteUrl(`/destinations/${destination.slug}`),
+            lastModified: new Date(destination._updatedAt),
+            changeFrequency: "monthly" as const,
+            priority: 0.8,
+          })),
+        ]
+      : [];
+
   const communityRoutes: MetadataRoute.Sitemap = communityItineraries.map((item) => ({
     url: absoluteUrl(`/trip-ideas/community/${item.shortId}`),
     ...(item.submittedAt && { lastModified: new Date(item.submittedAt) }),
@@ -92,5 +114,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...routes, ...tripIdeaRoutes, ...blogRoutes, ...tourRoutes, ...communityRoutes];
+  return [...routes, ...destinationRoutes, ...tripIdeaRoutes, ...blogRoutes, ...tourRoutes, ...communityRoutes];
 }

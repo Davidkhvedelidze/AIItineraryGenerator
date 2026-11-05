@@ -261,6 +261,14 @@ export const tour = defineType({
       of: [{ type: "string" }],
     }),
     defineField({
+      name: "destinations",
+      title: "Destinations",
+      type: "array",
+      description: "Destination hub pages this tour belongs to. The first one is used in breadcrumbs.",
+      of: [{ type: "reference", to: [{ type: "destination" }] }],
+      validation: (Rule) => Rule.unique(),
+    }),
+    defineField({
       name: "badges",
       title: "Badges",
       type: "array",

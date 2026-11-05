@@ -7,10 +7,12 @@ import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogBookingLink } from "@/components/blog/BlogBookingLink";
 import { BlogPostBody } from "@/components/blog/BlogPostBody";
 import { BlogTableOfContents } from "@/components/blog/BlogTableOfContents";
+import { ExploreDestinations } from "@/components/destinations/ExploreDestinations";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { FAQSection } from "@/components/seo/FAQSection";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import {
   formatBlogDate,
@@ -18,7 +20,9 @@ import {
   getBlogReadingMinutes,
 } from "@/lib/blog-presentation";
 import { getSanityImageUrl } from "@/lib/sanity/image";
+import { buildBreadcrumbJsonLd } from "@/lib/seo/breadcrumbJsonLd";
 import { buildFAQJsonLd } from "@/lib/seo/faqJsonLd";
+import { getSiteUrl } from "@/lib/site";
 import styles from "@/components/blog/blog.module.css";
 
 interface BlogPostPageProps {
@@ -74,6 +78,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     publisher: { name: "TripMate Georgia" },
   };
   const faqJsonLd = faqItems.length > 0 ? buildFAQJsonLd(faqItems) : null;
+  const siteUrl = getSiteUrl();
+  const primaryDestination = post.destinations?.[0];
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", url: siteUrl },
+    ...(primaryDestination
+      ? [
+          { name: "Destinations", url: `${siteUrl}/destinations` },
+          {
+            name: primaryDestination.title,
+            url: `${siteUrl}/destinations/${primaryDestination.slug}`,
+          },
+        ]
+      : [{ name: "Blog", url: `${siteUrl}/blog` }]),
+    { name: post.title, url: `${siteUrl}/blog/${post.slug}` },
+  ]);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -107,6 +126,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 }}
               />
             ) : null}
+            <JsonLd data={breadcrumbJsonLd} />
             <header className="max-w-4xl">
               {post.category ? (
                 <p
@@ -141,6 +161,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   </span>
                 ) : null}
               </div>
+              <ExploreDestinations
+                destinations={post.destinations}
+                className="mt-6"
+                chipClassName={`${styles.border} ${styles.accent} hover:bg-[var(--journal-soft)]`}
+              />
             </header>
             <div className="relative my-9 sm:my-12">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[2/1]">

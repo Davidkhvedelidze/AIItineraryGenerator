@@ -42,6 +42,9 @@ function revalidateBlogPaths(slug: string | null) {
   if (slug) {
     revalidatePath(`/blog/${slug}`);
   }
+
+  // Destination hubs list related guides and guide counts.
+  revalidateAllDestinationPages();
 }
 
 function revalidateTourPaths(slug: string | null) {
@@ -51,6 +54,27 @@ function revalidateTourPaths(slug: string | null) {
   if (slug) {
     revalidatePath(`/tours/${slug}`);
   }
+
+  // Destination hubs list related tours and tour counts.
+  revalidateAllDestinationPages();
+}
+
+function revalidateAllDestinationPages() {
+  revalidatePath("/destinations");
+  revalidatePath("/destinations/[slug]", "page");
+}
+
+function revalidateDestinationPaths(slug: string | null) {
+  revalidateAllDestinationPages();
+  revalidatePath("/sitemap.xml");
+
+  if (slug) {
+    revalidatePath(`/destinations/${slug}`);
+  }
+
+  // "Explore <Destination>" chips on posts and tours depend on the destination's title and isLive.
+  revalidatePath("/blog/[slug]", "page");
+  revalidatePath("/tours/[slug]", "page");
 }
 
 export async function POST(request: Request) {
@@ -90,7 +114,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       revalidated: true,
-      paths: slug ? ["/blog", `/blog/${slug}`, "/sitemap.xml"] : ["/blog", "/sitemap.xml"],
+      paths: slug
+        ? ["/blog", `/blog/${slug}`, "/destinations", "/destinations/[slug]", "/sitemap.xml"]
+        : ["/blog", "/destinations", "/destinations/[slug]", "/sitemap.xml"],
     });
   }
 
@@ -99,7 +125,25 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       revalidated: true,
-      paths: slug ? ["/tours", `/tours/${slug}`, "/sitemap.xml"] : ["/tours", "/sitemap.xml"],
+      paths: slug
+        ? ["/tours", `/tours/${slug}`, "/destinations", "/destinations/[slug]", "/sitemap.xml"]
+        : ["/tours", "/destinations", "/destinations/[slug]", "/sitemap.xml"],
+    });
+  }
+
+  if (payload._type === "destination") {
+    revalidateDestinationPaths(slug);
+
+    return NextResponse.json({
+      revalidated: true,
+      paths: [
+        "/destinations",
+        "/destinations/[slug]",
+        ...(slug ? [`/destinations/${slug}`] : []),
+        "/blog/[slug]",
+        "/tours/[slug]",
+        "/sitemap.xml",
+      ],
     });
   }
 
@@ -112,11 +156,12 @@ export async function POST(request: Request) {
 
   revalidateBlogPaths(slug);
   revalidateTourPaths(slug);
+  revalidateDestinationPaths(slug);
 
   return NextResponse.json({
     revalidated: true,
     paths: slug
-      ? ["/blog", `/blog/${slug}`, "/tours", `/tours/${slug}`, "/sitemap.xml"]
-      : ["/blog", "/tours", "/sitemap.xml"],
+      ? ["/blog", `/blog/${slug}`, "/tours", `/tours/${slug}`, "/destinations", `/destinations/${slug}`, "/sitemap.xml"]
+      : ["/blog", "/tours", "/destinations", "/sitemap.xml"],
   });
 }

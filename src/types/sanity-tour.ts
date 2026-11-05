@@ -1,4 +1,5 @@
 import type { PortableTextBlock } from "next-sanity";
+import type { DestinationLink } from "@/types/sanity-destination";
 
 export type SanityImage = {
   _type?: "image";
@@ -112,4 +113,6 @@ export type Tour = TourListItem & {
   faq?: TourFAQItem[];
   metaTitle?: string;
   metaDescription?: string;
+  /** Live destinations only, in editor order. */
+  destinations?: DestinationLink[];
 };

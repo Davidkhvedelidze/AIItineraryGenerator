@@ -1,4 +1,5 @@
 import type { PortableTextBlock } from "next-sanity";
+import type { DestinationLink } from "@/types/sanity-destination";
 
 export type SanityImage = {
   asset?: {
@@ -39,4 +40,6 @@ export type BlogPost = BlogPostListItem & {
     answer?: string;
   }[];
   body?: PortableTextBlock[];
+  /** Live destinations only, in editor order. */
+  destinations?: DestinationLink[];
 };

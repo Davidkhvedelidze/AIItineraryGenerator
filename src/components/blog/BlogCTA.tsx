@@ -40,8 +40,8 @@ export function BlogCTA({
         ) : null}
         {content !== defaultCTA ? (
           <p className={`mt-4 max-w-xl text-sm leading-6 ${styles.muted}`}>
-            Ready to book a private tour? Message us on WhatsApp with your travel
-            dates and group size for availability and pricing.
+            Ready to book a private tour? Message us on WhatsApp with your
+            travel dates and group size for availability and pricing.
           </p>
         ) : null}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -68,15 +68,6 @@ export function BlogCTA({
             </Link>
           ) : null}
         </div>
-      </div>
-      <div className="relative hidden min-h-64 md:block">
-        <Image
-          src="/tbilisiHD.jpg"
-          alt="Tbilisi’s historic cityscape"
-          fill
-          sizes="240px"
-          className="object-cover"
-        />
       </div>
     </section>
   );
