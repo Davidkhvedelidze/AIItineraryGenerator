@@ -19,21 +19,28 @@ const metrics = { trip_duration: 5, travelers_count: 2, tour_type: "private-guid
 const gtag = vi.fn();
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); vi.useRealTimers(); gtag.mockReset(); delete window.gtag; });
 
-async function generate(response: Response | Error) {
+async function generate(response: Response | Error, expectedCalls = 2) {
   window.gtag = gtag;
   vi.stubGlobal("fetch", response instanceof Error ? vi.fn().mockRejectedValue(response) : vi.fn().mockResolvedValue(response));
   const hook = renderHook(useItineraryGenerator);
   await act(() => hook.result.current.generateItinerary(form));
   expect(gtag.mock.calls[0]).toEqual(["event", "itinerary_start", metrics]);
-  expect(gtag).toHaveBeenCalledTimes(2);
+  expect(gtag).toHaveBeenCalledTimes(expectedCalls);
   expect(JSON.stringify(gtag.mock.calls)).not.toMatch(/private@example|123456789|Private|sensitive/);
   return hook;
 }
 
 it("tracks successful generation once and excludes form content", async () => {
-  const hook = await generate(Response.json({ success: true, data: itinerary, shareId: null }));
+  // itinerary_start, itinerary_generate_success, generate_lead
+  const hook = await generate(Response.json({ success: true, data: itinerary, shareId: null }), 3);
   expect(hook.result.current.status).toBe("success");
-  expect(gtag).toHaveBeenLastCalledWith("event", "itinerary_generate_success", metrics);
+  expect(gtag).toHaveBeenCalledWith("event", "itinerary_generate_success", metrics);
+  expect(gtag.mock.calls.filter(([, name]) => name === "itinerary_generate_success")).toHaveLength(1);
+  // The lead event carries only coarse flags, never contact details.
+  expect(gtag).toHaveBeenLastCalledWith("event", "generate_lead", {
+    lead_type: "planner",
+    has_whatsapp: expect.any(Boolean),
+  });
 });
 
 it.each([
