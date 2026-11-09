@@ -27,7 +27,7 @@ export function ItineraryHero({
     <section className="relative isolate overflow-hidden bg-black text-white">
       <Image
         src={cover}
-        alt={"georgia,tbilisi,travel,trip,adventure"}
+        alt="Tbilisi Old Town rooftops below Narikala Fortress and St. Nicholas Church"
         fill
         priority
         sizes="100vw"

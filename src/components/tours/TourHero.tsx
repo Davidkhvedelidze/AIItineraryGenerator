@@ -41,7 +41,7 @@ export function TourHero({ tour }: TourHeroProps) {
               className="absolute inset-0 h-full w-full object-cover opacity-80"
             />
           ) : (
-            <div className="absolute inset-0 bg-[#F5B700]" />
+            <div className="absolute inset-0 bg-primary" />
           )}
           <div className="absolute inset-0 bg-black/5" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-black/35" />

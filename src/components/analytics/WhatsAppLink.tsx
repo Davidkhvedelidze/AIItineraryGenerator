@@ -13,7 +13,8 @@ type Props = Omit<ComponentProps<"a">, "onClick" | "onAuxClick"> & {
     | "blog_cta"
     | "blog_cover"
     | "destination_cta"
-    | "destination_cover";
+    | "destination_cover"
+    | "planner_ready";
 };
 
 export function WhatsAppLink({ clickLocation, ...props }: Props) {

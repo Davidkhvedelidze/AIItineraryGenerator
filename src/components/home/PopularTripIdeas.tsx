@@ -37,7 +37,7 @@ export function PopularTripIdeas() {
   return (
     <section
       aria-labelledby="popular-trip-ideas-title"
-      className="bg-[hsl(42_48%_96%/0.72)] py-12 md:py-16"
+      className="bg-background py-12 md:py-16"
     >
       <div className="container space-y-8">
         <ScrollReveal className="grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
@@ -52,7 +52,7 @@ export function PopularTripIdeas() {
               Start from a route that already understands the country
             </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
+          <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
             Browse practical Georgia ideas with realistic pacing, family-ready
             stops, private tour potential, and clear next steps into the custom
             itinerary builder.
@@ -117,7 +117,7 @@ export function PopularTripIdeas() {
                       {idea.title}
                     </Link>
                   </h3>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-stone-600">
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
                     {idea.description}
                   </p>
 
@@ -143,7 +143,7 @@ export function PopularTripIdeas() {
                       {tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-stone-200 px-2.5 py-1 text-xs font-medium text-stone-600"
+                          className="rounded-full border border-stone-200 px-2.5 py-1 text-xs font-medium text-muted-foreground"
                         >
                           {tag}
                         </span>
@@ -174,7 +174,7 @@ export function PopularTripIdeas() {
         </div>
 
         <ScrollReveal className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl text-sm leading-6 text-stone-600">
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
             Prefer something ready-made? Browse private tours and request direct
             booking support for pickup, timing, and route details.
           </p>

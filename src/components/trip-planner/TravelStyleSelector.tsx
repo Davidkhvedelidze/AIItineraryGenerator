@@ -34,7 +34,7 @@ function TravelStyleSelectorComponent({ value, onChange, error = false }: Travel
           )}
         >
           <p className="font-semibold text-foreground">{option.label}</p>
-          <p className="mt-1 text-xs leading-5 text-stone-600">{option.description}</p>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">{option.description}</p>
         </button>
       ))}
     </div>

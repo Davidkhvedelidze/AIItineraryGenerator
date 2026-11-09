@@ -326,3 +326,10 @@
     animation: none;
   }
 }
+
+/* Birds are barely visible in the short mobile hero; skip the sprite work there. */
+@media (max-width: 639px) {
+  .birdFlight {
+    display: none;
+  }
+}

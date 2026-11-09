@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react";
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 export function BlogBookingLink({
   postTitle,
@@ -29,7 +30,7 @@ export function BlogBookingLink({
   return (
     <WhatsAppLink
       clickLocation={location}
-      href={`https://wa.me/995551181358?text=${encodeURIComponent(message)}`}
+      href={buildWhatsAppUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
       className={className}

@@ -191,7 +191,7 @@ function ResultSuccessHeader({
   headingRef: RefObject<HTMLHeadingElement>;
 }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-yellow-200 bg-[#F5B700] text-stone-950 shadow-xl shadow-yellow-900/10">
+    <section className="overflow-hidden rounded-2xl border border-yellow-200 bg-primary text-stone-950 shadow-xl shadow-yellow-900/10">
       <div className="p-5 md:p-6">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
           <div className="max-w-3xl">
@@ -494,7 +494,7 @@ function BookingNextStepCard({
   return (
     <section
       id="booking"
-      className="scroll-mt-28 overflow-hidden rounded-2xl border border-yellow-200 bg-[#F5B700] text-stone-950 shadow-xl shadow-yellow-900/10"
+      className="scroll-mt-28 overflow-hidden rounded-2xl border border-yellow-200 bg-primary text-stone-950 shadow-xl shadow-yellow-900/10"
     >
       <div className="p-5 md:p-6">
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
