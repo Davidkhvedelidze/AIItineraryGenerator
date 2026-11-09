@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Alert, Button, ConfigProvider, DatePicker, Form, Input, InputNumber } from "antd";
+import {
+  Alert,
+  Button,
+  ConfigProvider,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+} from "antd";
 import { trackEvent } from "@/lib/analytics";
 
 type TourBookingFormProps = {
@@ -72,8 +80,13 @@ export function TourBookingForm({
           error?: string;
         } | null;
         setStatus("error");
-        setErrorMessage(body?.error || "Unable to send request. Please try again.");
-        trackEvent("tour_booking_error", { tour_slug: tourSlug, http_status: response.status });
+        setErrorMessage(
+          body?.error || "Unable to send request. Please try again.",
+        );
+        trackEvent("tour_booking_error", {
+          tour_slug: tourSlug,
+          http_status: response.status,
+        });
         return;
       }
 
@@ -88,7 +101,9 @@ export function TourBookingForm({
       onSuccess?.();
     } catch {
       setStatus("error");
-      setErrorMessage("Unable to send request. Check your connection and try again.");
+      setErrorMessage(
+        "Unable to send request. Check your connection and try again.",
+      );
       trackEvent("tour_booking_error", { tour_slug: tourSlug, http_status: 0 });
     } finally {
       setIsSubmitting(false);
@@ -96,7 +111,20 @@ export function TourBookingForm({
   }
 
   return (
-    <ConfigProvider theme={{ token: { borderRadius: 16, colorPrimary: "#F5B700", colorPrimaryHover: "#D99A00", colorSuccess: "#B45309", colorInfo: "#D99A00", colorBorder: "#d8cdbb", controlHeightLG: 46, fontFamily: "inherit" } }}>
+    <ConfigProvider
+      theme={{
+        token: {
+          borderRadius: 16,
+          colorPrimary: "#F5B700",
+          colorPrimaryHover: "#D99A00",
+          colorSuccess: "#6cc98e",
+          colorInfo: "#D99A00",
+          colorBorder: "#d8cdbb",
+          controlHeightLG: 46,
+          fontFamily: "inherit",
+        },
+      }}
+    >
       <Form
         form={form}
         layout="vertical"
@@ -105,100 +133,106 @@ export function TourBookingForm({
         initialValues={{ travelers: 2 }}
         className="tour-booking-form"
       >
-      <div className="mb-5 rounded-2xl border bg-secondary p-4">
-        <p className="text-sm font-semibold text-foreground">{tourTitle}</p>
-        <p className="mt-1 text-xs leading-5 text-muted-foreground">
-          Send your preferred date, traveler count, and pickup details. This is
-          an availability request, not a payment.
-        </p>
-      </div>
+        <div className="mb-5 rounded-2xl border bg-secondary p-4">
+          <p className="text-sm font-semibold text-foreground">{tourTitle}</p>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">
+            Send your preferred date, traveler count, and pickup details. This
+            is an availability request, not a payment.
+          </p>
+        </div>
 
-      {status === "success" ? (
-        <Alert
-          type="success"
-          showIcon
-          className="mb-4"
-          message="Request sent"
-          description="We received your direct booking request and will reply with availability."
-        />
-      ) : null}
-      {status === "error" ? (
-        <Alert
-          type="error"
-          showIcon
-          className="mb-4"
-          message="Request failed"
-          description={errorMessage}
-        />
-      ) : null}
+        {status === "success" ? (
+          <Alert
+            type="success"
+            showIcon
+            className="mb-4"
+            message="Request sent"
+            description="We received your direct booking request and will reply with availability."
+          />
+        ) : null}
+        {status === "error" ? (
+          <Alert
+            type="error"
+            showIcon
+            className="mb-4"
+            message="Request failed"
+            description={errorMessage}
+          />
+        ) : null}
 
-      <Form.Item
-        label="Name"
-        name="name"
-        rules={[{ required: true, message: "Enter your name." }]}
-      >
-        <Input size="large" autoComplete="name" placeholder="Your name" />
-      </Form.Item>
-
-      <div className="grid gap-0 sm:grid-cols-2 sm:gap-3">
         <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ type: "email", message: "Enter a valid email address." }]}
-      >
-          <Input size="large" autoComplete="email" placeholder="you@example.com" />
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Enter your name." }]}
+        >
+          <Input size="large" autoComplete="name" placeholder="Your name" />
         </Form.Item>
-        <Form.Item label="WhatsApp" name="whatsapp">
-          <Input size="large" autoComplete="tel" placeholder="+971..." />
-        </Form.Item>
-      </div>
 
-      <div className="grid gap-0 sm:grid-cols-2 sm:gap-3">
-        <Form.Item label="Travel date" name="travelDate">
-          <DatePicker
-            className="w-full"
-            size="large"
-            onChange={(_, dateString) =>
-              setTravelDate(Array.isArray(dateString) ? dateString[0] : dateString)
-            }
+        <div className="grid gap-0 sm:grid-cols-2 sm:gap-3">
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ type: "email", message: "Enter a valid email address." }]}
+          >
+            <Input
+              size="large"
+              autoComplete="email"
+              placeholder="you@example.com"
+            />
+          </Form.Item>
+          <Form.Item label="WhatsApp" name="whatsapp">
+            <Input size="large" autoComplete="tel" placeholder="+971..." />
+          </Form.Item>
+        </div>
+
+        <div className="grid gap-0 sm:grid-cols-2 sm:gap-3">
+          <Form.Item label="Travel date" name="travelDate">
+            <DatePicker
+              className="w-full"
+              size="large"
+              onChange={(_, dateString) =>
+                setTravelDate(
+                  Array.isArray(dateString) ? dateString[0] : dateString,
+                )
+              }
+            />
+          </Form.Item>
+          <Form.Item
+            label="Travelers"
+            name="travelers"
+            rules={[
+              {
+                type: "number",
+                min: 1,
+                message: "Travelers must be at least 1.",
+              },
+            ]}
+          >
+            <InputNumber className="w-full" size="large" min={1} max={99} />
+          </Form.Item>
+        </div>
+
+        <Form.Item label="Pickup location" name="pickupLocation">
+          <Input size="large" placeholder="Hotel, airport, or neighborhood" />
+        </Form.Item>
+
+        <Form.Item label="Message" name="message">
+          <Input.TextArea
+            rows={4}
+            placeholder="Share your route preferences, family needs, or timing."
           />
         </Form.Item>
-        <Form.Item
-          label="Travelers"
-          name="travelers"
-          rules={[
-            {
-              type: "number",
-              min: 1,
-              message: "Travelers must be at least 1.",
-            },
-          ]}
+
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          size="large"
+          loading={isSubmitting}
+          className="!h-11 !rounded-full !bg-primary !font-semibold !text-primary-foreground !shadow-none hover:!bg-primary-hover"
         >
-          <InputNumber className="w-full" size="large" min={1} max={99} />
-        </Form.Item>
-      </div>
-
-      <Form.Item label="Pickup location" name="pickupLocation">
-        <Input size="large" placeholder="Hotel, airport, or neighborhood" />
-      </Form.Item>
-
-      <Form.Item label="Message" name="message">
-        <Input.TextArea
-          rows={4}
-          placeholder="Share your route preferences, family needs, or timing."
-        />
-      </Form.Item>
-
-      <Button
-        type="primary"
-        htmlType="submit"
-        block
-        size="large"
-        loading={isSubmitting}
-        className="!h-11 !rounded-full !bg-primary !font-semibold !text-primary-foreground !shadow-none hover:!bg-primary-hover"
-      >
-        Send direct booking request
-      </Button>
+          Send direct booking request
+        </Button>
       </Form>
     </ConfigProvider>
   );
