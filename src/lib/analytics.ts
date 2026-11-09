@@ -12,7 +12,9 @@ export type AnalyticsEventName =
   | "whatsapp_click"
   | "tour_click"
   | "booking_email_click"
-  | "itinerary_pdf_download_click";
+  | "itinerary_pdf_download_click"
+  | "generate_lead"
+  | "tour_booking_error";
 
 /** Callers must supply only non-sensitive, controlled values. */
 export function trackEvent(eventName: AnalyticsEventName, parameters?: AnalyticsEventParams): void {

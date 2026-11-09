@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Alert, Button, ConfigProvider, DatePicker, Form, Input, InputNumber } from "antd";
+import { trackEvent } from "@/lib/analytics";
 
 type TourBookingFormProps = {
   tourSlug: string;
@@ -72,16 +73,23 @@ export function TourBookingForm({
         } | null;
         setStatus("error");
         setErrorMessage(body?.error || "Unable to send request. Please try again.");
+        trackEvent("tour_booking_error", { tour_slug: tourSlug, http_status: response.status });
         return;
       }
 
       form.resetFields();
       setTravelDate(undefined);
       setStatus("success");
+      trackEvent("generate_lead", {
+        lead_type: "tour_booking",
+        tour_slug: tourSlug,
+        has_whatsapp: Boolean(whatsapp),
+      });
       onSuccess?.();
     } catch {
       setStatus("error");
       setErrorMessage("Unable to send request. Check your connection and try again.");
+      trackEvent("tour_booking_error", { tour_slug: tourSlug, http_status: 0 });
     } finally {
       setIsSubmitting(false);
     }

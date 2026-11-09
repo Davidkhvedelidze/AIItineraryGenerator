@@ -170,6 +170,10 @@ export function useItineraryGenerator() {
           "itinerary_generate_success",
           tripAnalyticsParams(formData),
         );
+        trackEvent("generate_lead", {
+          lead_type: "planner",
+          has_whatsapp: Boolean(formData.mobileNumber?.trim()),
+        });
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
           if (timedOut) {

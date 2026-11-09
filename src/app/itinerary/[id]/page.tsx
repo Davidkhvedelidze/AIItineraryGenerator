@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { CarRentalWidget } from "@/components/itinerary/CarRentalWidget";
 import { BookingSuggestion, ItineraryContent } from "@/components/itinerary/ItineraryContent";
 import { EsimBanner } from "@/components/itinerary/EsimBanner";
+import { BookThisTripCta } from "@/components/itinerary/BookThisTripCta";
 import { InsuranceBanner } from "@/components/itinerary/InsuranceBanner";
 import { ItineraryHero } from "@/components/itinerary/ItineraryHero";
 import { ShareToGalleryButton } from "@/components/itinerary/ShareToGalleryButton";
@@ -113,6 +113,8 @@ export default async function ItineraryPage({ params }: ItineraryPageProps) {
           costLabel={cleanText(result.totalPrice) ? "Total price" : "Estimated budget"}
         />
 
+        <BookThisTripCta shortId={params.id} pageUrl={pageUrl} placement="top" />
+
         <div className="container flex justify-center py-6">
           <ShareToGalleryButton
             shortId={params.id}
@@ -145,14 +147,15 @@ export default async function ItineraryPage({ params }: ItineraryPageProps) {
               Georgia. Partner links: we may earn a small commission.
             </p>
           </div>
-          <div className="grid gap-6 lg:grid-cols-3">
-            <CarRentalWidget />
+          <div className="grid gap-6 lg:grid-cols-2">
             <InsuranceBanner />
             <EsimBanner />
           </div>
         </section>
 
         <BookingSuggestion text={result.bookingSuggestion} />
+
+        <BookThisTripCta shortId={params.id} pageUrl={pageUrl} placement="bottom" />
       </main>
       <Footer />
     </div>
