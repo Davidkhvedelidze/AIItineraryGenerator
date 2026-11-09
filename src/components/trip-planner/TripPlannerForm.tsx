@@ -163,7 +163,7 @@ export function TripPlannerForm({ isLoading, onSubmit }: TripPlannerFormProps) {
           <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
             {stepConfig.title}
           </h3>
-          <p className="mt-1 text-sm leading-6 text-stone-600">
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
             {stepConfig.description}
           </p>
         </motion.div> */}

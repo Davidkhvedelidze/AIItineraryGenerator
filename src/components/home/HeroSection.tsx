@@ -27,7 +27,7 @@ const fadeUp = {
 
 export function HeroSection() {
   return (
-    <section className="relative isolate flex min-h-[calc(100dvh-65px)] w-full flex-col overflow-hidden text-white lg:flex-row">
+    <section className="relative isolate flex min-h-[calc(100dvh-var(--header-height))] w-full flex-col overflow-hidden lg:flex-row">
       <div className="relative h-[40svh] min-h-[280px] w-full overflow-hidden lg:h-auto lg:w-[55%] lg:overflow-visible ">
         <Image
           src={heroImage}
@@ -38,13 +38,19 @@ export function HeroSection() {
           className="object-cover"
         />
 
+        {/* Soft scrim keeps the dark headline readable over bright sky and snow. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-3/5 bg-gradient-to-b from-background/85 via-background/45 to-transparent"
+        />
+
         <Image
           src={claudeLeft}
           alt=""
           width={500}
           height={160}
           aria-hidden="true"
-          className={`${styles.cloud} ${styles.cloudLeft} z-50`}
+          className={`${styles.cloud} ${styles.cloudLeft}`}
         />
 
         <Image
@@ -100,20 +106,20 @@ export function HeroSection() {
           animate="show"
           className="relative z-20 mx-auto w-full max-w-2xl px-6 pt-10 text-center font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl md:text-5xl lg:mx-0 lg:px-10 lg:pt-16 lg:text-left lg:text-4xl xl:text-[44px]"
         >
-          Plan your perfect Georgia trip with AI for Free
+          Plan your perfect Georgia trip with AI, free
         </motion.h1>
       </div>
 
       {/* Top-aligned so a taller or shorter step only moves the card's bottom edge. */}
-      <div className="relative z-20 flex w-full flex-col items-center justify-center px-4 lg:px-0  sm:px-6 lg:w-[45%]  lg:min-h-[calc(100dvh-65px)] py-0 lg:py-0">
-        <motion.h2
+      <div className="relative z-20 flex w-full flex-col items-center justify-center px-4 lg:px-0  sm:px-6 lg:w-[45%]  lg:min-h-[calc(100dvh-var(--header-height))] py-0 lg:py-0">
+        <motion.p
           variants={fadeUp}
           initial="hidden"
           animate="show"
           className="mb-5 w-full max-w-[560px] text-center leading-7 text-foreground sm:text-lg lg:text-left"
         >
           Share your preferences and we&apos;ll create an itinerary for you.
-        </motion.h2>
+        </motion.p>
 
         <HeroTripPlanner />
       </div>

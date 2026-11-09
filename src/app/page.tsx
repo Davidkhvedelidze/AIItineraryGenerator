@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { PopularTripIdeas } from "@/components/home/PopularTripIdeas";
 import { getSiteUrl } from "@/lib/site";
+import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_PROFILE_URL } from "@/lib/contact";
 
 const siteUrl = getSiteUrl();
 
@@ -27,8 +28,8 @@ const structuredData = {
       "@id": `${siteUrl}/#organization`,
       name: "TripMate Georgia",
       url: siteUrl,
-      email: "info@mustseegeorgia.com",
-      telephone: "+995551181358",
+      email: CONTACT_EMAIL,
+      telephone: CONTACT_PHONE,
       logo: `${siteUrl}/logo.png`,
       areaServed: {
         "@type": "Country",
@@ -36,7 +37,7 @@ const structuredData = {
       },
       sameAs: [
         "https://www.viator.com/Tbilisi-tours/d22516-ttd",
-        "https://wa.me/995551181358",
+        WHATSAPP_PROFILE_URL,
         // + Instagram/Facebook/TripAdvisor if you have them
       ],
     },
@@ -64,11 +65,6 @@ const structuredData = {
       url: siteUrl,
       name: "TripMate Georgia",
       publisher: { "@id": `${siteUrl}/#organization` },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${siteUrl}/search?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
     },
   ],
 };
@@ -83,7 +79,6 @@ export default function HomePage() {
       <Header />
       <main className="flex-1 scroll-smooth">
         <HeroSection />
-        {/* <DeferredTripPlanner /> */}
         <ExampleItinerary />
         <HowItWorks />
         <PopularTripIdeas />

@@ -1,5 +1,6 @@
 import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import { MessageCircle } from "lucide-react";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 type WhatsAppFloatingButtonProps = {
   pageUrl: string;
@@ -7,7 +8,7 @@ type WhatsAppFloatingButtonProps = {
 
 export function WhatsAppFloatingButton({ pageUrl }: WhatsAppFloatingButtonProps) {
   const message = `Hi! I have a question about my Georgia itinerary: ${pageUrl}`;
-  const whatsappUrl = `https://wa.me/995551181358?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = buildWhatsAppUrl(message);
 
   return (
     <WhatsAppLink clickLocation="floating_button"

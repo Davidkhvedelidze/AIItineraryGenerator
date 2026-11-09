@@ -4,7 +4,17 @@ import type { ComponentProps } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 type Props = Omit<ComponentProps<"a">, "onClick" | "onAuxClick"> & {
-  clickLocation: "floating_button" | "header" | "tour_detail" | "home_cta" | "tours_page" | "blog_cta" | "blog_cover";
+  clickLocation:
+    | "floating_button"
+    | "header"
+    | "tour_detail"
+    | "home_cta"
+    | "tours_page"
+    | "blog_cta"
+    | "blog_cover"
+    | "destination_cta"
+    | "destination_cover"
+    | "planner_ready";
 };
 
 export function WhatsAppLink({ clickLocation, ...props }: Props) {

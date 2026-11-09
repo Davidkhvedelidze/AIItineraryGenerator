@@ -52,7 +52,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)"
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"]
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"]
       },
       textColor: {
         white: "var(--text-on-dark)"

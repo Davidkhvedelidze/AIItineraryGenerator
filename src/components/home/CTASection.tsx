@@ -2,20 +2,20 @@ import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
-const whatsappUrl =
-  "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
+const whatsappUrl = buildWhatsAppUrl();
 
 export function CTASection() {
   return (
     <section className="py-12 md:py-16">
       <div className="container">
         <ScrollReveal className="overflow-hidden rounded-2xl text-stone-950 shadow-xl shadow-yellow-900/10">
-          <div className="grid gap-8 bg-[#F5B700] p-6 md:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div className="grid gap-8 bg-primary p-6 md:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-black/40 bg-white/10 px-3 py-1 text-sm font-semibold text-amber-700">
+              <div className="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/25 px-3 py-1 text-sm font-semibold text-stone-950">
                 <ShieldCheck
-                  className="h-4 w-4 text-amber-700"
+                  className="h-4 w-4 text-stone-950"
                   aria-hidden="true"
                 />
                 Local support after the itinerary
@@ -32,8 +32,8 @@ export function CTASection() {
 
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
-                href="#trip-planner"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-primary-hover"
+                href="/#trip-planner"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-bold text-background shadow-sm transition hover:-translate-y-0.5 hover:bg-foreground/90"
               >
                 Generate Custom Itinerary
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

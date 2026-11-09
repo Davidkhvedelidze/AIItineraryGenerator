@@ -61,7 +61,7 @@ function TripPlannerPlaceholder({
           className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10"
         >
           <div className="grid gap-0 lg:grid-cols-[0.78fr_1fr]">
-            <div className="relative overflow-hidden bg-[#F5B700] p-6 text-stone-950 md:p-8">
+            <div className="relative overflow-hidden bg-primary p-6 text-stone-950 md:p-8">
               <div className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white/25 px-3 py-1 text-sm font-semibold text-stone-950">
                 <Sparkles
                   className="h-4 w-4 text-amber-800"
@@ -113,7 +113,7 @@ function TripPlannerPlaceholder({
                       <p className="mt-4 text-sm font-semibold text-foreground">
                         {item.title}
                       </p>
-                      <p className="mt-1 text-xs leading-5 text-stone-600">
+                      <p className="mt-1 text-xs leading-5 text-muted-foreground">
                         {item.description}
                       </p>
                     </div>
@@ -121,7 +121,7 @@ function TripPlannerPlaceholder({
                 })}
               </div>
 
-              <div className="mt-5 rounded-2xl border border-stone-200 bg-white p-4 text-sm leading-6 text-stone-600">
+              <div className="mt-5 rounded-2xl border border-stone-200 bg-white p-4 text-sm leading-6 text-muted-foreground">
                 Built for first-time visitors, families, Gulf travelers, and
                 private groups who want beautiful days without unrealistic
                 transfer plans.

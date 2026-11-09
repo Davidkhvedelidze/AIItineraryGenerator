@@ -38,7 +38,7 @@ export function HowItWorks() {
               From first idea to a private trip you can trust
             </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
+          <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
             TripMate keeps the speed of AI, but frames every route around real
             Georgian roads, family comfort, seasonal changes, and local booking
             support.
@@ -57,13 +57,13 @@ export function HowItWorks() {
                 <div className="absolute right-4 top-3 font-serif text-5xl font-semibold text-stone-300">
                   {step.kicker}
                 </div>
-                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#F5B700] text-stone-950">
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-primary text-stone-950">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="relative mt-5 text-lg font-semibold leading-7 text-foreground">
                   {step.title}
                 </h3>
-                <p className="relative mt-2 text-sm leading-6 text-stone-600">
+                <p className="relative mt-2 text-sm leading-6 text-muted-foreground">
                   {step.description}
                 </p>
               </article>
@@ -73,7 +73,7 @@ export function HowItWorks() {
 
         {/* <ScrollReveal
           delay={0.15}
-          className="mt-5 flex flex-col gap-3 rounded-2xl border border-yellow-200 bg-[#F5B700] px-5 py-4 text-sm leading-6 text-stone-950 shadow-lg shadow-yellow-900/10 sm:flex-row sm:items-center"
+          className="mt-5 flex flex-col gap-3 rounded-2xl border border-yellow-200 bg-primary px-5 py-4 text-sm leading-6 text-stone-950 shadow-lg shadow-yellow-900/10 sm:flex-row sm:items-center"
         >
           <Sparkles
             className="h-5 w-5 shrink-0 text-stone-950"

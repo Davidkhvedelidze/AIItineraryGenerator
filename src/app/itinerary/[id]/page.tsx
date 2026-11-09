@@ -129,11 +129,28 @@ export default async function ItineraryPage({ params }: ItineraryPageProps) {
           adults={formData.travelers}
         />
 
-        <div className="container grid gap-6 border-t border-stone-200 py-12 sm:grid-cols-1 lg:grid-cols-3">
-          <CarRentalWidget />
-          <InsuranceBanner />
-          <EsimBanner />
-        </div>
+        <section
+          aria-labelledby="before-you-go"
+          className="container border-t border-border py-12"
+        >
+          <div className="mb-6 max-w-2xl">
+            <h2
+              id="before-you-go"
+              className="font-serif text-3xl font-semibold tracking-tight text-foreground"
+            >
+              Before you go
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              Optional extras travelers usually sort out before arriving in
+              Georgia. Partner links: we may earn a small commission.
+            </p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            <CarRentalWidget />
+            <InsuranceBanner />
+            <EsimBanner />
+          </div>
+        </section>
 
         <BookingSuggestion text={result.bookingSuggestion} />
       </main>

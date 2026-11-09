@@ -22,6 +22,7 @@ import {
   Landmark,
   Loader2,
   Lock,
+  MessageCircle,
   Minus,
   Mountain,
   MoonStar,
@@ -53,6 +54,8 @@ import {
   travelStyleOptions,
 } from "@/constants/trip-options";
 import { cn } from "@/lib/utils";
+import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 type FieldName = keyof TripFormSchema;
 type Step = "trip" | "contact";
@@ -109,7 +112,7 @@ const fieldLabelClass =
   "text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground";
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-border bg-background px-4 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-ring/40 aria-[invalid=true]:border-red-600";
+  "h-12 w-full rounded-xl border border-border bg-background px-4 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:border-foreground/40 focus:outline-none focus:ring-2 focus:ring-ring/40 aria-[invalid=true]:border-destructive";
 
 const primaryButtonClass =
   "flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -121,8 +124,8 @@ const datePickerTheme: ThemeConfig = {
     colorText: "#292005",
     colorTextPlaceholder: "rgba(98, 87, 65, 0.7)", // --muted-foreground/70
     colorBorder: "#e1d7c2", // --border
-    colorBgContainer: "#fffdf7", // --background
-    colorError: "#dc2626",
+    colorBgContainer: "#ffffff", // --background
+    colorError: "#b91c1c", // matches --destructive
     borderRadius: 12,
     borderRadiusLG: 16,
     fontFamily: "inherit",
@@ -190,7 +193,7 @@ function firstErrorMessage(error: unknown): string | undefined {
 function ErrorText({ children }: { children?: string | null }) {
   if (!children) return null;
   return (
-    <p role="alert" className="text-sm text-red-700">
+    <p role="alert" className="text-sm text-destructive">
       {children}
     </p>
   );
@@ -442,7 +445,7 @@ function GeneratingState() {
         </motion.p>
       </AnimatePresence>
       <p className="text-xs text-muted-foreground">
-        This usually takes 20–40 seconds. Please keep this page open.
+        This usually takes under a minute. Please keep this page open.
       </p>
     </motion.div>
   );
@@ -457,11 +460,13 @@ function ReadyState({
   shareId,
   email,
   emailSent,
+  onRestart,
 }: {
   itinerary: ItineraryResult;
   shareId: string | null;
   email: string;
   emailSent: boolean;
+  onRestart: () => void;
 }) {
   return (
     <motion.div
@@ -486,8 +491,10 @@ function ReadyState({
                 We&apos;ve sent it to{" "}
                 <span className="font-medium text-foreground">{email}</span>.
               </>
-            ) : (
+            ) : shareId ? (
               "We couldn't email it this time, so keep the link below."
+            ) : (
+              "We couldn't save or email it this time. Try again, or message us and we'll send it to you."
             )}
           </p>
         </div>
@@ -507,11 +514,30 @@ function ReadyState({
         </ul>
       </div>
 
-      {shareId && (
+      {shareId ? (
         <Link href={`/itinerary/${shareId}`} className={primaryButtonClass}>
           View full plan
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
+      ) : (
+        <div className="space-y-3">
+          <button type="button" onClick={onRestart} className={primaryButtonClass}>
+            Try again
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <WhatsAppLink
+            clickLocation="planner_ready"
+            href={buildWhatsAppUrl(
+              `Hi! I generated a Georgia itinerary ("${itinerary.tripTitle}") but couldn't open it. Can you help?`,
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-border text-sm font-semibold text-foreground transition hover:bg-muted"
+          >
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            Get it on WhatsApp
+          </WhatsAppLink>
+        </div>
       )}
       {emailSent && (
         <p className="text-center text-xs text-muted-foreground">
@@ -567,7 +593,7 @@ export function HeroTripPlanner() {
     },
   });
 
-  const { status, error, data, shareId, emailSent, generateItinerary } =
+  const { status, error, data, shareId, emailSent, generateItinerary, reset } =
     useItineraryGenerator();
   const isLoading = status === "loading";
 
@@ -716,7 +742,8 @@ export function HeroTripPlanner() {
   return (
     <div
       ref={cardRef}
-      className="w-full max-w-[560px] scroll-mt-20 rounded-[28px] border border-border bg-background text-card-foreground shadow-[0_30px_80px_-30px_rgba(60,40,10,0.45)]"
+      id="trip-planner"
+      className="w-full max-w-[560px] scroll-mt-[calc(var(--header-height)+1rem)] rounded-[28px] border border-border bg-background text-card-foreground shadow-[0_30px_80px_-30px_rgba(60,40,10,0.45)]"
     >
       <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4 sm:px-7">
         <p className="flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-foreground">
@@ -771,6 +798,10 @@ export function HeroTripPlanner() {
               shareId={shareId}
               email={getValues("email")}
               emailSent={emailSent}
+              onRestart={() => {
+                reset();
+                goToStep("trip");
+              }}
             />
           ) : step === "trip" ? (
             <motion.form
@@ -996,7 +1027,7 @@ export function HeroTripPlanner() {
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
                 <p className="-mt-2 text-center text-xs text-muted-foreground">
-                  Free · No account needed · Ready in about 30 seconds
+                  Free · No sign-up · Ready in under a minute
                 </p>
               </div>
 
@@ -1174,7 +1205,7 @@ export function HeroTripPlanner() {
                     type="tel"
                     autoComplete="tel"
                     inputMode="tel"
-                    placeholder="+966 5X XXX XXXX"
+                    placeholder="+1 555 123 4567"
                     aria-invalid={!!errors.mobileNumber}
                     className={inputClass}
                     {...register("mobileNumber")}
