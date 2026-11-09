@@ -14,7 +14,8 @@ type Props = Omit<ComponentProps<"a">, "onClick" | "onAuxClick"> & {
     | "blog_cover"
     | "destination_cta"
     | "destination_cover"
-    | "planner_ready";
+    | "planner_ready"
+    | "itinerary_quote";
 };
 
 export function WhatsAppLink({ clickLocation, ...props }: Props) {

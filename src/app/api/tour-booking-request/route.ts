@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, checkSupabaseRateLimit, getClientIp } from "@/lib/rateLimit";
 import { createTourBookingRequest } from "@/lib/supabase/tourBookingRequests";
+import { trySendLeadNotification } from "@/lib/email/sendLeadNotification";
+import { getSiteUrl } from "@/lib/site";
 
 const tourBookingRequestSchema = z
   .object({
@@ -57,9 +59,40 @@ export async function POST(request: Request) {
       );
     }
 
-    const requestId = await createTourBookingRequest(payload);
+    // Saving and notifying are both best-effort; the lead is only lost if both fail.
+    const [saved, notified] = await Promise.all([
+      createTourBookingRequest(payload).then(
+        (requestId) => ({ ok: requestId !== null, requestId }),
+        (error: unknown) => {
+          console.error("Failed to save tour booking request:", error);
+          return { ok: false, requestId: null };
+        },
+      ),
+      trySendLeadNotification({
+        type: "tour_booking",
+        headline: payload.tourTitle,
+        name: payload.name,
+        email: payload.email,
+        whatsapp: payload.whatsapp,
+        travelers: payload.travelers,
+        startDate: payload.travelDate,
+        details: [["Pickup", payload.pickupLocation]],
+        note: payload.message,
+        link: {
+          label: "Open tour page",
+          url: `${getSiteUrl()}/tours/${encodeURIComponent(payload.tourSlug)}`,
+        },
+      }),
+    ]);
 
-    return NextResponse.json({ ok: true, requestId });
+    if (!saved.ok && !notified) {
+      return NextResponse.json(
+        { error: "Unable to save booking request." },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ ok: true, requestId: saved.requestId });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

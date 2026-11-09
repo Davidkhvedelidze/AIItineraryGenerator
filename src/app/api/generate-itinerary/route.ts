@@ -9,6 +9,7 @@ import {
 } from "@/lib/api/apiError";
 import { generateItineraryCompletion } from "@/lib/ai/generateItineraryCompletion";
 import { trySendItineraryEmail } from "@/lib/email/sendItineraryEmail";
+import { plannerLead, trySendLeadNotification } from "@/lib/email/sendLeadNotification";
 import { getSiteUrl } from "@/lib/site";
 import { checkRateLimit, checkSupabaseRateLimit, getClientIp } from "@/lib/rateLimit";
 import { tryCreatePendingRequest, tryUpdateRequest } from "@/lib/supabase/itineraryRequests";
@@ -88,11 +89,13 @@ export async function POST(request: Request) {
 
     // Awaited rather than fire-and-forget: serverless functions may freeze once the response is sent.
     const shortId = pendingRequest?.shortId;
-    const emailSent = await trySendItineraryEmail({
-      to: formData.email,
-      itinerary,
-      shareUrl: shortId ? `${getSiteUrl()}/itinerary/${shortId}` : null,
-    });
+    const shareUrl = shortId ? `${getSiteUrl()}/itinerary/${shortId}` : null;
+    const [emailSent] = await Promise.all([
+      trySendItineraryEmail({ to: formData.email, itinerary, shareUrl }),
+      trySendLeadNotification(
+        plannerLead(formData, { tripTitle: itinerary.tripTitle, itineraryUrl: shareUrl }),
+      ),
+    ]);
 
     return NextResponse.json(
       { success: true, data: itinerary, shareId: pendingRequest?.shortId ?? null, emailSent },
@@ -103,11 +106,15 @@ export async function POST(request: Request) {
 
     const { status } = classifyError(error);
     const errorBody = buildErrorResponseBody(error);
-    await tryUpdateRequest(itineraryRequestId, {
-      status: "error",
-      itinerary_result: null,
-      error_message: errorBody.message,
-    });
+    await Promise.all([
+      tryUpdateRequest(itineraryRequestId, {
+        status: "error",
+        itinerary_result: null,
+        error_message: errorBody.message,
+      }),
+      // The traveler left their contact even though generation failed: still a lead.
+      trySendLeadNotification(plannerLead(formData, { generationFailed: true })),
+    ]);
 
     return NextResponse.json(errorBody, { status });
   }

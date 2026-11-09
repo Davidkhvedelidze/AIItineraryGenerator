@@ -1198,7 +1198,7 @@ export function HeroTripPlanner() {
                   <span className="block text-sm font-medium text-foreground">
                     WhatsApp{" "}
                     <span className="font-normal text-muted-foreground">
-                      · optional, for driver & booking questions
+                      · recommended, fastest replies from our local team
                     </span>
                   </span>
                   <input
