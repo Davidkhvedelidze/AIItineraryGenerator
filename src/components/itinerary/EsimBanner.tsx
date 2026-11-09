@@ -1,5 +1,6 @@
 import { ArrowRight, Wifi } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ESIM_AFFILIATE_LINK } from "@/lib/affiliate-config";
 
 export function EsimBanner() {
@@ -26,17 +27,13 @@ export function EsimBanner() {
         </p>
       </div>
 
-      <Button
-        type="button"
-        className="mt-auto w-full gap-2 bg-sky-600 text-white hover:bg-sky-700"
-        tabIndex={-1}
-      >
+      <span className={cn(buttonVariants(), "mt-auto w-full gap-2 bg-sky-600 text-white group-hover:bg-sky-700")}>
         Get my eSIM
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
           aria-hidden="true"
         />
-      </Button>
+      </span>
     </a>
   );
 }

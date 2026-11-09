@@ -13,6 +13,7 @@ import { getTourPriceSummary } from "@/lib/tour-pricing";
 import type { Tour } from "@/types/sanity-tour";
 import { TourBookingForm } from "@/components/tours/TourBookingForm";
 import { normalizeExternalUrl } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 export type TourBookingBoxTour = Pick<
   Tour,
@@ -122,9 +123,9 @@ export function TourBookingBox({ tour, compact = false }: TourBookingBoxProps) {
       ) : null}
 
       <WhatsAppLink clickLocation="tour_detail"
-        href={`https://wa.me/995551181358?text=${encodeURIComponent(
-          `Hello, I would like help with ${tour.title}.`,
-        )}`}
+        href={buildWhatsAppUrl(`Hello, I would like help with ${tour.title}.`)}
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex w-full items-center justify-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition hover:bg-muted"
       >
         <MessageCircle className="h-4 w-4" aria-hidden="true" />

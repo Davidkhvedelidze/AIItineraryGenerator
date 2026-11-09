@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import Script from "next/script";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { getSiteUrl } from "@/lib/site";
@@ -9,6 +9,12 @@ import "./globals.css";
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -128,7 +134,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={fraunces.variable}>
+    <html lang="en" className={`${fraunces.variable} ${manrope.variable}`}>
       <head>
         <GoogleAnalytics />
         <Script

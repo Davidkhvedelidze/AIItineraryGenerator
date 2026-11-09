@@ -37,7 +37,7 @@ const previewBenefits = [
 
 export function ExampleItinerary() {
   return (
-    <section className="bg-white/55 py-12 md:py-16">
+    <section className="bg-background py-12 md:py-16">
       <div className="container grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-start">
         <ScrollReveal className="lg:sticky lg:top-24">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-700">
@@ -46,7 +46,7 @@ export function ExampleItinerary() {
           <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight tracking-normal text-foreground sm:text-5xl">
             The plan reads like a real Georgia route, not a generic list
           </h2>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-stone-600 sm:text-base">
+          <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
             Each itinerary balances scenery, driving time, meals, hotel rhythm,
             and local support so travelers can understand what the trip will
             actually feel like.
@@ -75,7 +75,7 @@ export function ExampleItinerary() {
           delay={0.15}
           className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xl shadow-yellow-900/10"
         >
-          <div className="border-b border-yellow-200 bg-[#F5B700] p-5 text-stone-950 sm:p-6">
+          <div className="border-b border-yellow-200 bg-primary p-5 text-stone-950 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-800">
@@ -103,7 +103,7 @@ export function ExampleItinerary() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-stone-600">
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
                     {item.route}
                   </p>
                 </div>

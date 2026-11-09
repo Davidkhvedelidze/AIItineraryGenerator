@@ -1,5 +1,6 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { INSURANCE_AFFILIATE_LINK } from "@/lib/affiliate-config";
 
 const INSURANCE_WIDGET_SRC =
@@ -30,17 +31,13 @@ export function InsuranceBanner() {
           </p>
         </div>
 
-        <Button
-          type="button"
-          className="mt-auto w-full gap-2 bg-emerald-600 text-white hover:bg-emerald-700"
-          tabIndex={-1}
-        >
+        <span className={cn(buttonVariants(), "mt-auto w-full gap-2 bg-emerald-600 text-white group-hover:bg-emerald-700")}>
           Compare plans
           <ArrowRight
             className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
             aria-hidden="true"
           />
-        </Button>
+        </span>
       </a>
 
       <div

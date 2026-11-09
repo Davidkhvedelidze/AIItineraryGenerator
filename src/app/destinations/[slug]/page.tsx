@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BlogCard } from "@/components/blog/BlogCard";
+import { BlogBookingLink } from "@/components/blog/BlogBookingLink";
+import { BlogCTA } from "@/components/blog/BlogCTA";
 import { BlogPostBody } from "@/components/blog/BlogPostBody";
 import { DestinationBreadcrumb } from "@/components/destinations/DestinationBreadcrumb";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
@@ -159,15 +161,30 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
             </header>
 
             {heroImageUrl ? (
-              <div className="relative my-8 aspect-[4/3] overflow-hidden rounded-2xl sm:my-10 sm:aspect-[2/1]">
-                <Image
-                  src={heroImageUrl}
-                  alt={destination.heroImage?.alt || destination.title}
-                  fill
-                  priority
-                  sizes="(min-width: 1280px) 1120px, calc(100vw - 32px)"
-                  className="object-cover"
-                />
+              <div className="relative my-8 sm:my-10">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[2/1]">
+                  <Image
+                    src={heroImageUrl}
+                    alt={destination.heroImage?.alt || destination.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1280px) 1120px, calc(100vw - 32px)"
+                    className="object-cover"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-1/2 bg-gradient-to-t from-black/60 to-transparent md:block"
+                  />
+                </div>
+                <div className="mt-4 md:absolute md:bottom-6 md:left-6 md:right-6 md:mt-0">
+                  <BlogBookingLink
+                    postTitle={destination.title}
+                    sourceUrl={pageUrl}
+                    location="destination_cover"
+                    label="Book a private tour on WhatsApp"
+                    className={`${styles.primaryButton} w-full shadow-sm md:w-auto md:ring-1 md:ring-white/30`}
+                  />
+                </div>
               </div>
             ) : null}
 
@@ -240,6 +257,14 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
                   <DestinationFAQ items={faqItems} />
                 </section>
               ) : null}
+            </div>
+
+            <div className="mt-16">
+              <BlogCTA
+                postTitle={destination.title}
+                sourceUrl={pageUrl}
+                bookingLocation="destination_cta"
+              />
             </div>
           </article>
 

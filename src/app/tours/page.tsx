@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ToursFilterGrid } from "@/components/tours/ToursFilterGrid";
 import { getAllTours } from "@/lib/tours";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Private Tours in Georgia — TripMate Georgia",
@@ -25,7 +26,7 @@ export default async function ToursPage() {
             <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
               Private tours
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="font-serif text-4xl font-semibold tracking-tight sm:text-5xl">
               Private Tours in Georgia
             </h1>
             <p className="text-lg leading-8 text-muted-foreground">
@@ -37,13 +38,15 @@ export default async function ToursPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/#trip-planner"
-                className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover"
+                className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover"
               >
                 Build a custom itinerary
               </Link>
               <WhatsAppLink clickLocation="tours_page"
-                href="https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20choosing%20a%20private%20Georgia%20tour."
-                className="inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-semibold transition hover:bg-muted"
+                href={buildWhatsAppUrl("Hello, I would like help choosing a private Georgia tour.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2 text-sm font-semibold transition hover:bg-muted"
               >
                 Ask on WhatsApp
               </WhatsAppLink>
@@ -54,9 +57,9 @@ export default async function ToursPage() {
             <ToursFilterGrid tours={tours} />
           ) : (
             <section className="rounded-lg border bg-card p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold tracking-tight">No tours yet</h2>
+              <h2 className="font-serif text-2xl font-semibold tracking-tight">New tours coming soon</h2>
               <p className="mt-3 max-w-2xl text-muted-foreground">
-                Private tours will appear here after they are published in Sanity Studio.
+                We are adding new private routes. Message us on WhatsApp and we will suggest a tour that fits your dates.
               </p>
             </section>
           )}

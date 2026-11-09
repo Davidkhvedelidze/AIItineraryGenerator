@@ -4,13 +4,14 @@ import { WhatsAppLink } from "@/components/analytics/WhatsAppLink";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, MessageCircle, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, MessageCircle, Sparkles, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import Logo from "../../../public/logo.png";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/contact";
 
 const navLinks = [
   {
@@ -29,18 +30,34 @@ const navLinks = [
     label: "Blog",
     href: "/blog",
   },
-  {
-    label: "Build itinerary",
-    href: "/#trip-planner",
-  },
 ];
 
-const whatsappUrl =
-  "https://wa.me/995551181358?text=Hello%2C%20I%20would%20like%20help%20planning%20my%20Georgia%20trip.";
+const plannerHref = "/#trip-planner";
+
+const whatsappUrl = buildWhatsAppUrl();
 
 export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Close the mobile menu on navigation and Escape; lock page scroll while it's open.
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -69,14 +86,14 @@ export function Header() {
             <span className="block font-serif text-base font-semibold tracking-normal text-foreground sm:text-lg">
               TripMate Georgia
             </span>
-            <span className="hidden text-xs font-medium text-stone-600 sm:block md:hidden lg:block">
+            <span className="hidden text-xs font-medium text-muted-foreground sm:block md:hidden lg:block">
               Local private trips, planned with care
             </span>
           </span>
         </Link>
         <div className="flex">
           <nav
-            className="hidden items-center gap-1   p-1 shadow-sm md:flex"
+            className="hidden items-center gap-1 p-1 md:flex"
             aria-label="Primary navigation"
           >
             {navLinks.map((link) => {
@@ -98,9 +115,25 @@ export function Header() {
                 </Link>
               );
             })}
+            <Link
+              href={plannerHref}
+              className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-primary-soft lg:hidden"
+            >
+              Build itinerary
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link
+              href={plannerHref}
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "hidden gap-2 rounded-full bg-foreground px-4 text-background shadow-sm transition-all hover:-translate-y-0.5 hover:bg-foreground/90 lg:inline-flex",
+              )}
+            >
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              Build itinerary
+            </Link>
             <WhatsAppLink
               clickLocation="header"
               href={whatsappUrl}
@@ -156,6 +189,14 @@ export function Header() {
                 </Link>
               );
             })}
+            <Link
+              href={plannerHref}
+              onClick={() => setIsOpen(false)}
+              className="mt-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-foreground px-4 py-3 text-sm font-semibold text-background"
+            >
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              Build itinerary
+            </Link>
           </nav>
         </div>
       ) : null}

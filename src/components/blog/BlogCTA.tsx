@@ -16,10 +16,14 @@ export function BlogCTA({
   cta,
   postTitle,
   postSlug,
+  sourceUrl,
+  bookingLocation = "blog_cta",
 }: {
   cta?: BlogCTAContent;
   postTitle?: string;
   postSlug?: string;
+  sourceUrl?: string;
+  bookingLocation?: "blog_cta" | "destination_cta";
 }) {
   const content = cta && (cta.title || cta.description) ? cta : defaultCTA;
   return (
@@ -47,6 +51,8 @@ export function BlogCTA({
           <BlogBookingLink
             postTitle={postTitle}
             postSlug={postSlug}
+            sourceUrl={sourceUrl}
+            location={bookingLocation}
             className={styles.primaryButton}
           />
           {content.primaryButtonLabel && content.primaryButtonLink ? (
