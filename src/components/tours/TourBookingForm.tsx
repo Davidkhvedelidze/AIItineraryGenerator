@@ -180,7 +180,16 @@ export function TourBookingForm({
               placeholder="you@example.com"
             />
           </Form.Item>
-          <Form.Item label="WhatsApp" name="whatsapp">
+          <Form.Item
+            label="WhatsApp"
+            name="whatsapp"
+            rules={[
+              {
+                pattern: /^\+?[0-9\s()-]{7,20}$/,
+                message: "Enter a valid WhatsApp number.",
+              },
+            ]}
+          >
             <Input size="large" autoComplete="tel" placeholder="+971..." />
           </Form.Item>
         </div>

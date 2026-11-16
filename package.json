@@ -21,6 +21,7 @@
     "antd": "^6.3.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.23",
     "framer-motion": "^12.38.0",
     "groq": "^3.99.0",
     "gsap": "^3.15.0",
@@ -33,6 +34,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
     "sharp": "^0.35.3",
+    "swiper": "^14.4.0",
     "tailwind-merge": "^2.6.0",
     "zod": "^3.25.76"
   },

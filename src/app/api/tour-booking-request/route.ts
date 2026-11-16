@@ -7,15 +7,24 @@ import { getSiteUrl } from "@/lib/site";
 
 const tourBookingRequestSchema = z
   .object({
-    tourSlug: z.string().min(1),
-    tourTitle: z.string().min(1),
-    name: z.string().min(1),
-    email: z.string().email().optional().nullable(),
-    whatsapp: z.string().optional().nullable(),
-    travelDate: z.string().optional().nullable(),
-    travelers: z.number().int().min(1).optional().nullable(),
-    pickupLocation: z.string().optional().nullable(),
-    message: z.string().optional().nullable(),
+    tourSlug: z.string().trim().min(1).max(200),
+    tourTitle: z.string().trim().min(1).max(200),
+    name: z.string().trim().min(1, "Name is required.").max(120),
+    email: z.string().trim().email().max(254).optional().nullable(),
+    whatsapp: z
+      .string()
+      .trim()
+      .regex(/^\+?[0-9\s()-]{7,20}$/, "Enter a valid WhatsApp number.")
+      .optional()
+      .nullable(),
+    travelDate: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "Choose a valid travel date.")
+      .optional()
+      .nullable(),
+    travelers: z.number().int().min(1).max(50).optional().nullable(),
+    pickupLocation: z.string().trim().max(200).optional().nullable(),
+    message: z.string().trim().max(2000).optional().nullable(),
   })
   .refine((data) => Boolean(data.email || data.whatsapp), {
     message: "Email or WhatsApp is required.",

@@ -13,3 +13,6 @@ create table if not exists tour_booking_requests (
   source text default 'tour_detail_page',
   created_at timestamptz default now()
 );
+
+-- Server-only table (service role). RLS on with no policies = anon/authenticated get nothing.
+alter table public.tour_booking_requests enable row level security;

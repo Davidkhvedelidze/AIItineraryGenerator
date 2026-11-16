@@ -22,8 +22,8 @@ const siteUrl = getSiteUrl();
 const siteName = "TripMate Georgia";
 const siteDescription =
   "Create a realistic Georgia travel itinerary with AI, then get local help for routes, food, transport, and booking support.";
-const socialImageUrl =
-  "https://tourguide.ge/wp-content/uploads/2019/07/tbilisi-at-night.jpeg";
+// Self-hosted (resolved against metadataBase) so link previews never depend on a third-party site.
+const socialImageUrl = "/og-image.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "tours in Georgia",
     "private tours in Georgia",
     "Georgia travel planner",
-    "Georgia itinerary",
     "AI travel planner",
     "kazbeki tour",
     "Kazbegi tour",
@@ -56,16 +55,13 @@ export const metadata: Metadata = {
     "free Georgia travel itinerary",
     "Georgia trip planner",
     "free Georgia trip planner",
-    "Georgia travel planner",
     "Georgia country itinerary",
     "Plan a trip to Georgia",
     "Georgia vacation planner",
-    "Georgia travel guide",
     "3-day Georgia itinerary",
     "5-day Georgia itinerary",
     "7-day Georgia itinerary",
     "Georgia travel route",
-    "Georgia travel guide",
     "Georgia travel tips",
     "Georgia travel planning",
     "Georgia tour planner",
@@ -79,7 +75,6 @@ export const metadata: Metadata = {
     "free custom Georgia itinerary",
     "Georgia itinerary for tourists",
     "Georgia travel route planner",
-    "Your Georgia trip, planned in 60 seconds",
   ],
   applicationName: siteName,
   authors: [{ name: siteName }],
@@ -103,8 +98,8 @@ export const metadata: Metadata = {
       {
         url: socialImageUrl,
         width: 1200,
-        height: 675,
-        alt: "Tbilisi at night in Georgia",
+        height: 630,
+        alt: "Illustrated map of Georgia: Tbilisi, Kazbegi, Svaneti towers, Kakheti vineyards and Batumi",
       },
     ],
   },
