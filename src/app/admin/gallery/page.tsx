@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-function AdminLoginForm({ hasError }: { hasError: boolean }) {
+function AdminLoginForm({ error }: { error?: string }) {
   return (
     <div className="mx-auto mt-24 max-w-sm rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
       <h1 className="font-serif text-xl font-semibold text-foreground">Admin sign-in</h1>
@@ -24,8 +24,13 @@ function AdminLoginForm({ hasError }: { hasError: boolean }) {
           autoFocus
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         />
-        {hasError ? (
+        {error === "1" ? (
           <p className="text-sm font-medium text-red-600">Incorrect secret. Try again.</p>
+        ) : null}
+        {error === "rate" ? (
+          <p className="text-sm font-medium text-red-600">
+            Too many attempts. Wait 15 minutes and try again.
+          </p>
         ) : null}
         <button
           type="submit"
@@ -44,7 +49,7 @@ export default async function AdminGalleryPage({
   searchParams: { error?: string };
 }) {
   if (!isAdminAuthorized()) {
-    return <AdminLoginForm hasError={searchParams.error === "1"} />;
+    return <AdminLoginForm error={searchParams.error} />;
   }
 
   const submissions = await listPendingGallerySubmissions();

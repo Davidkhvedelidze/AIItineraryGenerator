@@ -19,8 +19,22 @@ describe("calculateTripLength", () => {
   });
 
   it("calculates a same-day trip as 1 day / 0 nights", () => {
-    const result = calculateTripLength(["2026-08-01T08:00:00.000Z", "2026-08-01T20:00:00.000Z"]);
+    // Day boundaries are the traveler's local calendar days (the picker emits local times),
+    // so build the ISO strings from local times to keep this test timezone-independent.
+    const result = calculateTripLength([
+      new Date(2026, 7, 1, 8, 0).toISOString(),
+      new Date(2026, 7, 1, 20, 0).toISOString(),
+    ]);
 
     expect(result).toEqual({ days: 1, nights: 0 });
+  });
+
+  it("counts nights by local calendar day, not elapsed hours", () => {
+    const result = calculateTripLength([
+      new Date(2026, 7, 1, 23, 30).toISOString(),
+      new Date(2026, 7, 2, 6, 0).toISOString(),
+    ]);
+
+    expect(result).toEqual({ days: 2, nights: 1 });
   });
 });
