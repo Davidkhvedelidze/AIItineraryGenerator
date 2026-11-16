@@ -56,7 +56,7 @@ export async function generateMetadata({
   const description =
     cleanText(stored.result.overview) ||
     "A custom Georgia trip itinerary built with TripMate Georgia's AI trip planner.";
-  const imageUrl = `${getSiteUrl()}/logo.png`;
+  const imageUrl = `${getSiteUrl()}/og-image.jpg`;
   const pageUrl = `${getSiteUrl()}/itinerary/${params.id}`;
 
   return {

@@ -39,7 +39,7 @@ export async function generateMetadata({
   const description =
     cleanText(itinerary.result.overview) ||
     `A ${itinerary.tripLength}-day Georgia itinerary shared by a TripMate Georgia traveler.`;
-  const imageUrl = `${getSiteUrl()}/logo.png`;
+  const imageUrl = `${getSiteUrl()}/og-image.jpg`;
   const pageUrl = `${getSiteUrl()}/trip-ideas/community/${params.shortId}`;
 
   return {

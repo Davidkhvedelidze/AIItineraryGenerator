@@ -115,6 +115,7 @@ export async function checkSupabaseRateLimit(
     });
 
     if (!response.ok) {
+      console.warn(`Durable rate limit unavailable (HTTP ${response.status}); failing open.`);
       return { allowed: true, retryAfterSeconds: 0 };
     }
 
@@ -133,6 +134,7 @@ export async function checkSupabaseRateLimit(
       retryAfterSeconds: result.allowed ? 0 : result.retry_after_seconds,
     };
   } catch {
+    console.warn("Durable rate limit request failed; failing open.");
     return { allowed: true, retryAfterSeconds: 0 };
   }
 }
