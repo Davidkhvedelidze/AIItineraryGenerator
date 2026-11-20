@@ -350,7 +350,7 @@ export async function generateMetadata({
 }: TourPageProps): Promise<Metadata> {
   const tour = await getTourBySlug(params.slug);
 
-  if (!tour) return { title: "Tour Not Found" };
+  if (!tour) notFound();
 
   const title = tour.metaTitle || `${tour.title} - TripMate Georgia`;
   const description = tour.metaDescription || tour.excerpt;
